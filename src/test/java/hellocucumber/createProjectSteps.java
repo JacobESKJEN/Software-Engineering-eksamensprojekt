@@ -59,6 +59,6 @@ public class CreateProjectSteps {
 
     @Then("the error message {string} is given")
     public void theErrorMessageIsGiven(String string) {
-        assertEquals(errorMessageHolder.getErrorMessage(), "Project already exists");
+        assertEquals(errorMessageHolder.getErrorMessage(), string);
     }
 }

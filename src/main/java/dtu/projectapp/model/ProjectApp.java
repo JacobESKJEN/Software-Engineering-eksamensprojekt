@@ -20,6 +20,15 @@ public class ProjectApp {
         employees.add(emp);
     }
 
+    public Employee findEmployee(String id) {
+        for (Employee employee : employees) {
+            if (employee.getId().equals(id)) {
+                return employee;
+            }
+        }
+        return null;
+    }
+
     public Project findProject(String name) {
         for (Project project : projects) {
             if (project.getName().equals(name)) {
