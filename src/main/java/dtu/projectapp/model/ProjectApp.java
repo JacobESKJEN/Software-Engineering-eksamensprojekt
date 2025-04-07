@@ -1,11 +1,30 @@
 package dtu.projectapp.model;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectApp {
+public class ProjectApp implements PropertyChangeListener {
     private List<Employee> employees;
     private List<Project> projects;
+
+    PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    public void addObserver(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("project")) {
+            List<Project> prevProjects = new ArrayList<Project>();
+            prevProjects.addAll(projects);
+            projects.add(new Project(evt.getNewValue().toString()));
+            support.firePropertyChange("Projects", prevProjects, projects);
+        }
+    }
 
     public ProjectApp() {
         employees = new ArrayList<>();
