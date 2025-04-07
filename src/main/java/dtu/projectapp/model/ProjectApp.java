@@ -6,6 +6,7 @@ import java.util.List;
 public class ProjectApp {
     private List<Employee> employees;
     private List<Project> projects;
+    private Activity activity;
 
     public ProjectApp() {
         employees = new ArrayList<>();
@@ -48,5 +49,11 @@ public class ProjectApp {
 
     public List<Project> getProjects() {
         return projects;
+    }
+    public Activity getActivities() {
+        return activity;
+    }
+
+    public void addActivity(Activity activity) {
     }
 }
