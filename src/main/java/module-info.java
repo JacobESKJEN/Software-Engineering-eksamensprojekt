@@ -1,6 +1,7 @@
 module hellofx {
     requires transitive javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
     opens dtu.projectapp.ui to javafx.fxml; // Gives access to fxml files
 
