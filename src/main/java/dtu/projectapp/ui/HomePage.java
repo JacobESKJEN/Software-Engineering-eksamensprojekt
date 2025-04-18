@@ -6,6 +6,7 @@ import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import dtu.projectapp.model.Project;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ public class HomePage implements Page {
     private Scene scene;
     private BorderPane root;
     private ListView projectListView;
+    private CreateProjectDialog createProjectDialog;
     PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     HomePageObserver observer = new HomePageObserver(this);
@@ -29,14 +31,29 @@ public class HomePage implements Page {
         root = new BorderPane();
         scene = new Scene(root);
 
+        createProjectDialog = new CreateProjectDialog();
+
         projectListView = new ListView<String>();
+
+        projectListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent evt) {
+                // System.out.println(projectListView.getSelectionModel().getSelectedItem());
+                support.firePropertyChange("Select project", null,
+                        projectListView.getSelectionModel().getSelectedItem());
+            }
+        });
+
         root.setRight(projectListView);
 
         Button addProjectButton = new Button("Add project");
         addProjectButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                support.firePropertyChange("project", null, "test");
+                String projectName = createProjectDialog.getProjectName();
+                if (!projectName.equals("")) {
+                    support.firePropertyChange("project", null, projectName);
+                }
             }
         });
 

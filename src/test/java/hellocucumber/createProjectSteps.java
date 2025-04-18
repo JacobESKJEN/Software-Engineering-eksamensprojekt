@@ -25,9 +25,15 @@ public class CreateProjectSteps {
         projectApp.setProjects(new ArrayList<Project>());
     }
 
-    @Given("there is an employee with id {String}")
-    public void thereIsAnEmployeeWithId(String int1, String int2) {
-        emp = new Employee("" + int1, int2, 0);
+    @Given("there is an employee with id {int}")
+    public void thereIsAnEmployeeWithId(int int1) {
+        emp = new Employee("" + int1, "", 0);
+        projectApp.addEmployee(emp);
+    }
+
+    @Given("there is an employee with id {int} and password {string}")
+    public void thereIsAnEmployeeWithId(int int1, String pass) {
+        emp = new Employee("" + int1, pass, 0);
         projectApp.addEmployee(emp);
     }
 

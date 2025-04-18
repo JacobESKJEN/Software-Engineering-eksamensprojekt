@@ -30,44 +30,36 @@ public class Project {
         return name;
     }
 
-
-    
-    public void getEmployeeStatus(){
+    public void getEmployeeStatus() throws Exception {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
 
-        //project name
+        // project name
         System.err.println(getName());
 
-        //project leader
+        // project leader
         System.err.println(getProjectLeader());
-
-        
-
-
-
 
     }
 
-    public void getProjectETA(){
+    public void getProjectETA() throws Exception {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
 
-        //Activity.loggedHours()     (for all activities)
-        //Activity.remainingHours()
-        //Activity.loggedHoursTotal()
-        //Activity.remainingHoursTotal()
-
-
+        // Activity.loggedHours() (for all activities)
+        // Activity.remainingHours()
+        // Activity.loggedHoursTotal()
+        // Activity.remainingHoursTotal()
 
     }
 
     /**
-     * @details This is the total report. This is a combination of getEmplyeeStatus() and getProjectETA()
+     * @details This is the total report. This is a combination of
+     *          getEmplyeeStatus() and getProjectETA()
      */
-    public void getProjectReport(){
+    public void getProjectReport() throws Exception {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
@@ -75,7 +67,6 @@ public class Project {
         getProjectETA();
     }
 
-        
     public void addActivity(Activity activity) {
         activities.add(activity);
     }

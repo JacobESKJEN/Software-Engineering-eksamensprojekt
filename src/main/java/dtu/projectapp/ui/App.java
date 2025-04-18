@@ -6,44 +6,56 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
 
 /**
  * JavaFX App
  */
-public class App extends Application {
-
+public class App extends Application implements PropertyChangeListener {
+    private Page page;
     private static Scene scene;
     private static ProjectApp projectApp;
+    private Stage primaryStage;
 
     @Override
     public void start(Stage stage) throws IOException {
-        // scene = new Scene(loadFXML("primary"), 640, 480);
-        Page page = new HomePage();
-        scene = page.getScene();
+        primaryStage = stage;
+        primaryStage.setTitle("Project management software");
 
-        projectApp = new ProjectApp();
+        newPage(new HomePage());
+    }
+
+    public void newPage(Page page) {
         projectApp.addObserver(page.getObserver());
         page.addObserver(projectApp);
+        page.addObserver(this);
+        scene = page.getScene();
+        this.page = page;
 
-        stage.setTitle("Project management software");
-        stage.setScene(scene);
-        stage.show();
-
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(720);
+        primaryStage.setHeight(480);
+        primaryStage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("Select project")) {
+            ProjectPage projPage = new ProjectPage(projectApp.findProject(evt.getNewValue().toString()));
+            newPage(projPage);
+        }
     }
 
     public static void main(String[] args) {
+        projectApp = new ProjectApp();
+
         launch();
     }
 
