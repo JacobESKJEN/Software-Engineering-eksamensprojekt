@@ -29,11 +29,12 @@ public class App extends Application implements PropertyChangeListener {
         primaryStage = stage;
         primaryStage.setTitle("Project management software");
 
-        newPage(new HomePage());
+        newPage(new LogInPage());
     }
 
     public void newPage(Page page) {
         projectApp.addObserver(page.getObserver());
+        projectApp.addObserver(this);
         page.addObserver(projectApp);
         page.addObserver(this);
         scene = page.getScene();
@@ -50,6 +51,13 @@ public class App extends Application implements PropertyChangeListener {
         if (evt.getPropertyName().equals("Select project")) {
             ProjectPage projPage = new ProjectPage(projectApp.findProject(evt.getNewValue().toString()));
             newPage(projPage);
+        } else if (evt.getPropertyName().equals("login")) {
+            System.out.println(evt.getNewValue());
+            if (evt.getNewValue().equals(true)) {
+                newPage(new HomePage());
+            } else {
+                newPage(new LogInPage());
+            }
         }
     }
 

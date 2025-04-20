@@ -21,19 +21,17 @@ public class Employee {
         return id;
     }
 
-    public String getCredential(){
+    public String getCredential() {
         return credential;
     }
 
-    public int getActivitiesAssigned(){
+    public int getActivitiesAssigned() {
         return activitiesAssigned;
     }
 
     // Adds an employee to the list
-    public static void addEmployee (String id, String credential, int activitiesAssigned){
+    public static void addEmployee(String id, String credential, int activitiesAssigned) {
         EmployeeList.add(new Employee(id, credential, activitiesAssigned));
     }
-    
-
 
 }

@@ -19,12 +19,12 @@ public class AssignProjectLeaderSteps {
         this.errorMessageHolder = errorMessageHolder;
     }
 
-    @When("the employee with id {int} assigns the employee with id {int} as project leader of the project {string}")
-    public void theEmployeeWithIdAssignsTheEmployeeWithIdAsProjectLeaderOfTheProject(Integer int1, Integer int2,
-            String string) {
-        emp = projectApp.findEmployee("" + int1);
-        Employee emp2 = projectApp.findEmployee("" + int2);
-        Project project = projectApp.findProject(string);
+    @When("the employee with id {string} assigns the employee with id {string} as project leader of the project {string}")
+    public void theEmployeeWithIdAssignsTheEmployeeWithIdAsProjectLeaderOfTheProject(String string1, String string2,
+            String string3) {
+        emp = projectApp.findEmployee("" + string1);
+        Employee emp2 = projectApp.findEmployee("" + string2);
+        Project project = projectApp.findProject(string3);
         try {
             project.setProjectLeader(emp, emp2);
         } catch (Exception e) {
@@ -32,14 +32,14 @@ public class AssignProjectLeaderSteps {
         }
     }
 
-    @Then("the project leader of {string} has id {int}")
-    public void theProjectLeaderOfHasId(String string, Integer int1) {
-        assertEquals(projectApp.findProject(string).getProjectLeader().getId(), "" + int1);
+    @Then("the project leader of {string} has id {string}")
+    public void theProjectLeaderOfHasId(String string1, String string2) {
+        assertEquals(projectApp.findProject(string1).getProjectLeader().getId(), string2);
     }
 
-    @Given("the project {string} has a project leader with id {int}")
-    public void theProjectHasAProjectLeaderWithId(String string, Integer int1) {
-        theEmployeeWithIdAssignsTheEmployeeWithIdAsProjectLeaderOfTheProject(int1, int1, string);
+    @Given("the project {string} has a project leader with id {string}")
+    public void theProjectHasAProjectLeaderWithId(String string1, String string2) {
+        theEmployeeWithIdAssignsTheEmployeeWithIdAsProjectLeaderOfTheProject(string2, string2, string1);
     }
 
 }

@@ -6,10 +6,13 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import dtu.projectapp.ui.LogInPage;
+
 public class ProjectApp implements PropertyChangeListener {
     private List<Employee> employees;
     private List<Project> projects;
     private Activity activity;
+    private Employee loggedInEmployee;
 
     PropertyChangeSupport support = new PropertyChangeSupport(this);
 
@@ -24,12 +27,36 @@ public class ProjectApp implements PropertyChangeListener {
             prevProjects.addAll(projects);
             projects.add(new Project(evt.getNewValue().toString()));
             support.firePropertyChange("Projects", prevProjects, projects);
+        } else if (evt.getPropertyName().equals("Login request")) {
+            LogInPage logInPage = (LogInPage) evt.getSource();
+            try {
+                login(logInPage.getIdInput(), logInPage.getPasswordInput());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
         }
     }
 
     public ProjectApp() {
         employees = new ArrayList<>();
         projects = new ArrayList<>();
+
+        employees.add(new Employee("huba", "password", 0));
+    }
+
+    public void login(String id, String password) throws Exception {
+        Employee emp = findEmployee(id);
+        if (emp != null && password.equals(emp.getCredential())) {
+            loggedInEmployee = emp;
+            support.firePropertyChange("login", false, true);
+        } else {
+            throw new Exception("Invalid login");
+        }
+    }
+
+    public String getLoggedInEmployeeId() {
+        return loggedInEmployee.getId();
     }
 
     public void setProjects(List<Project> list) {
@@ -69,6 +96,7 @@ public class ProjectApp implements PropertyChangeListener {
     public List<Project> getProjects() {
         return projects;
     }
+
     public Activity getActivities() {
         return activity;
     }
