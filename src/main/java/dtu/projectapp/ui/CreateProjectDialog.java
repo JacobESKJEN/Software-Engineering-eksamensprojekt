@@ -10,29 +10,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TextInputDialog;
 
-public class CreateProjectDialog {
-    private TextInputDialog dialog;
-
+public class CreateProjectDialog extends Dialog {
     public CreateProjectDialog() {
         resetDialog();
     }
 
+    @Override
     public void resetDialog() {
-        dialog = new TextInputDialog("");
-        dialog.setTitle("Create project");
-        dialog.setHeaderText("Enter the name of the project");
-    }
-
-    public String getProjectName() {
-        resetDialog();
-        Optional<String> result = dialog.showAndWait();
-
-        String entered = "";
-
-        if (result.isPresent()) {
-            entered = result.get();
-        }
-
-        return entered;
+        super.dialog = new TextInputDialog("");
+        super.dialog.setTitle("Create project");
+        super.dialog.setHeaderText("Enter the name of the project");
     }
 }

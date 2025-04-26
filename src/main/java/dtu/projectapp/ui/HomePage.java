@@ -50,7 +50,7 @@ public class HomePage implements Page {
         addProjectButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String projectName = createProjectDialog.getProjectName();
+                String projectName = createProjectDialog.getResult();
                 if (!projectName.equals("")) {
                     support.firePropertyChange("project", null, projectName);
                 }
