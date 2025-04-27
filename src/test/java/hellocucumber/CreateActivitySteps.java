@@ -1,17 +1,16 @@
 package hellocucumber;
 
-import dtu.projectapp.model.Project;
-import dtu.projectapp.model.ProjectApp;
-import dtu.projectapp.model.Activity;
-
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
-
 import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CreateActivity {
+import dtu.projectapp.model.Activity;
+import dtu.projectapp.model.Project;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class CreateActivitySteps {
     private Project project;
     private String errorMessage;
 
