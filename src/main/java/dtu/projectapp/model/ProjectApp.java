@@ -34,7 +34,15 @@ public class ProjectApp implements PropertyChangeListener {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
+        } else if (evt.getPropertyName().equals("SetProjectLeader")) {
+            Employee employee = findEmployee((String) evt.getNewValue());
+            Project project = (Project) evt.getOldValue(); // Ændr dette så det ikke er oldValue der er projektet
+            try {
+                project.setProjectLeader(loggedInEmployee, employee);
+                support.firePropertyChange("ProjectLeaderChanged", null, project.getProjectLeader().getId());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 

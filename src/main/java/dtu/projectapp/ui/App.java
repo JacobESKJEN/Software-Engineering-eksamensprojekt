@@ -53,11 +53,7 @@ public class App extends Application implements PropertyChangeListener {
             newPage(projPage);
         } else if (evt.getPropertyName().equals("login")) {
             System.out.println(evt.getNewValue());
-            if (evt.getNewValue().equals(true)) {
-                newPage(new HomePage());
-            } else {
-                newPage(new LogInPage());
-            }
+            newPage(evt.getNewValue().equals(true) ? new HomePage() : new LogInPage());
         }
     }
 
