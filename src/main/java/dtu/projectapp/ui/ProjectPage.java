@@ -66,8 +66,7 @@ public class ProjectPage implements Page {
                     projectStatusDialogue.showDialog();
 
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    support.firePropertyChange("Exception", null, e.getMessage());
                 }
 
             }

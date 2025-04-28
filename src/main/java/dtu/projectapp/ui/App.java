@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.beans.PropertyChangeEvent;
@@ -54,6 +56,10 @@ public class App extends Application implements PropertyChangeListener {
         } else if (evt.getPropertyName().equals("login")) {
             System.out.println(evt.getNewValue());
             newPage(evt.getNewValue().equals(true) ? new HomePage() : new LogInPage());
+        } else if (evt.getPropertyName().equals("Exception")) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setContentText((String) evt.getNewValue());
+            alert.showAndWait();
         }
     }
 

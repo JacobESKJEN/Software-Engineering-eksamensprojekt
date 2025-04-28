@@ -25,14 +25,18 @@ public class ProjectApp implements PropertyChangeListener {
         if (evt.getPropertyName().equals("project")) {
             List<Project> prevProjects = new ArrayList<Project>();
             prevProjects.addAll(projects);
-            projects.add(new Project(evt.getNewValue().toString()));
+            try {
+                createProject(loggedInEmployee, evt.getNewValue().toString());
+            } catch (Exception e) {
+                support.firePropertyChange("Exception", null, e.getMessage());
+            }
             support.firePropertyChange("Projects", prevProjects, projects);
         } else if (evt.getPropertyName().equals("Login request")) {
             LogInPage logInPage = (LogInPage) evt.getSource();
             try {
                 login(logInPage.getIdInput(), logInPage.getPasswordInput());
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                support.firePropertyChange("Exception", null, e.getMessage());
             }
         } else if (evt.getPropertyName().equals("SetProjectLeader")) {
             Employee employee = findEmployee((String) evt.getNewValue());
@@ -41,7 +45,7 @@ public class ProjectApp implements PropertyChangeListener {
                 project.setProjectLeader(loggedInEmployee, employee);
                 support.firePropertyChange("ProjectLeaderChanged", null, project.getProjectLeader().getId());
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                support.firePropertyChange("Exception", null, e.getMessage());
             }
         }
     }
@@ -95,6 +99,7 @@ public class ProjectApp implements PropertyChangeListener {
     }
 
     public void createProject(Employee emp, String name) throws Exception {
+        System.out.println(findProject(name));
         if (findProject(name) == null) {
             projects.add(new Project(name));
         } else {
