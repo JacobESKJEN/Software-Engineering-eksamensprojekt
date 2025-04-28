@@ -6,9 +6,10 @@ public class Activity {
     private String name;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int budgetedTime; // in hoours
+    private double budgetedTime;               // expected hours worked
+    private double hoursWorked = 0;            // total hours worked
 
-    public Activity(String name, LocalDate startDate, LocalDate endDate, int budgetedTime) {
+    public Activity(String name, LocalDate startDate, LocalDate endDate, double budgetedTime) {
         if (endDate.isBefore(startDate)) {
             throw new IllegalArgumentException("End date must be after start date");
         }
@@ -30,7 +31,25 @@ public class Activity {
         return endDate;
     }
 
-    public int getBudgetedTime() {
+    public double getBudgetedTime() {
         return budgetedTime;
+    }
+
+    public void setLoggedHours(double hours){       //sums the hours the empoloyee loggs
+        this.hoursWorked += hours;
+    }
+
+    public double getHoursWorked(){
+        return hoursWorked;
+    }
+
+    public double getCompletionPercentage() {
+        if (budgetedTime == 0) return 0;        // no dividing by 0
+        return (hoursWorked / budgetedTime) * 100;
+    }
+
+
+    public double getRemainingHours(){
+        return budgetedTime - hoursWorked;
     }
 }
