@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import javafx.scene.control.TextInputDialog;
 
-public class AssignProjectLeaderDialog extends Dialog {
+public class AssignProjectLeaderDialog extends InputDialog {
     public AssignProjectLeaderDialog() {
         resetDialog();
     }

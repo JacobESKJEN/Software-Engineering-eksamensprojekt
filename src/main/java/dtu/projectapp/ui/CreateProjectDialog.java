@@ -10,7 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TextInputDialog;
 
-public class CreateProjectDialog extends Dialog {
+public class CreateProjectDialog extends InputDialog {
     public CreateProjectDialog() {
         resetDialog();
     }

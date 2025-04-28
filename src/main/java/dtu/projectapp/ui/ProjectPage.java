@@ -24,6 +24,7 @@ public class ProjectPage implements Page {
     private BorderPane root;
     private AssignProjectLeaderDialog assignProjectLeaderDialog;
     private Label projectLeaderLabel;
+    private ProjectStatusDialogue projectStatusDialogue;
     PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     ProjectPageObserver observer = new ProjectPageObserver(this);
@@ -54,6 +55,24 @@ public class ProjectPage implements Page {
         vbox.getChildren().add(setProjectLeaderButton);
 
         root.setCenter(vbox);
+        projectStatusDialogue = new ProjectStatusDialogue();
+        Button getProjectStatusButton = new Button("get project status");
+        getProjectStatusButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                try {
+                    String projectStatus = project.getProjectReport();
+                    projectStatusDialogue.resetDialog(projectStatus);
+                    projectStatusDialogue.showDialog();
+
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        vbox.getChildren().add(getProjectStatusButton);
     }
 
     public void updateProjectLeader(String projectLeaderId) {
@@ -71,4 +90,5 @@ public class ProjectPage implements Page {
     public Scene getScene() {
         return scene;
     }
+
 }

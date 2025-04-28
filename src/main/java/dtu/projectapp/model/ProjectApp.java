@@ -51,6 +51,7 @@ public class ProjectApp implements PropertyChangeListener {
         projects = new ArrayList<>();
 
         employees.add(new Employee("huba", "password", 0));
+        employees.add(new Employee("w", "w", 0));
     }
 
     public void login(String id, String password) throws Exception {

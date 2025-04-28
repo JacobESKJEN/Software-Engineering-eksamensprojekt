@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import javafx.scene.control.TextInputDialog;
 
-public abstract class Dialog {
+public abstract class InputDialog {
     protected TextInputDialog dialog;
 
     public void resetDialog() {
