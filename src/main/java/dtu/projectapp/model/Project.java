@@ -1,6 +1,7 @@
 package dtu.projectapp.model;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 
 import javax.swing.tree.ExpandVetoException;
@@ -51,12 +52,22 @@ public class Project {
         report.append("Project name: ").append(getName()).append("\n");
         report.append("Project leader: ").append(getProjectLeader().getId()).append("\n\n");
 
-        // Gets all the emplouyees logged hours (across all the activities) and the id
+        // Gets all the emplouyees logged hours per activity, total hours and the id
         for (Employee employee : Employee.getEmployees()) {
-            double totalHours = employee.getTotalWork();
-            report.append("- ID: ").append(employee.getId())
-                .append(", Hours worked: ").append(totalHours).append("\n");
+            report.append("- ID: ").append(employee.getId()).append("\n");
+
+        for(Map.Entry<Activity, Double> entry : employee.getHoursWorkedPerActivity().entrySet()){
+            Activity activity = entry.getKey();
+            double hours = entry.getValue();
+
+            report.append("   - ").append(activity.getName()).append(": ").append(hours).append(" hours\n");
+            }
+
+        double totalHours = employee.getTotalWork();
+        report.append("    Total: ").append(totalHours).append(" hours\n\n");
+
         }
+
 
         return report.toString();
     }
@@ -79,17 +90,17 @@ public class Project {
 
         for (Activity activity : activities){
             double logged = activity.getHoursWorked();
-            double remaning = activity.getRemainingHours();
+            double remaining = activity.getRemainingHours();
             double completion = activity.getCompletionPercentage();
 
             // stores all the info in the report string
             report.append("- ").append(activity.getName()).append(": ")
                                 .append(logged).append(" hours logged ")
-                                .append(remaning).append(" hours remaining")
+                                .append(remaining).append(" hours remaining")
                                 .append(String.format("%.2f", completion)).append("% complete\n");
 
             totalHoursLogged += logged;
-            totalHoursRemaining += remaning;
+            totalHoursRemaining += remaining;
         }
 
         report.append("\nTotal hours logged for the project ").append(totalHoursLogged).append("\n");

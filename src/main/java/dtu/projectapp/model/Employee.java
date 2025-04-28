@@ -52,4 +52,9 @@ public class Employee {
     public static List<Employee> getEmployees(){
         return EmployeeList;
     }
+
+
+    public Map<Activity, Double> getHoursWorkedPerActivity() {
+        return hoursPerActivity;
+    }
 }
