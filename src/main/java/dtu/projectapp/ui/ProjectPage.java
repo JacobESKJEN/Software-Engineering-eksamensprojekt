@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ProjectPage implements Page {
@@ -32,6 +33,7 @@ public class ProjectPage implements Page {
     public ProjectPage(Project project) {
         root = new BorderPane();
         scene = new Scene(root);
+
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
 
@@ -54,8 +56,10 @@ public class ProjectPage implements Page {
         });
         vbox.getChildren().add(setProjectLeaderButton);
 
-        root.setCenter(vbox);
+
         projectStatusDialogue = new ProjectStatusDialogue();
+        
+        
         Button getProjectStatusButton = new Button("get project status");
         getProjectStatusButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -72,7 +76,44 @@ public class ProjectPage implements Page {
 
             }
         });
-        vbox.getChildren().add(getProjectStatusButton);
+
+        
+        Button getETAreportButton = new Button("Get Project ETA");
+        getETAreportButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt){
+                try{
+                    String etaReport = project.getProjectETA();
+                    projectStatusDialogue.resetDialog(etaReport);
+                    projectStatusDialogue.showDialog();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        
+        Button getEmpStatusButton = new Button("Get Employee Status");
+        getEmpStatusButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt){
+                try{
+                    String empStatus = project.getEmployeeStatus();
+                    projectStatusDialogue.resetDialog(empStatus);
+                    projectStatusDialogue.showDialog();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        
+        HBox hboxReports = new HBox();
+        hboxReports.setAlignment(Pos.CENTER);
+        hboxReports.getChildren().addAll(getEmpStatusButton, getETAreportButton, getProjectStatusButton);
+
+        vbox.getChildren().add(hboxReports);
+
+        root.setCenter(vbox);
     }
 
     public void updateProjectLeader(String projectLeaderId) {
