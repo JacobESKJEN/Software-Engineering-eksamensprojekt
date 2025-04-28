@@ -30,6 +30,15 @@ public class Project {
         return name;
     }
 
+
+
+
+
+
+
+
+
+
     public String getEmployeeStatus() throws Exception {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
@@ -37,10 +46,12 @@ public class Project {
 
         StringBuilder report = new StringBuilder();
 
+        // Get project name, leader id
         report.append("=== Employee Contributions ===\n");
         report.append("Project name: ").append(getName()).append("\n");
         report.append("Project leader: ").append(getProjectLeader().getId()).append("\n\n");
 
+        // Gets all the emplouyees logged hours (across all the activities) and the id
         for (Employee employee : Employee.getEmployees()) {
             double totalHours = employee.getTotalWork();
             report.append("- ID: ").append(employee.getId())
@@ -49,6 +60,9 @@ public class Project {
 
         return report.toString();
     }
+
+
+
 
 
     public String getProjectETA() throws Exception {
@@ -85,6 +99,7 @@ public class Project {
     }
 
 
+    // This final/total report is the "sum" of getEmployeeStatus() and getProjectETA()
     public String getProjectReport() throws Exception {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
@@ -93,6 +108,8 @@ public class Project {
         String projectETA = getProjectETA();
         return employeeStatus + "\n\n" + projectETA;
     }
+
+
 
     public void addActivity(Activity activity) {
         activities.add(activity);
