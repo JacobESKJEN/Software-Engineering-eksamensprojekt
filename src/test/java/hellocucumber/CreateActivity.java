@@ -3,6 +3,7 @@ package hellocucumber;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
 import dtu.projectapp.model.Activity;
+import dtu.projectapp.model.Employee;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -14,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CreateActivity {
     private Project project;
     private String errorMessage;
+    private Activity activity;
+    private Employee employee;
 
     @Given("a project exists")
     public void a_project_exists() {
@@ -30,7 +33,22 @@ public class CreateActivity {
     public void iCreateANewActivityWithTheNameStartDateEndDateAndBudgetedTime(String string, String string2,
             String string3, int int1) {
         try {
-            Activity activity = new Activity(
+            activity = new Activity(
+                    string,
+                    LocalDate.parse(string2),
+                    LocalDate.parse(string3),
+                    int1);
+            project.addActivity(activity);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+
+    @Given("I create a new activity with the namee {string}, start date {string}, end date {string}, and budgeted time {int}")
+    public void iCreateANewActivityWithTheNameeStartDateEndDateAndBudgetedTime(String string, String string2,
+            String string3, int int1) {
+        try {
+            activity = new Activity(
                     string,
                     LocalDate.parse(string2),
                     LocalDate.parse(string3),
@@ -44,5 +62,28 @@ public class CreateActivity {
     @Then("I receive an error message {string}")
     public void i_receive_error_message(String expectedMessage) {
         assertEquals(expectedMessage, errorMessage);
+    }
+    
+    // @Given("signed-in as Project leader")
+    // public void signedInAsProjectLeader() {
+    //     // Write code here that turns the phrase above into concrete actions
+    //     throw new io.cucumber.java.PendingException();
+    // }
+    /*@Given("the activity {string} has {int} members")
+        public void theActivityHasMembers(String string, Integer int1) {
+            assertEquals(string, activity.getName());
+            System.out.println(activity.getName());
+            assertEquals(int1, activity.getEmployeesAmount());  
+    }*/
+    @Then("the activity {string} has {int} member")
+        public void theActivityHasMember(String string, Integer int1) {
+            assertEquals(string, activity.getName());
+            System.out.println(activity.getName());
+            assertEquals(int1, activity.getEmployeesAmount()); 
+    }
+    @When("the project leader adds employee with {string} to the activity")
+    public void theProjectLeaderAddsEmployeeWithToTheActivity(String string) {
+        Employee employee = new Employee(string, "yy",0);
+        activity.addEmployeeToActivity(employee);
     }
 }
