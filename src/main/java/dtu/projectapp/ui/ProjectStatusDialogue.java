@@ -21,10 +21,10 @@ public class ProjectStatusDialogue extends Dialog {
     public void resetDialog(String report) {
         super.getDialogPane().getButtonTypes().clear();
         super.setTitle("Project Status");
-        Label headlineLabel = new Label("HEAD LINEEE");
+        //Label headlineLabel = new Label("HEAD LINEEE");
         VBox vbox = new VBox();
         super.getDialogPane().setContent(vbox);
-        vbox.getChildren().add(headlineLabel);
+        //vbox.getChildren().add(headlineLabel);
         ButtonType closeButton = new ButtonType("Close", ButtonData.CANCEL_CLOSE);
         super.getDialogPane().getButtonTypes().add(closeButton);
 

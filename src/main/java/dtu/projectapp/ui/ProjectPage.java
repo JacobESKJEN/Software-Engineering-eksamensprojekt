@@ -60,7 +60,7 @@ public class ProjectPage implements Page {
         projectStatusDialogue = new ProjectStatusDialogue();
         
         
-        Button getProjectStatusButton = new Button("get project status");
+        Button getProjectStatusButton = new Button("Get Full Report");
         getProjectStatusButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {
