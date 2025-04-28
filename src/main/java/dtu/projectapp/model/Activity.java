@@ -44,7 +44,7 @@ public class Activity {
     }
 
     public double getCompletionPercentage() {
-        if (budgetedTime == 0) return 0;        // no dividing by 0
+        if (budgetedTime == 0) return 0;            // safety, no dividing by 0
         return (hoursWorked / budgetedTime) * 100;
     }
 

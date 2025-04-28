@@ -30,41 +30,68 @@ public class Project {
         return name;
     }
 
-    public void getEmployeeStatus() throws Exception {
+    public String getEmployeeStatus() throws Exception {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
 
-        // project name
-        System.err.println(getName());
+        StringBuilder report = new StringBuilder();
 
-        // project leader
-        System.err.println(getProjectLeader());
+        report.append("=== Employee Contributions ===\n");
+        report.append("Project name: ").append(getName()).append("\n");
+        report.append("Project leader: ").append(getProjectLeader().getId()).append("\n\n");
+
+        for (Employee employee : Employee.getEmployees()) {
+            double totalHours = employee.getTotalWork();
+            report.append("- ID: ").append(employee.getId())
+                .append(", Hours worked: ").append(totalHours).append("\n");
+        }
+
+        return report.toString();
+    }
+
+
+    public String getProjectETA() throws Exception {
+        if (getProjectLeader() == null) {
+            throw new Exception("Project Has No Project Leader!");
+        }
+
+        StringBuilder report = new StringBuilder();
+        report.append("Project Status\n");
+
+
+        double totalHoursLogged = 0;
+        double totalHoursRemaining = 0;
+
+        for (Activity activity : activities){
+            double logged = activity.getHoursWorked();
+            double remaning = activity.getRemainingHours();
+            double completion = activity.getCompletionPercentage();
+
+            // stores all the info in the report string
+            report.append("- ").append(activity.getName()).append(": ")
+                                .append(logged).append(" hours logged ")
+                                .append(remaning).append(" hours remaining")
+                                .append(String.format("%.2f", completion)).append("% complete\n");
+
+            totalHoursLogged += logged;
+            totalHoursRemaining += remaning;
+        }
+
+        report.append("\nTotal hours logged for the project ").append(totalHoursLogged).append("\n");
+        report.append("Expected total hours left: ").append(totalHoursRemaining).append("\n");
+        return report.toString();
 
     }
 
-    public void getProjectETA() throws Exception {
+
+    public String getProjectReport() throws Exception {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
-
-        // Activity.loggedHours() (for all activities)
-        // Activity.remainingHours()
-        // Activity.loggedHoursTotal()
-        // Activity.remainingHoursTotal()
-
-    }
-
-    /**
-     * @details This is the total report. This is a combination of
-     *          getEmplyeeStatus() and getProjectETA()
-     */
-    public void getProjectReport() throws Exception {
-        if (getProjectLeader() == null) {
-            throw new Exception("Project Has No Project Leader!");
-        }
-        getEmployeeStatus();
-        getProjectETA();
+        String employeeStatus = getEmployeeStatus();
+        String projectETA = getProjectETA();
+        return employeeStatus + "\n\n" + projectETA;
     }
 
     public void addActivity(Activity activity) {
