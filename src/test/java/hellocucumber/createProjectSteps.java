@@ -40,7 +40,7 @@ public class CreateProjectSteps {
     @When("an employee creates a new project with name {string}")
     public void anEmployeeCreatesANewProjectWithName(String string) {
         try {
-            projectApp.createProject(emp, string);
+            projectApp.createProject(string);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }

@@ -1,7 +1,6 @@
 package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import dtu.projectapp.model.Project;
 import javafx.event.ActionEvent;
@@ -19,11 +18,10 @@ public class LogInPage implements Page {
     private Scene scene;
     private VBox root;
     private TextField idField;
+    private Button loginButton;
     private PasswordField passwordField;
 
-    PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    LogInPageObserver observer = new LogInPageObserver(this);
+    private LogInPageObserver observer = new LogInPageObserver(this);
 
     public LogInPage() {
         root = new VBox();
@@ -43,31 +41,25 @@ public class LogInPage implements Page {
         passwordField.setPromptText("Enter your password");
         root.getChildren().add(passwordField);
 
-        Button loginButton = new Button("Log in");
+        loginButton = new Button("Log in");
         loginButton.setDefaultButton(true);
-        loginButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                support.firePropertyChange("Login request", false, true);
-            }
-        });
         root.getChildren().add(loginButton);
     }
 
-    public String getIdInput() {
-        return idField.getText();
+    public Button getLoginButton() {
+        return loginButton;
     }
 
-    public String getPasswordInput() {
-        return passwordField.getText();
+    public TextField getIdInputField() {
+        return idField;
+    }
+
+    public PasswordField getPasswordInputField() {
+        return passwordField;
     }
 
     public PropertyChangeListener getObserver() {
         return observer;
-    }
-
-    public void addObserver(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
     }
 
     public Scene getScene() {

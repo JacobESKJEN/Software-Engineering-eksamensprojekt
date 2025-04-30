@@ -14,8 +14,8 @@ public class ProjectPageObserver implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ProjectApp projectApp = (ProjectApp) evt.getSource();
-        if (evt.getPropertyName().equals("ProjectLeaderChanged")) {
+        if (evt.getPropertyName().equals("New project leader")) {
+            System.out.println(evt.getNewValue());
             projectPage.updateProjectLeader((String) evt.getNewValue());
         }
     }

@@ -26,25 +26,27 @@ public class ProjectApp implements PropertyChangeListener {
             List<Project> prevProjects = new ArrayList<Project>();
             prevProjects.addAll(projects);
             try {
-                createProject(loggedInEmployee, evt.getNewValue().toString());
+                createProject(evt.getNewValue().toString());
+                support.firePropertyChange("Projects", prevProjects, projects);
             } catch (Exception e) {
+                System.out.println("Test");
                 support.firePropertyChange("Exception", null, e.getMessage());
             }
-            support.firePropertyChange("Projects", prevProjects, projects);
         } else if (evt.getPropertyName().equals("Login request")) {
             LogInPage logInPage = (LogInPage) evt.getSource();
             try {
-                login(logInPage.getIdInput(), logInPage.getPasswordInput());
+                // login(logInPage.getIdInput(), logInPage.getPasswordInput());
             } catch (Exception e) {
                 support.firePropertyChange("Exception", null, e.getMessage());
             }
         } else if (evt.getPropertyName().equals("SetProjectLeader")) {
             Employee employee = findEmployee((String) evt.getNewValue());
-            Project project = (Project) evt.getOldValue(); // Ændr dette så det ikke er oldValue der er projektet
+            Project project = (Project) evt.getOldValue();
             try {
                 project.setProjectLeader(loggedInEmployee, employee);
                 support.firePropertyChange("ProjectLeaderChanged", null, project.getProjectLeader().getId());
             } catch (Exception e) {
+                System.out.println("Project leader changed exception");
                 support.firePropertyChange("Exception", null, e.getMessage());
             }
         }
@@ -62,7 +64,6 @@ public class ProjectApp implements PropertyChangeListener {
         Employee emp = findEmployee(id);
         if (emp != null && password.equals(emp.getCredential())) {
             loggedInEmployee = emp;
-            support.firePropertyChange("login", false, true);
         } else {
             throw new Exception("Invalid login");
         }
@@ -70,6 +71,10 @@ public class ProjectApp implements PropertyChangeListener {
 
     public String getLoggedInEmployeeId() {
         return loggedInEmployee.getId();
+    }
+
+    public Employee getLoggedInEmployee() {
+        return loggedInEmployee;
     }
 
     public void setProjects(List<Project> list) {
@@ -90,6 +95,7 @@ public class ProjectApp implements PropertyChangeListener {
     }
 
     public Project findProject(String name) {
+        System.out.println(name);
         for (Project project : projects) {
             if (project.getName().equals(name)) {
                 return project;
@@ -98,10 +104,10 @@ public class ProjectApp implements PropertyChangeListener {
         return null;
     }
 
-    public void createProject(Employee emp, String name) throws Exception {
-        System.out.println(findProject(name));
+    public void createProject(String name) throws Exception {
         if (findProject(name) == null) {
             projects.add(new Project(name));
+            support.firePropertyChange("Update projects", null, projects);
         } else {
             throw new Exception("Project already exists");
         }

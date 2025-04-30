@@ -1,7 +1,6 @@
 package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,8 +23,9 @@ public class ProjectPage implements Page {
     private BorderPane root;
     private AssignProjectLeaderDialog assignProjectLeaderDialog;
     private Label projectLeaderLabel;
-    private ProjectStatusDialogue projectStatusDialogue;
-    PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    private Button setProjectLeaderButton;
+    private Button projectStatusButton;
 
     ProjectPageObserver observer = new ProjectPageObserver(this);
 
@@ -44,46 +44,29 @@ public class ProjectPage implements Page {
         vbox.getChildren().add(projectLeaderLabel);
 
         assignProjectLeaderDialog = new AssignProjectLeaderDialog();
-        Button setProjectLeaderButton = new Button("Set project leader");
-        setProjectLeaderButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent evt) {
-                String projectLeader = assignProjectLeaderDialog.getResult();
-                support.firePropertyChange("SetProjectLeader", project, projectLeader);
-            }
-        });
+        setProjectLeaderButton = new Button("Set project leader");
         vbox.getChildren().add(setProjectLeaderButton);
 
         root.setCenter(vbox);
-        projectStatusDialogue = new ProjectStatusDialogue();
-        Button getProjectStatusButton = new Button("get project status");
-        getProjectStatusButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent evt) {
-                try {
-                    String projectStatus = project.getProjectReport();
-                    projectStatusDialogue.resetDialog(projectStatus);
-                    projectStatusDialogue.showDialog();
-
-                } catch (Exception e) {
-                    support.firePropertyChange("Exception", null, e.getMessage());
-                }
-
-            }
-        });
-        vbox.getChildren().add(getProjectStatusButton);
+        projectStatusButton = new Button("get project status");
+        vbox.getChildren().add(projectStatusButton);
     }
 
     public void updateProjectLeader(String projectLeaderId) {
+        System.out.println("Updated project leader");
         projectLeaderLabel.setText("Project leader: " + projectLeaderId);
+    }
+
+    public Button getSetProjectLeaderButton() {
+        return setProjectLeaderButton;
+    }
+
+    public Button getProjectStatusButton() {
+        return projectStatusButton;
     }
 
     public PropertyChangeListener getObserver() {
         return observer;
-    }
-
-    public void addObserver(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
     }
 
     public Scene getScene() {

@@ -2,6 +2,8 @@ package dtu.projectapp.model;
 
 import java.util.List;
 import java.util.Map;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import javax.swing.tree.ExpandVetoException;
@@ -11,6 +13,12 @@ public class Project {
     private Employee projectLeader;
     private List<Activity> activities;
 
+    PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    public void addObserver(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
     public Project(String name) {
         this.name = name;
         this.activities = new ArrayList<>();
@@ -19,8 +27,11 @@ public class Project {
     public void setProjectLeader(Employee setterEmployee, Employee projLead) throws Exception {
         if (projectLeader != null && !(projectLeader.equals(setterEmployee))) {
             throw new Exception("Project already has a leader");
+        } else if (projLead == null) {
+            throw new Exception("Can't find employee");
         }
         projectLeader = projLead;
+        support.firePropertyChange("New project leader", null, projectLeader.getId());
     }
 
     public Employee getProjectLeader() {
@@ -30,15 +41,6 @@ public class Project {
     public String getName() {
         return name;
     }
-
-
-
-
-
-
-
-
-
 
     public String getEmployeeStatus() throws Exception {
         if (getProjectLeader() == null) {
@@ -56,25 +58,20 @@ public class Project {
         for (Employee employee : Employee.getEmployees()) {
             report.append("- ID: ").append(employee.getId()).append("\n");
 
-        for(Map.Entry<Activity, Double> entry : employee.getHoursWorkedPerActivity().entrySet()){
-            Activity activity = entry.getKey();
-            double hours = entry.getValue();
+            for (Map.Entry<Activity, Double> entry : employee.getHoursWorkedPerActivity().entrySet()) {
+                Activity activity = entry.getKey();
+                double hours = entry.getValue();
 
-            report.append("   - ").append(activity.getName()).append(": ").append(hours).append(" hours\n");
+                report.append("   - ").append(activity.getName()).append(": ").append(hours).append(" hours\n");
             }
 
-        double totalHours = employee.getTotalWork();
-        report.append("    Total: ").append(totalHours).append(" hours\n\n");
+            double totalHours = employee.getTotalWork();
+            report.append("    Total: ").append(totalHours).append(" hours\n\n");
 
         }
 
-
         return report.toString();
     }
-
-
-
-
 
     public String getProjectETA() throws Exception {
         if (getProjectLeader() == null) {
@@ -84,20 +81,19 @@ public class Project {
         StringBuilder report = new StringBuilder();
         report.append("Project Status\n");
 
-
         double totalHoursLogged = 0;
         double totalHoursRemaining = 0;
 
-        for (Activity activity : activities){
+        for (Activity activity : activities) {
             double logged = activity.getHoursWorked();
             double remaining = activity.getRemainingHours();
             double completion = activity.getCompletionPercentage();
 
             // stores all the info in the report string
             report.append("- ").append(activity.getName()).append(": ")
-                                .append(logged).append(" hours logged ")
-                                .append(remaining).append(" hours remaining")
-                                .append(String.format("%.2f", completion)).append("% complete\n");
+                    .append(logged).append(" hours logged ")
+                    .append(remaining).append(" hours remaining")
+                    .append(String.format("%.2f", completion)).append("% complete\n");
 
             totalHoursLogged += logged;
             totalHoursRemaining += remaining;
@@ -109,8 +105,8 @@ public class Project {
 
     }
 
-
-    // This final/total report is the "sum" of getEmployeeStatus() and getProjectETA()
+    // This final/total report is the "sum" of getEmployeeStatus() and
+    // getProjectETA()
     public String getProjectReport() throws Exception {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
@@ -119,8 +115,6 @@ public class Project {
         String projectETA = getProjectETA();
         return employeeStatus + "\n\n" + projectETA;
     }
-
-
 
     public void addActivity(Activity activity) {
         activities.add(activity);

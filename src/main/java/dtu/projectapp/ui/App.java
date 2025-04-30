@@ -4,8 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.beans.PropertyChangeEvent;
@@ -20,8 +18,8 @@ import dtu.projectapp.model.ProjectApp;
 /**
  * JavaFX App
  */
-public class App extends Application implements PropertyChangeListener {
-    private Page page;
+public class App extends Application {
+    private PageController page;
     private static Scene scene;
     private static ProjectApp projectApp;
     private Stage primaryStage;
@@ -31,14 +29,11 @@ public class App extends Application implements PropertyChangeListener {
         primaryStage = stage;
         primaryStage.setTitle("Project management software");
 
-        newPage(new LogInPage());
+        newPage(new LogInPageController(projectApp, this));
     }
 
-    public void newPage(Page page) {
+    public void newPage(PageController page) {
         projectApp.addObserver(page.getObserver());
-        projectApp.addObserver(this);
-        page.addObserver(projectApp);
-        page.addObserver(this);
         scene = page.getScene();
         this.page = page;
 
@@ -46,21 +41,6 @@ public class App extends Application implements PropertyChangeListener {
         primaryStage.setWidth(720);
         primaryStage.setHeight(480);
         primaryStage.show();
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("Select project")) {
-            ProjectPage projPage = new ProjectPage(projectApp.findProject(evt.getNewValue().toString()));
-            newPage(projPage);
-        } else if (evt.getPropertyName().equals("login")) {
-            System.out.println(evt.getNewValue());
-            newPage(evt.getNewValue().equals(true) ? new HomePage() : new LogInPage());
-        } else if (evt.getPropertyName().equals("Exception")) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText((String) evt.getNewValue());
-            alert.showAndWait();
-        }
     }
 
     public static void main(String[] args) {

@@ -10,9 +10,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.VBox;
 
-public class ProjectStatusDialogue extends Dialog {
-
-    public ProjectStatusDialogue() {
+public class ProjectStatusDialog extends Dialog {
+    public ProjectStatusDialog() {
         super();
 
         resetDialog("");

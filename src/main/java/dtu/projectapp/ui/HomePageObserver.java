@@ -2,8 +2,9 @@ package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
-import dtu.projectapp.model.ProjectApp;
+import dtu.projectapp.model.*;
 
 public class HomePageObserver implements PropertyChangeListener {
     private HomePage homePage;
@@ -14,9 +15,9 @@ public class HomePageObserver implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ProjectApp projectApp = (ProjectApp) evt.getSource();
-        if (evt.getPropertyName().equals("Projects")) {
-            homePage.updateProjects(projectApp.getProjects());
+        if (evt.getPropertyName().equals("Update projects")) {
+            List<Project> listOfProjects = (List<Project>) evt.getNewValue();
+            homePage.updateProjects(listOfProjects);
         }
     }
 }
