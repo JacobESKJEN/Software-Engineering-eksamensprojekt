@@ -52,6 +52,32 @@ public class ProjectPageController implements PageController {
                 }
             }
         });
+
+        projectPage.getEmpStatusButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                try {
+                    String empStatus = project.getEmployeeStatus();
+                    projectStatusDialog.resetDialog(empStatus);
+                    projectStatusDialog.showDialog();
+                } catch (Exception e) {
+                    ErrorDialog.showExceptionDialog(e);
+                }
+            }
+        });
+
+        projectPage.getETAReportButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                try {
+                    String etaReport = project.getProjectETA();
+                    projectStatusDialog.resetDialog(etaReport);
+                    projectStatusDialog.showDialog();
+                } catch (Exception e) {
+                    ErrorDialog.showExceptionDialog(e);
+                }
+            }
+        });
     }
 
     public Scene getScene() {
