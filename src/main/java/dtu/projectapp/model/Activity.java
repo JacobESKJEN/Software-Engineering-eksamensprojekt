@@ -1,6 +1,8 @@
 package dtu.projectapp.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Activity {
     private String name;
@@ -8,6 +10,7 @@ public class Activity {
     private LocalDate endDate;
     private double budgetedTime;               // expected hours worked
     private double hoursWorked = 0;            // total hours worked
+    private List<Employee> employees = new ArrayList<>();
 
     public Activity(String name, LocalDate startDate, LocalDate endDate, double budgetedTime) {
         if (endDate.isBefore(startDate)) {
@@ -51,5 +54,17 @@ public class Activity {
 
     public double getRemainingHours(){
         return budgetedTime - hoursWorked;
+    }
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+    public void addEmployeeToActivity(Employee employee) {
+        employees.add(employee);
+    }
+    public void removeEmployee(Employee employee) {
+        employees.remove(employee);
+    }
+    public int getEmployeesAmount() {
+        return employees.size();
     }
 }

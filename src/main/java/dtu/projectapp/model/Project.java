@@ -50,7 +50,7 @@ public class Project {
         StringBuilder report = new StringBuilder();
 
         // Get project name, leader id
-        report.append("=== Employee Contributions ===\n");
+        report.append(" -- Employee Contributions --\n");
         report.append("Project name: ").append(getName()).append("\n");
         report.append("Project leader: ").append(getProjectLeader().getId()).append("\n\n");
 
@@ -79,7 +79,7 @@ public class Project {
         }
 
         StringBuilder report = new StringBuilder();
-        report.append("Project Status\n");
+        report.append(" -- Project Status --\n");
 
         double totalHoursLogged = 0;
         double totalHoursRemaining = 0;

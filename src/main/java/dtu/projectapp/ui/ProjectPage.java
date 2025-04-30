@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ProjectPage implements Page {
@@ -26,12 +27,15 @@ public class ProjectPage implements Page {
 
     private Button setProjectLeaderButton;
     private Button projectStatusButton;
+    private Button empStatusButton;
+    private Button ETAReportButton;
 
     ProjectPageObserver observer = new ProjectPageObserver(this);
 
     public ProjectPage(Project project) {
         root = new BorderPane();
         scene = new Scene(root);
+
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
 
@@ -47,9 +51,17 @@ public class ProjectPage implements Page {
         setProjectLeaderButton = new Button("Set project leader");
         vbox.getChildren().add(setProjectLeaderButton);
 
+        projectStatusButton = new Button("Get Full Report");
+        ETAReportButton = new Button("Get Project ETA");
+        empStatusButton = new Button("Get Employee Status");
+
+        HBox hboxReports = new HBox();
+        hboxReports.setAlignment(Pos.CENTER);
+        hboxReports.getChildren().addAll(empStatusButton, ETAReportButton, projectStatusButton);
+
+        vbox.getChildren().add(hboxReports);
+
         root.setCenter(vbox);
-        projectStatusButton = new Button("get project status");
-        vbox.getChildren().add(projectStatusButton);
     }
 
     public void updateProjectLeader(String projectLeaderId) {
@@ -63,6 +75,14 @@ public class ProjectPage implements Page {
 
     public Button getProjectStatusButton() {
         return projectStatusButton;
+    }
+
+    public Button getEmpStatusButton() {
+        return empStatusButton;
+    }
+
+    public Button getETAReportButton() {
+        return ETAReportButton;
     }
 
     public PropertyChangeListener getObserver() {
