@@ -1,16 +1,15 @@
 package hellocucumber;
 
-import dtu.projectapp.model.Project;
-import dtu.projectapp.model.ProjectApp;
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
-
+import dtu.projectapp.model.Project;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-
-import java.time.LocalDate;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import io.cucumber.java.en.When;
 
 public class CreateActivity {
     private Project project;
@@ -86,4 +85,11 @@ public class CreateActivity {
         Employee employee = new Employee(string, "yy",0);
         activity.addEmployeeToActivity(employee);
     }
+
+    @Given("signed-in as Project leader")
+    public void signedInAsProjectLeader() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
 }

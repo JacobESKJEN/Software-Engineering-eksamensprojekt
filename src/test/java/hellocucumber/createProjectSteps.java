@@ -10,12 +10,12 @@ import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
 
-public class CreateProjectSteps {
+public class createProjectSteps {
     ProjectApp projectApp;
     ErrorMessageHolder errorMessageHolder;
     Employee emp;
 
-    public CreateProjectSteps(ProjectApp projectApp, ErrorMessageHolder errorMessageHolder) {
+    public createProjectSteps(ProjectApp projectApp, ErrorMessageHolder errorMessageHolder) {
         this.projectApp = projectApp;
         this.errorMessageHolder = errorMessageHolder;
     }
