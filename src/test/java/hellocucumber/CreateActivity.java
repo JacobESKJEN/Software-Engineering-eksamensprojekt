@@ -1,16 +1,15 @@
 package hellocucumber;
 
-import dtu.projectapp.model.Project;
-import dtu.projectapp.model.ProjectApp;
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
-import io.cucumber.java.en.And;
+import dtu.projectapp.model.Project;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-
-import java.time.LocalDate;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import io.cucumber.java.en.When;
 
 public class CreateActivity {
     private Project project;
@@ -71,7 +70,22 @@ public class CreateActivity {
     }
     @When("the project leader adds employee with {string} to the activity")
     public void theProjectLeaderAddsEmployeeWithToTheActivity(String string) {
-        Employee employee = new Employee(string, "yy",0);
+        employee = new Employee(string, "yy", 0);
         activity.addEmployeeToActivity(employee);
     }
+    @When("the project leader adds employee with {string} to the activity but the employee does not exist")
+    public void theProjectLeaderAddsEmployeeWithToTheActivityButTheEmployeeDoesNotExist(String string) {
+        try {
+            if (employee == null || !employee.getId().equals(string)) {
+                throw new Exception("No such employee exists");
+    }
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+    // @When("the project leader removes employee with {string} from the activity")
+    // public void theProjectLeaderRemovesEmployeeWithFromTheActivity(String string) {
+    //     employee = new Employee(string, "yy", 0);
+    //     activity.removeEmployee(employee);
+    // }
 }
