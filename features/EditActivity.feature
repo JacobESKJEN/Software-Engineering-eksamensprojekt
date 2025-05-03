@@ -2,9 +2,9 @@ Feature: Edit Activity
 Description: Allows an activity to be edited by a project leader
 Actors: Project leader
 Scenario: Add member to Activity
-    # Given signed-in as Project leader
+    Given signed-in as Project leader
     Given a project exists
-    And I create a new activity with the namee "Requirements Specification", start date "2025-04-01", end date "2025-03-31", and budgeted time 100  
+    And I create a new activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-01", and budgeted time 100  
     And the activity "Requirements Specification" has 0 members
     When the project leader adds employee with "id3" to the activity
     Then the activity "Requirements Specification" has 1 member 

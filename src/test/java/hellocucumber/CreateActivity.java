@@ -4,7 +4,7 @@ import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
-
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -44,37 +44,25 @@ public class CreateActivity {
         }
     }
 
-    @Given("I create a new activity with the namee {string}, start date {string}, end date {string}, and budgeted time {int}")
-    public void iCreateANewActivityWithTheNameeStartDateEndDateAndBudgetedTime(String string, String string2,
-            String string3, int int1) {
-        try {
-            activity = new Activity(
-                    string,
-                    LocalDate.parse(string2),
-                    LocalDate.parse(string3),
-                    int1);
-            project.addActivity(activity);
-        } catch (Exception e) {
-            errorMessage = e.getMessage();
-        }
-    }
-
     @Then("I receive an error message {string}")
     public void i_receive_error_message(String expectedMessage) {
         assertEquals(expectedMessage, errorMessage);
     }
     
-    // @Given("signed-in as Project leader")
-    // public void signedInAsProjectLeader() {
-    //     // Write code here that turns the phrase above into concrete actions
-    //     throw new io.cucumber.java.PendingException();
-    // }
-    /*@Given("the activity {string} has {int} members")
-        public void theActivityHasMembers(String string, Integer int1) {
-            assertEquals(string, activity.getName());
-            System.out.println(activity.getName());
-            assertEquals(int1, activity.getEmployeesAmount());  
-    }*/
+    @Given("signed-in as Project leader")
+    public void signedInAsProjectLeader() {
+        employee = new Employee("ProjectLeader", "yy", 0);
+        try {
+            project.setProjectLeader(employee, employee);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Given("the activity {string} has {int} members")
+    public void theActivityHasMembers(String string, Integer int1) {
+        assertEquals(string, activity.getName());
+        assertEquals(int1, activity.getEmployeesAmount());
+    }
     @Then("the activity {string} has {int} member")
         public void theActivityHasMember(String string, Integer int1) {
             assertEquals(string, activity.getName());
