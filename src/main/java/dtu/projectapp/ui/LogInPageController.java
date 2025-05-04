@@ -18,7 +18,7 @@ public class LogInPageController implements PageController {
         logInPage = new LogInPage();
         this.app = app;
         this.projectApp = projectApp;
-
+        
         logInPage.getLoginButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

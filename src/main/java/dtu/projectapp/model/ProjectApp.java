@@ -3,6 +3,7 @@ package dtu.projectapp.model;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,8 @@ import dtu.projectapp.ui.LogInPage;
 public class ProjectApp implements PropertyChangeListener {
     private List<Employee> employees;
     private List<Project> projects;
-    private Activity activity;
+   
+    
     private Employee loggedInEmployee;
 
     PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -112,15 +114,28 @@ public class ProjectApp implements PropertyChangeListener {
             throw new Exception("Project already exists");
         }
     }
+    public void createActivity(String projectName, String activityName, String startDate, String endDate, int time) throws Exception {
+        Project project = findProject(projectName);
+        if (project == null) {
+            throw new Exception("Project not found: " + projectName);
+        }
+
+        project.createActivity(activityName, startDate, endDate, time);
+        // Fire property change event to notify observers (could be specific to activities)
+        support.firePropertyChange("New activity", null, project.getActivities());
+        
+    }
+
+    
+   
 
     public List<Project> getProjects() {
         return projects;
     }
 
-    public Activity getActivities() {
-        return activity;
-    }
+    
 
-    public void addActivity(Activity activity) {
-    }
+  
+    
+
 }

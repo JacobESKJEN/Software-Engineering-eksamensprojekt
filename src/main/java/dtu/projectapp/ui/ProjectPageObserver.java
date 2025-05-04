@@ -2,8 +2,9 @@ package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
-import dtu.projectapp.model.ProjectApp;
+import dtu.projectapp.model.Activity;
 
 public class ProjectPageObserver implements PropertyChangeListener {
     private ProjectPage projectPage;
@@ -17,6 +18,10 @@ public class ProjectPageObserver implements PropertyChangeListener {
         if (evt.getPropertyName().equals("New project leader")) {
             System.out.println(evt.getNewValue());
             projectPage.updateProjectLeader((String) evt.getNewValue());
+        }
+        if (evt.getPropertyName().equals("New activity")) {
+            List<Activity> updatedActivities = (List<Activity>) evt.getNewValue();
+            projectPage.updateActivitys(updatedActivities); // Update the ListView
         }
     }
 }

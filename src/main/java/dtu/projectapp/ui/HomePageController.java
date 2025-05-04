@@ -2,11 +2,11 @@ package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeListener;
 
+import dtu.projectapp.model.ProjectApp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import dtu.projectapp.model.*;
 
 public class HomePageController implements PageController {
     private HomePage homePage;
@@ -20,7 +20,8 @@ public class HomePageController implements PageController {
         this.app = app;
 
         createProjectDialog = new CreateProjectDialog();
-
+        
+        
         homePage.getProjectListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent evt) {

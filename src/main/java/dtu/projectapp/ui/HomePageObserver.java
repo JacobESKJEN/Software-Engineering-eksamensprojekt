@@ -4,7 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import dtu.projectapp.model.*;
+import dtu.projectapp.model.Project;
 
 public class HomePageObserver implements PropertyChangeListener {
     private HomePage homePage;

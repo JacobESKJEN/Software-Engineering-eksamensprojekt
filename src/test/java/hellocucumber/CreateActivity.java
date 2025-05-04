@@ -1,16 +1,15 @@
 package hellocucumber;
 
-import dtu.projectapp.model.Project;
-import dtu.projectapp.model.ProjectApp;
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
-import io.cucumber.java.en.And;
+import dtu.projectapp.model.Project;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-
-import java.time.LocalDate;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import io.cucumber.java.en.When;
 
 public class CreateActivity {
     private Project project;
@@ -33,8 +32,7 @@ public class CreateActivity {
     public void iCreateANewActivityWithTheNameStartDateEndDateAndBudgetedTime(String string, String string2,
             String string3, int int1) {
         try {
-            activity = new Activity(
-                    string,
+            activity = new Activity(string,
                     LocalDate.parse(string2),
                     LocalDate.parse(string3),
                     int1);

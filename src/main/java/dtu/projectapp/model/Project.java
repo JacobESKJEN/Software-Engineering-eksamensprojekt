@@ -1,12 +1,11 @@
 package dtu.projectapp.model;
 
-import java.util.List;
-import java.util.Map;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.time.LocalDate;
 import java.util.ArrayList;
-
-import javax.swing.tree.ExpandVetoException;
+import java.util.List;
+import java.util.Map;
 
 public class Project {
     private String name = "";
@@ -53,7 +52,7 @@ public class Project {
         report.append(" -- Employee Contributions --\n");
         report.append("Project name: ").append(getName()).append("\n");
         report.append("Project leader: ").append(getProjectLeader().getId()).append("\n\n");
-
+        
         // Gets all the emplouyees logged hours per activity, total hours and the id
         for (Employee employee : Employee.getEmployees()) {
             report.append("- ID: ").append(employee.getId()).append("\n");
@@ -120,7 +119,14 @@ public class Project {
         activities.add(activity);
     }
 
+
     public List<Activity> getActivities() {
         return activities;
     }
+
+    public void createActivity(String activityName, String date, String date2, int i) {
+        Activity activity = new Activity(activityName,LocalDate.parse(date),LocalDate.parse(date2),i);
+        activities.add(activity);
+    }
+   
 }

@@ -67,4 +67,5 @@ public class Activity {
     public int getEmployeesAmount() {
         return employees.size();
     }
+    
 }

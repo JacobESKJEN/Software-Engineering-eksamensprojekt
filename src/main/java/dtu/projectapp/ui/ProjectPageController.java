@@ -2,18 +2,20 @@ package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeListener;
 
+import dtu.projectapp.model.Project;
+import dtu.projectapp.model.ProjectApp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-
-import dtu.projectapp.model.*;
 
 public class ProjectPageController implements PageController {
     private ProjectPage projectPage;
     private ProjectApp projectApp;
     private App app;
+    
     private AssignProjectLeaderDialog assignProjectLeaderDialog;
     private ProjectStatusDialog projectStatusDialog;
+    private CreateActivityDialog CreateActivityDialog;
 
     public ProjectPageController(ProjectApp projectApp, App app, Project project) {
         projectPage = new ProjectPage(project);
@@ -21,10 +23,44 @@ public class ProjectPageController implements PageController {
         this.projectApp = projectApp;
 
         project.addObserver(projectPage.getObserver());
-
+        
         assignProjectLeaderDialog = new AssignProjectLeaderDialog();
         projectStatusDialog = new ProjectStatusDialog();
 
+        CreateActivityDialog = new CreateActivityDialog();
+   
+        projectPage.getAddActivityButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+         
+            public void handle(ActionEvent event) {
+                // String ActivityStartDate = (CreateActivityDialog.getResult());
+                // String ActivityEndDate = (CreateActivityDialog.getResult());
+                ////change this from localdate to string because of an error
+                
+                String ActivityName = CreateActivityDialog.getResult();
+                // LocalDate ActivityStartDate = LocalDate.parse(CreateActivityDialog.getResult()); 
+                // LocalDate ActivityEndDate = LocalDate.parse(CreateActivityDialog.getResult());
+                // double BudgetedHours =  Double.parseDouble(CreateActivityDialog.getResult());
+
+                //String date = "2005-9-12";
+                if (!ActivityName.equals("")) {
+                    try {
+                        //String ActivityStartDateString = ActivityStartDate.toString();
+                        //String ActivityEndDateString = ActivityEndDate.toString();
+                        //projectApp.createActivity(projectname, ActivityName, "2005-09-12", "2005-10-12", 1);
+                        String projectName = project.getName();
+                        projectApp.createActivity(projectName, ActivityName, "2005-09-12", "2005-10-12", 1);
+                        System.err.println("Activity created");
+                        
+                    } catch (Exception e) {
+                        ErrorDialog.showExceptionDialog(e);
+                    }
+                }
+                
+                
+            }
+        });
+       
         projectPage.getSetProjectLeaderButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {

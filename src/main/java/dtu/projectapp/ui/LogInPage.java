@@ -2,16 +2,12 @@ package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeListener;
 
-import dtu.projectapp.model.Project;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 public class LogInPage implements Page {
