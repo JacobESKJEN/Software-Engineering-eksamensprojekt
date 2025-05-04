@@ -69,7 +69,22 @@ public class CreateActivity {
     }
     @When("the project leader adds employee with {string} to the activity")
     public void theProjectLeaderAddsEmployeeWithToTheActivity(String string) {
-        Employee employee = new Employee(string, "yy",0);
+        employee = new Employee(string, "yy", 0);
         activity.addEmployeeToActivity(employee);
     }
+    @When("the project leader adds employee with {string} to the activity but the employee does not exist")
+    public void theProjectLeaderAddsEmployeeWithToTheActivityButTheEmployeeDoesNotExist(String string) {
+        try {
+            if (employee == null || !employee.getId().equals(string)) {
+                throw new Exception("No such employee exists");
+    }
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+        }
+    }
+    // @When("the project leader removes employee with {string} from the activity")
+    // public void theProjectLeaderRemovesEmployeeWithFromTheActivity(String string) {
+    //     employee = new Employee(string, "yy", 0);
+    //     activity.removeEmployee(employee);
+    // }
 }
