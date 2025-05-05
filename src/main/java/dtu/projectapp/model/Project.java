@@ -102,10 +102,10 @@ public class Project {
             double completion = activity.getCompletionPercentage();
 
             // stores all the info in the report string
-            report.append("- ").append(activity.getName()).append(": ")
-                    .append(logged).append(" hours logged ")
-                    .append(remaining).append(" hours remaining")
-                    .append(String.format("%.2f", completion)).append("% complete\n");
+            report.append("- ").append(activity.getName()).append(":\n")
+                    .append("       ").append(logged).append(" hours logged\n")
+                    .append("       ").append(remaining).append(" hours remaining\n")
+                    .append("       ").append(String.format("%.2f", completion)).append("% complete\n");
 
             totalHoursLogged += logged;
             totalHoursRemaining += remaining;

@@ -39,7 +39,7 @@ public class ProjectPage implements Page {
         
         ActivityListView = new ListView<Activity>(); //List for activities
         root.setRight(ActivityListView);
-        
+        // Skal nok bare fjernes. Den er hardcoded ind i activities, når man opretter en ny.
         project.createActivity("ActivityName", "2005-09-12", "2005-10-12", 1);
 
         VBox vbox = new VBox();
