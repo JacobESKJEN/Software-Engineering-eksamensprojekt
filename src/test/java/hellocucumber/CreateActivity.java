@@ -65,7 +65,7 @@ public class CreateActivity {
         public void theActivityHasMember(String string, Integer int1) {
             assertEquals(string, activity.getName());
             System.out.println(activity.getName());
-            assertEquals(int1, activity.getEmployeesAmount()); 
+            assertEquals(int1, activity.getEmployeesAmount());
     }
     @When("the project leader adds employee with {string} to the activity")
     public void theProjectLeaderAddsEmployeeWithToTheActivity(String string) {
@@ -82,9 +82,9 @@ public class CreateActivity {
             errorMessage = e.getMessage();
         }
     }
-    // @When("the project leader removes employee with {string} from the activity")
-    // public void theProjectLeaderRemovesEmployeeWithFromTheActivity(String string) {
-    //     employee = new Employee(string, "yy", 0);
-    //     activity.removeEmployee(employee);
-    // }
+    @When("the project leader removes employee with {string} from the activity")
+    public void theProjectLeaderRemovesEmployeeWithFromTheActivity(String string) {
+        employee = new Employee(string, "yy", 0);
+        activity.removeEmployee(employee);
+    }
 }

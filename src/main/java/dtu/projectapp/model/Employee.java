@@ -37,8 +37,9 @@ public class Employee {
         EmployeeList.add(new Employee(id, credential, activitiesAssigned));
     }
 
-    public void logWork(Activity activity, double hours){                                   // tracks hours worked per activity
-        hoursPerActivity.put(activity, hoursPerActivity.getOrDefault(activity, 0.0)+hours);         // the Map is updated with the activity as a key and the hours worked as a value
+    public void logWork(Activity activity, double hours){                                       // tracks hours worked per activity
+        hoursPerActivity.put(activity, hoursPerActivity.getOrDefault(activity, 0.0)+hours);     // the Map is updated with the activity as a key and the hours worked as a value
+        activity.setLoggedHours((hours));
     }
 
     public double getTotalWork(){
