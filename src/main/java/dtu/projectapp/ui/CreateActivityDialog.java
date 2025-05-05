@@ -31,7 +31,7 @@ public class CreateActivityDialog extends Dialog<ButtonType> {
         grid.add(startField, 1, 1);
         grid.add(new Label("End Date (YYYY-MM-DD):"), 0, 2);
         grid.add(endField, 1, 2);
-        grid.add(new Label("Priority (Integer):"), 0, 3);
+        grid.add(new Label("Hours (Integer):"), 0, 3);
         grid.add(priorityField, 1, 3);
 
         getDialogPane().setContent(grid);
