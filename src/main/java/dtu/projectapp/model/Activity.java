@@ -37,6 +37,12 @@ public class Activity {
     public double getBudgetedTime() {
         return budgetedTime;
     }
+    public void setBudgetedTime(double budgeted) throws Exception {
+        if (budgeted < 0) {
+            throw new Exception("time out of bounds");
+        }
+        this.budgetedTime = budgeted;
+    }
 
     public void setLoggedHours(double hours){       //sums the hours the empoloyee loggs
         this.hoursWorked += hours;
@@ -58,10 +64,16 @@ public class Activity {
     public List<Employee> getEmployees() {
         return employees;
     }
-    public void addEmployeeToActivity(Employee employee) {
+    public void addEmployeeToActivity(Employee employee) throws Exception {
+        if (employee == null) {
+            throw new Exception("No such employee exists");
+        }
         employees.add(employee);
     }
-    public void removeEmployee(Employee employee) {
+    public void removeEmployee(Employee employee) throws Exception {
+        if (!employees.contains(employee)) {
+            throw new Exception("No such employee assigned to activity");
+        }
         employees.remove(employee);
     }
     public int getEmployeesAmount() {

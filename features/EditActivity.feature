@@ -2,38 +2,48 @@ Feature: Edit Activity
 Description: Allows an activity to be edited by a project leader
 Actors: Project leader
 Scenario: Add member to Activity
-    Given signed-in as Project leader
     Given a project exists
-    And I create a new activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-01", and budgeted time 100  
-    And the activity "Requirements Specification" has 0 members
-    When the project leader adds employee with "id3" to the activity
-    Then the activity "Requirements Specification" has 1 member 
-Scenario: Error: Fails to Add member to Activity
-    Given signed-in as Project leader
+    And signed-in as Project leader
+    And there exists an activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-01", and budgeted time 100  
+    And the activity "Requirements Specification" has no members
+    And there is an employee with id "id3" and password "password"
+    When the project leader adds employee with id "id3" to the activity "Requirements Specification"
+    Then the activity "Requirements Specification" has 1 member
+Scenario: Fails to Add member to Activity
     Given a project exists
-    And I create a new activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-31", and budgeted time 100
-    When the project leader adds employee with "id3" to the activity but the employee does not exist
-    Then I receive an error message "No such employee exists"
+    And signed-in as Project leader
+    And there exists an activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-01", and budgeted time 100  
+    And the activity "Requirements Specification" has no members
+    And there is an employee with id "id1" and password "password"
+    When the project leader adds employee with id "id3" to the activity "Requirements Specification"
+    Then the error message "No such employee exists" is given
 Scenario: Remove member from Activity
-    Given signed-in as Project leader
     Given a project exists
+    And signed-in as Project leader
     And I create a new activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
-    And the activity "Requirements Specification" has 1 member 
-    When the project leader removes employee with "id3" from the activity
-    Then the activity "Requirements Specification" has 0 members
-# Scenario: Error: Fails to Remove member from Activity
-#     # Given signed-in as Project leader
-#     Given a project exists
-#     And I create a new activity with the namee "Requirements Specification", start date "2025-04-01", end date "2025-03-31", and budgeted time 100
-#     And the activity has 1 member 
-#     When the project leader removes employee with "id3" from the activity
-#     Then the activity "Requirements Specification" has 0 members
-# Scenario: Update activity time estimate
-#     Given signed-in as Project leader
-#     Given a project exists
-#     And I create a new activity with the namee "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
-#     When the project leader updates the time estimate of "Design" to budgeted time of 50
-#     Then the system reflects the new estimate: of '50'
+    When the project leader adds employee with id "id3" to the activity "Requirements Specification"
+    And the project leader removes employee with "id3" from the activity 
+    Then the activity "Requirements Specification" has no members
+Scenario: Fails to Remove member from Activity
+    Given a project exists
+    And signed-in as Project leader
+    And there exists an activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-01", and budgeted time 100  
+    And the activity "Requirements Specification" has no members
+    When the project leader removes employee with "id3" from the activity 
+    Then the error message "No such employee assigned to activity" is given
+Scenario: Update activity time estimate
+    Given a project exists
+    And signed-in as Project leader
+    And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    When the project leader updates the time estimate of "Design" to budgeted time of 50
+    Then the system reflects the new estimate: of 50.0
+Scenario: Update activity time fails 
+    Given a project exists
+    And signed-in as Project leader
+    And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    When the project leader updates the time estimate of "Design" to budgeted time of -1
+    Then the error message "time out of bounds" is given
+
 # # Activity: Design
 # # Estimated time: total hours
 # Scenario: Rename an activity

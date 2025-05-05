@@ -72,6 +72,15 @@ public class Project {
         return report.toString();
     }
 
+    public Activity findActivity(String activityName) {
+        for (Activity activity : activities) {
+            if (activity.getName().equals(activityName)) {
+                return activity;
+            }
+        }
+        return null;
+    }
+
     public String getProjectETA() throws Exception {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
