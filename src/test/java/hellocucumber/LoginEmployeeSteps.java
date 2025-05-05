@@ -17,10 +17,10 @@ public class LoginEmployeeSteps {
         this.errorMessageHolder = errorMessageHolder;
     }
 
-    @When("the user logs in with id {string} and password {string}")
-    public void theUserLogsInWithIdAndPassword(String string1, String string2) {
+    @When("the user logs in with id {string}")
+    public void theUserLogsInWithIdAndPassword(String string1) {
         try {
-            projectApp.login(string1, string2);
+            projectApp.login(string1);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }

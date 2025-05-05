@@ -28,7 +28,7 @@ public class CreateActivity {
 
     @Given("a project exists")
     public void a_project_exists() {
-        project = new Project("Test Project");
+        project = new Project("Test Project", "20251");
     }
 
     @Then("the activity is created and added to the project")
@@ -68,7 +68,7 @@ public class CreateActivity {
 
     @Given("signed-in as Project leader")
     public void signedInAsProjectLeader() {
-        employee = new Employee("ProjectLeader", "yy", 0);
+        employee = new Employee("ProjectLeader", 0);
         try {
             project.setProjectLeader(employee, employee);
         } catch (Exception e) {

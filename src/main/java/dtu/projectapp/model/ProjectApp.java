@@ -5,6 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import dtu.projectapp.ui.LogInPage;
@@ -12,8 +13,7 @@ import dtu.projectapp.ui.LogInPage;
 public class ProjectApp implements PropertyChangeListener {
     private List<Employee> employees;
     private List<Project> projects;
-   
-    
+
     private Employee loggedInEmployee;
 
     PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -58,13 +58,13 @@ public class ProjectApp implements PropertyChangeListener {
         employees = new ArrayList<>();
         projects = new ArrayList<>();
 
-        employees.add(new Employee("huba", "password", 0));
-        employees.add(new Employee("w", "w", 0));
+        employees.add(new Employee("huba", 0));
+        employees.add(new Employee("w", 0));
     }
 
-    public void login(String id, String password) throws Exception {
+    public void login(String id) throws Exception {
         Employee emp = findEmployee(id);
-        if (emp != null && password.equals(emp.getCredential())) {
+        if (emp != null) {
             loggedInEmployee = emp;
         } else {
             throw new Exception("Invalid login");
@@ -106,36 +106,43 @@ public class ProjectApp implements PropertyChangeListener {
         return null;
     }
 
+    // public Activity findActivity(String projectName, String activityName) {
+    // // Find the project and activity by name
+    // Project project = findProject(projectName);
+    // if (project != null) {
+    // Activity activity = project.findActivity(activityName);
+    // if (activity != null) {
+    // return activity;
+    // }
+    // }
+    // return null;
+    // }
+
     public void createProject(String name) throws Exception {
         if (findProject(name) == null) {
-            projects.add(new Project(name));
+            projects.add(new Project(name, "2025" + projects.size() + 1));
             support.firePropertyChange("Update projects", null, projects);
         } else {
             throw new Exception("Project already exists");
         }
     }
-    public void createActivity(String projectName, String activityName, String startDate, String endDate, int time) throws Exception {
+
+    public void createActivity(String projectName, String activityName, String startDate, String endDate, int time)
+            throws Exception {
         Project project = findProject(projectName);
         if (project == null) {
             throw new Exception("Project not found: " + projectName);
         }
 
         project.createActivity(activityName, startDate, endDate, time);
-        // Fire property change event to notify observers (could be specific to activities)
+        // Fire property change event to notify observers (could be specific to
+        // activities)
         support.firePropertyChange("New activity", null, project.getActivities());
-        
-    }
 
-    
-   
+    }
 
     public List<Project> getProjects() {
         return projects;
     }
-
-    
-
-  
-    
 
 }

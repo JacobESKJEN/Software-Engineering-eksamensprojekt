@@ -4,11 +4,14 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Project {
     private String name = "";
+    private String id;
     private Employee projectLeader;
     private List<Activity> activities;
 
@@ -18,9 +21,10 @@ public class Project {
         support.addPropertyChangeListener(listener);
     }
 
-    public Project(String name) {
+    public Project(String name, String id) {
         this.name = name;
         this.activities = new ArrayList<>();
+        this.id = id;
     }
 
     public void setProjectLeader(Employee setterEmployee, Employee projLead) throws Exception {
@@ -52,19 +56,29 @@ public class Project {
         report.append(" -- Employee Contributions --\n");
         report.append("Project name: ").append(getName()).append("\n");
         report.append("Project leader: ").append(getProjectLeader().getId()).append("\n\n");
-        
+
+        Set<Employee> projectEmployees = new HashSet<>();
+
+        for (Activity activity : getActivities()) {
+            projectEmployees.addAll(activity.getEmployees());
+        }
+
         // Gets all the emplouyees logged hours per activity, total hours and the id
-        for (Employee employee : Employee.getEmployees()) {
+        for (Employee employee : projectEmployees) {
             report.append("- ID: ").append(employee.getId()).append("\n");
+
+            double totalHours = 0;
 
             for (Map.Entry<Activity, Double> entry : employee.getHoursWorkedPerActivity().entrySet()) {
                 Activity activity = entry.getKey();
                 double hours = entry.getValue();
 
-                report.append("   - ").append(activity.getName()).append(": ").append(hours).append(" hours\n");
+                if (activities.contains(activity)) {
+                    report.append("   - ").append(activity.getName()).append(": ").append(hours).append(" hours\n");
+                    totalHours += hours;
+                }
             }
 
-            double totalHours = employee.getTotalWork();
             report.append("    Total: ").append(totalHours).append(" hours\n\n");
 
         }
@@ -98,10 +112,10 @@ public class Project {
             double completion = activity.getCompletionPercentage();
 
             // stores all the info in the report string
-            report.append("- ").append(activity.getName()).append(": ")
-                    .append(logged).append(" hours logged ")
-                    .append(remaining).append(" hours remaining")
-                    .append(String.format("%.2f", completion)).append("% complete\n");
+            report.append("- ").append(activity.getName()).append(":\n")
+                    .append("       ").append(logged).append(" hours logged\n")
+                    .append("       ").append(remaining).append(" hours remaining\n")
+                    .append("       ").append(String.format("%.2f", completion)).append("% complete\n");
 
             totalHoursLogged += logged;
             totalHoursRemaining += remaining;
@@ -128,14 +142,23 @@ public class Project {
         activities.add(activity);
     }
 
-
     public List<Activity> getActivities() {
         return activities;
     }
 
     public void createActivity(String activityName, String date, String date2, int i) {
-        Activity activity = new Activity(activityName,LocalDate.parse(date),LocalDate.parse(date2),i);
+        Activity activity = new Activity(activityName, LocalDate.parse(date), LocalDate.parse(date2), i);
         activities.add(activity);
     }
-   
+
+    public String findActivityName(String activityName) {
+        for (Activity activity : activities) {
+            if (activity.getName().equals(activityName)) {
+                String A = activity.getName();
+                return A;
+            }
+        }
+        return null; // Return null if not found
+    }
+
 }

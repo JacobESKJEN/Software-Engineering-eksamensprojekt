@@ -18,13 +18,12 @@ public class LogInPageController implements PageController {
         logInPage = new LogInPage();
         this.app = app;
         this.projectApp = projectApp;
-        
+
         logInPage.getLoginButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    projectApp.login(logInPage.getIdInputField().getText(),
-                            logInPage.getPasswordInputField().getText());
+                    projectApp.login(logInPage.getIdInputField().getText());
                 } catch (Exception e) {
                     ErrorDialog.showExceptionDialog(e);
                 }

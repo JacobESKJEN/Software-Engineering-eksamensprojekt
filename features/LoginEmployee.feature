@@ -3,16 +3,11 @@ Feature: Log in employee
     Actors: Employee
 
   Scenario: Valid log in for employee
-    Given there is an employee with id "1" and password "password"
-    When the user logs in with id "1" and password "password"
+    Given there is an employee with id "1"
+    When the user logs in with id "1"
     Then the current logged in user has id "1"
 
-  Scenario: Invalid password for log in
-    Given there is an employee with id "1" and password "password"
-    When the user logs in with id "1" and password "qwerty"
-    Then the error message "Invalid login" is given
-
   Scenario: Invalid id for log in
-    Given there is an employee with id "1" and password "password"
-    When the user logs in with id "2" and password "password"
+    Given there is an employee with id "1"
+    When the user logs in with id "2"
     Then the error message "Invalid login" is given

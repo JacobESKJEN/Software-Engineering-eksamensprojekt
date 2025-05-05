@@ -27,13 +27,13 @@ public class createProjectSteps {
 
     @Given("there is an employee with id {string}")
     public void thereIsAnEmployeeWithId(String string) {
-        emp = new Employee(string, "", 0);
+        emp = new Employee(string, 0);
         projectApp.addEmployee(emp);
     }
 
     @Given("there is an employee with id {string} and password {string}")
     public void thereIsAnEmployeeWithId(String string1, String pass) {
-        emp = new Employee(string1, pass, 0);
+        emp = new Employee(string1, 0);
         projectApp.addEmployee(emp);
     }
 
