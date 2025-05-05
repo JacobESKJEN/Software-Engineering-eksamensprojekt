@@ -6,7 +6,7 @@ Scenario: Add member to Activity
     And signed-in as Project leader
     And there exists an activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-01", and budgeted time 100  
     And the activity "Requirements Specification" has no members
-    And there is an employee with id "id3" and password "password"
+    And there is an employee with id "id3"
     When the project leader adds employee with id "id3" to the activity "Requirements Specification"
     Then the activity "Requirements Specification" has 1 member
 Scenario: Fails to Add member to Activity
@@ -14,7 +14,7 @@ Scenario: Fails to Add member to Activity
     And signed-in as Project leader
     And there exists an activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-01", and budgeted time 100  
     And the activity "Requirements Specification" has no members
-    And there is an employee with id "id1" and password "password"
+    And there is an employee with id "id1"
     When the project leader adds employee with id "id3" to the activity "Requirements Specification"
     Then the error message "No such employee exists" is given
 Scenario: Remove member from Activity

@@ -18,7 +18,7 @@ public class LoginEmployeeSteps {
     }
 
     @When("the user logs in with id {string}")
-    public void theUserLogsInWithIdAndPassword(String string1) {
+    public void theUserLogsInWithId(String string1) {
         try {
             projectApp.login(string1);
         } catch (Exception e) {

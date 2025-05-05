@@ -46,7 +46,11 @@ public class ProjectReports {
     public void employee_added_to_activity(String empId, String activityName) {
         Employee e = employeeMap.computeIfAbsent(empId, id -> new Employee(id, 0));
         Activity a = activityMap.get(activityName);
-        a.addEmployeeToActivity(e);
+        try {
+         a.addEmployeeToActivity(e);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     @And("{double} hours are logged by {string} on {string}")
