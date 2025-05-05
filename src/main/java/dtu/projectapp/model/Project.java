@@ -129,4 +129,15 @@ public class Project {
         activities.add(activity);
     }
    
+    public String findActivityName(String activityName) {
+        for (Activity activity : activities) {
+            if (activity.getName().equals(activityName)) {
+                String A=activity.getName();
+                return A;
+            }
+        }
+        return null; // Return null if not found
+    }
+
+
 }

@@ -7,6 +7,9 @@ import dtu.projectapp.model.ProjectApp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class ProjectPageController implements PageController {
     private ProjectPage projectPage;
@@ -27,29 +30,35 @@ public class ProjectPageController implements PageController {
         assignProjectLeaderDialog = new AssignProjectLeaderDialog();
         projectStatusDialog = new ProjectStatusDialog();
 
-        CreateActivityDialog = new CreateActivityDialog();
-   
-        projectPage.getAddActivityButton().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-         
-            public void handle(ActionEvent event) {
-                // String ActivityStartDate = (CreateActivityDialog.getResult());
-                // String ActivityEndDate = (CreateActivityDialog.getResult());
-                ////change this from localdate to string because of an error
-                
-                String ActivityName = CreateActivityDialog.getResult();
-                // LocalDate ActivityStartDate = LocalDate.parse(CreateActivityDialog.getResult()); 
-                // LocalDate ActivityEndDate = LocalDate.parse(CreateActivityDialog.getResult());
-                // double BudgetedHours =  Double.parseDouble(CreateActivityDialog.getResult());
+        
 
-                //String date = "2005-9-12";
-                if (!ActivityName.equals("")) {
+        projectPage.getActivityListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            
+            public void handle(MouseEvent evt) {
+                Object selectedItem = projectPage.getActivityListView().getSelectionModel().getSelectedItem();
+                if (selectedItem != null) {
+                    ActivityPageController activityPage = new ActivityPageController(projectApp, app,
+                            project.findActivityName(selectedItem.toString()));
+                    app.newPage(activityPage);
+                }
+            }
+        });
+   
+        projectPage.getAddActivityButton().setOnAction(event -> {
+        CreateActivityDialog dialog = new CreateActivityDialog((Stage) projectPage.getScene().getWindow());
+        dialog.showAndWait();
+
+        if (dialog.getResult() == ButtonType.OK) {
+            String activityName = dialog.getActivityName();
+            String startDate = dialog.getStartDate();
+            String endDate = dialog.getEndDate();
+            int activityHours = dialog.getActivityHours();
+                if (!activityName.equals("")) {
                     try {
-                        //String ActivityStartDateString = ActivityStartDate.toString();
-                        //String ActivityEndDateString = ActivityEndDate.toString();
-                        //projectApp.createActivity(projectname, ActivityName, "2005-09-12", "2005-10-12", 1);
+                        
                         String projectName = project.getName();
-                        projectApp.createActivity(projectName, ActivityName, "2005-09-12", "2005-10-12", 1);
+                        projectApp.createActivity(projectName, activityName, startDate, endDate , activityHours);
                         System.err.println("Activity created");
                         
                     } catch (Exception e) {

@@ -40,7 +40,7 @@ public class ProjectPage implements Page {
         ActivityListView = new ListView<Activity>(); //List for activities
         root.setRight(ActivityListView);
         
-        project.createActivity("ActivityName", "2005-09-12", "2005-10-12", 1);
+        //project.createActivity("ActivityName", "2005-09-12", "2005-10-12", 1); //debug
 
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
@@ -80,12 +80,6 @@ public class ProjectPage implements Page {
         projectLeaderLabel.setText("Project leader: " + projectLeaderId);
     }
 
-    // public void updateActivitys(List<Activity> list) {
-    //     ObservableList<String> Activitys = FXCollections
-    //             .observableArrayList(list.stream().map(Activity::getName).collect(Collectors.toList()));
-
-    //     ActivityListView.setItems(Activitys);
-    // }
     public void updateActivitys(List<Activity> activities) {
         List<String> activityNames = activities.stream()
                 .map(Activity::getName)
