@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -15,8 +14,6 @@ public class LogInPage implements Page {
     private VBox root;
     private TextField idField;
     private Button loginButton;
-    private PasswordField passwordField;
-
     private LogInPageObserver observer = new LogInPageObserver(this);
 
     public LogInPage() {
@@ -32,11 +29,6 @@ public class LogInPage implements Page {
         idField.setPromptText("Enter your employee id");
         root.getChildren().add(idField);
 
-        passwordField = new PasswordField();
-        passwordField.setMaxWidth(280);
-        passwordField.setPromptText("Enter your password");
-        root.getChildren().add(passwordField);
-
         loginButton = new Button("Log in");
         loginButton.setDefaultButton(true);
         root.getChildren().add(loginButton);
@@ -48,10 +40,6 @@ public class LogInPage implements Page {
 
     public TextField getIdInputField() {
         return idField;
-    }
-
-    public PasswordField getPasswordInputField() {
-        return passwordField;
     }
 
     public PropertyChangeListener getObserver() {

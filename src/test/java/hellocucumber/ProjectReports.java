@@ -18,18 +18,18 @@ public class ProjectReports {
 
     @Given("signed-in as Project leader with id {string}")
     public void signed_in_as_project_leader_with_id(String id) throws Exception {
-        Employee leader = new Employee(id, "pw", 0);
+        Employee leader = new Employee(id, 0);
         employeeMap.put(id, leader);
-        project = new Project("Unnamed");
+        project = new Project("Unnamed", "20251");
         project.setProjectLeader(leader, leader);
     }
 
     @And("there exists a project with name {string}")
     public void there_exists_a_project_with_name(String name) {
-    if (project == null) {
-        project = new Project(name);
-    } else {
-    }
+        if (project == null) {
+            project = new Project(name, "20251");
+        } else {
+        }
     }
 
     @And("the project {string} has activities {string} and {string}")
@@ -44,7 +44,7 @@ public class ProjectReports {
 
     @And("employee {string} is added to the activity {string}")
     public void employee_added_to_activity(String empId, String activityName) {
-        Employee e = employeeMap.computeIfAbsent(empId, id -> new Employee(id, "pw", 0));
+        Employee e = employeeMap.computeIfAbsent(empId, id -> new Employee(id, 0));
         Activity a = activityMap.get(activityName);
         a.addEmployeeToActivity(e);
     }
@@ -56,7 +56,6 @@ public class ProjectReports {
         e.logWork(a, hours);
     }
 
-
     @When("the project leader generates a project report")
     public void the_project_leader_generates_a_project_report() throws Exception {
         report = project.getProjectReport();
@@ -66,6 +65,7 @@ public class ProjectReports {
     public void the_report_contains(String expectedContent) {
         String normalizedReport = report.replaceAll("[\\s\\u00A0]+", " ").trim();
         String normalizedExpected = expectedContent.replaceAll("[\\s\\u00A0]+", " ").trim();
-        assertTrue(normalizedReport.contains(normalizedExpected), "Expected report to contain: " + expectedContent + "\n\nActual report:\n" + report);
+        assertTrue(normalizedReport.contains(normalizedExpected),
+                "Expected report to contain: " + expectedContent + "\n\nActual report:\n" + report);
     }
 }

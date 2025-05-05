@@ -19,7 +19,7 @@ public class CreateActivity {
 
     @Given("a project exists")
     public void a_project_exists() {
-        project = new Project("Test Project");
+        project = new Project("Test Project", "20251");
     }
 
     @Then("the activity is created and added to the project")
@@ -46,45 +46,50 @@ public class CreateActivity {
     public void i_receive_error_message(String expectedMessage) {
         assertEquals(expectedMessage, errorMessage);
     }
-    
+
     @Given("signed-in as Project leader")
     public void signedInAsProjectLeader() {
-        employee = new Employee("ProjectLeader", "yy", 0);
+        employee = new Employee("ProjectLeader", 0);
         try {
             project.setProjectLeader(employee, employee);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @Given("the activity {string} has {int} members")
     public void theActivityHasMembers(String string, Integer int1) {
         assertEquals(string, activity.getName());
         assertEquals(int1, activity.getEmployeesAmount());
     }
+
     @Then("the activity {string} has {int} member")
-        public void theActivityHasMember(String string, Integer int1) {
-            assertEquals(string, activity.getName());
-            System.out.println(activity.getName());
-            assertEquals(int1, activity.getEmployeesAmount());
+    public void theActivityHasMember(String string, Integer int1) {
+        assertEquals(string, activity.getName());
+        System.out.println(activity.getName());
+        assertEquals(int1, activity.getEmployeesAmount());
     }
+
     @When("the project leader adds employee with {string} to the activity")
     public void theProjectLeaderAddsEmployeeWithToTheActivity(String string) {
-        employee = new Employee(string, "yy", 0);
+        employee = new Employee(string, 0);
         activity.addEmployeeToActivity(employee);
     }
+
     @When("the project leader adds employee with {string} to the activity but the employee does not exist")
     public void theProjectLeaderAddsEmployeeWithToTheActivityButTheEmployeeDoesNotExist(String string) {
         try {
             if (employee == null || !employee.getId().equals(string)) {
                 throw new Exception("No such employee exists");
-    }
+            }
         } catch (Exception e) {
             errorMessage = e.getMessage();
         }
     }
+
     @When("the project leader removes employee with {string} from the activity")
     public void theProjectLeaderRemovesEmployeeWithFromTheActivity(String string) {
-        employee = new Employee(string, "yy", 0);
+        employee = new Employee(string, 0);
         activity.removeEmployee(employee);
     }
 }

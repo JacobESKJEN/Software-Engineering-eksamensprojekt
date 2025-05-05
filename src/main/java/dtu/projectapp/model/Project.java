@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class Project {
     private String name = "";
+    private String id;
     private Employee projectLeader;
     private List<Activity> activities;
 
@@ -20,9 +21,10 @@ public class Project {
         support.addPropertyChangeListener(listener);
     }
 
-    public Project(String name) {
+    public Project(String name, String id) {
         this.name = name;
         this.activities = new ArrayList<>();
+        this.id = id;
     }
 
     public void setProjectLeader(Employee setterEmployee, Employee projLead) throws Exception {
@@ -55,10 +57,9 @@ public class Project {
         report.append("Project name: ").append(getName()).append("\n");
         report.append("Project leader: ").append(getProjectLeader().getId()).append("\n\n");
 
-
         Set<Employee> projectEmployees = new HashSet<>();
 
-        for (Activity activity : getActivities()){
+        for (Activity activity : getActivities()) {
             projectEmployees.addAll(activity.getEmployees());
         }
 
@@ -72,7 +73,7 @@ public class Project {
                 Activity activity = entry.getKey();
                 double hours = entry.getValue();
 
-                if (activities.contains(activity)){
+                if (activities.contains(activity)) {
                     report.append("   - ").append(activity.getName()).append(": ").append(hours).append(" hours\n");
                     totalHours += hours;
                 }
@@ -132,25 +133,23 @@ public class Project {
         activities.add(activity);
     }
 
-
     public List<Activity> getActivities() {
         return activities;
     }
 
     public void createActivity(String activityName, String date, String date2, int i) {
-        Activity activity = new Activity(activityName,LocalDate.parse(date),LocalDate.parse(date2),i);
+        Activity activity = new Activity(activityName, LocalDate.parse(date), LocalDate.parse(date2), i);
         activities.add(activity);
     }
-   
+
     public String findActivityName(String activityName) {
         for (Activity activity : activities) {
             if (activity.getName().equals(activityName)) {
-                String A=activity.getName();
+                String A = activity.getName();
                 return A;
             }
         }
         return null; // Return null if not found
     }
-
 
 }
