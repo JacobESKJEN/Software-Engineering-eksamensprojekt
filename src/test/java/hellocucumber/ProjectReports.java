@@ -15,6 +15,13 @@ public class ProjectReports {
     private Map<String, Activity> activityMap = new HashMap<>();
     private Map<String, Employee> employeeMap = new HashMap<>();
     private String report;
+    private ProjectApp projectApp;
+    private ErrorMessageHolder errorMessageHolder;
+
+    public ProjectReports(ProjectApp projectApp, ErrorMessageHolder errorMessageHolder) {
+        this.projectApp = projectApp;
+        this.errorMessageHolder = errorMessageHolder;
+    }
 
     @Given("signed-in as Project leader with id {string}")
     public void signed_in_as_project_leader_with_id(String id) throws Exception {
@@ -47,7 +54,7 @@ public class ProjectReports {
         Employee e = employeeMap.computeIfAbsent(empId, id -> new Employee(id, 0));
         Activity a = activityMap.get(activityName);
         try {
-         a.addEmployeeToActivity(e);
+            a.addEmployeeToActivity(e);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
