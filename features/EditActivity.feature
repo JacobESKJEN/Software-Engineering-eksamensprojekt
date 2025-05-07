@@ -61,4 +61,4 @@ Scenario: Edit an activity that does not exist
    Given a project exists
    And there is no activity named "Research"
    When the project leader attempts to edit "Research"
-   Then the system displays an error
+   Then the error message "Activity not found" is given
