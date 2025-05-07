@@ -44,28 +44,21 @@ Scenario: Update activity time fails
     When the project leader updates the time estimate of "Design" to budgeted time of -1
     Then the error message "time out of bounds" is given
 
-# # Activity: Design
-# # Estimated time: total hours
-# Scenario: Rename an activity
-#   Given signed-in as Project leader
-#     Given a project exists
-#     And I create a new activity with the namee "Programming", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
-#    When the project leader renames "Programming" to "UI Programming"
-#    Then the system updates the activity name:
-# # Old name: Design
-# # New name: UI Design
-# Scenario: Extend an activity's deadline
-#   Given signed-in as Project leader
-#    Given a project exists
-#    And I create a new activity with the namee "NewYear", start date "2025-12-31", end date "2025-12-31", and budgeted time 1
-#    When the project leader extends the deadline to new "2026-01-01"
-#    Then the system updates the activity deadline:
-# # Activity: Development
-# # New deadline: "2026-01-01"
-# Scenario: Edit an activity that does not exist
-#   Given signed-in as Project leader
-#    Given a project exists
-#    And there is no activity named "Research"
-#    When the project leader attempts to edit "Research"
-#    Then the system displays an error:
-# # "Activity not found"
+Scenario: Rename an activity
+    Given signed-in as Project leader
+    Given a project exists
+    And I create a new activity with the name "Programming", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    When the project leader renames "Programming" to "UI Programming"
+    Then the system updates the activity name
+Scenario: Extend an activity's deadline
+   Given signed-in as Project leader
+   Given a project exists
+   And I create a new activity with the name "NewYear", start date "2025-12-31", end date "2025-12-31", and budgeted time 1
+   When the project leader extends the deadline to new "2026-01-01"
+   Then the system updates the activity deadline
+Scenario: Edit an activity that does not exist
+   Given signed-in as Project leader
+   Given a project exists
+   And there is no activity named "Research"
+   When the project leader attempts to edit "Research"
+   Then the system displays an error

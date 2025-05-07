@@ -126,4 +126,65 @@ public class CreateActivity {
     public void theSystemReflectsTheNewEstimateOf(Double double1) {
         assertEquals(double1, activity.getBudgetedTime());
     }
+
+    @When("the project leader renames {string} to {string}")
+    public void theProjectLeaderRenamesTo(String string, String string2) {
+        activity = project.findActivity(string);
+        try {
+            activity.setName(string2);
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
+    @Then("the system updates the activity name")
+    public void theSystemUpdatesTheActivityName() {
+        assertEquals("UI Programming", activity.getName());
+    }
+
+    @When("the project leader extends the deadline to new {string}")
+    public void theProjectLeaderExtendsTheDeadlineToNew(String string) {
+        try {
+            activity.setEndDate(LocalDate.parse(string));
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
+    @Then("the system updates the activity deadline")
+    public void theSystemUpdatesTheActivityDeadline() {
+        assertEquals(LocalDate.parse("2026-01-01"), activity.getEndDate());
+    }
+
+    @Given("there is no activity named {string}")
+    public void thereIsNoActivityNamed(String string) {
+        activity = project.findActivity(string);
+        if (activity != null) {
+            try {
+                project.removeActivity(activity.getName());
+            } catch (Exception e) {
+                errorMessageHolder.setErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    @When("the project leader attempts to edit {string}")
+    public void theProjectLeaderAttemptsToEdit(String string) {
+        activity = project.findActivity(string);
+        try {
+            if (activity == null) {
+                throw new Exception("Activity not found");
+            }
+            activity.setName("Research");
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
+    @Then("the system displays an error")
+    public void theSystemDisplaysAnError() {
+        String errorMessage = errorMessageHolder.getErrorMessage();
+        assertTrue(errorMessage != null && !errorMessage.isEmpty(), "Error message is not set");
+        assertEquals("Activity not found", errorMessage, "Unexpected error message: " + errorMessage);
+    }
 }

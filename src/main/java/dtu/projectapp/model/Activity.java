@@ -21,7 +21,9 @@ public class Activity {
         this.endDate = endDate;
         this.budgetedTime = budgetedTime;
     }
-
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getName() {
         return name;
     }
@@ -32,6 +34,13 @@ public class Activity {
 
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) throws IllegalArgumentException {
+        if (endDate.isBefore(this.startDate)) {
+            throw new IllegalArgumentException("End date must be after start date");
+        }
+        this.endDate = endDate;
     }
 
     public double getBudgetedTime() {
