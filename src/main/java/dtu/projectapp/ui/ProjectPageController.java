@@ -75,6 +75,27 @@ public class ProjectPageController implements PageController {
             }
         });
 
+        // remove activity button
+        projectPage.getRemoveActivityButton().setOnAction(event -> {
+            RemoveActivityDialog dialog = new RemoveActivityDialog((Stage) projectPage.getScene().getWindow());
+            dialog.showAndWait();
+            if (dialog.getResult() == ButtonType.OK) {
+                String activityName = dialog.getActivityName();
+                if (!activityName.equals("")) {
+                    try {
+
+                        String projectName = project.getName();
+                        projectApp.RemoveActivity(projectName, activityName);
+                        System.err.println("Remove activity");
+
+                    } catch (Exception e) {
+                        ErrorDialog.showExceptionDialog(e);
+                    }
+                }
+
+            }
+        });
+
         projectPage.getSetProjectLeaderButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {
