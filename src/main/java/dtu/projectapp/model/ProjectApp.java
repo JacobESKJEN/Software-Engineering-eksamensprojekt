@@ -113,17 +113,17 @@ public class ProjectApp implements PropertyChangeListener {
         return null;
     }
 
-    // public Activity findActivity(String projectName, String activityName) {
-    // // Find the project and activity by name
-    // Project project = findProject(projectName);
-    // if (project != null) {
-    // Activity activity = project.findActivity(activityName);
-    // if (activity != null) {
-    // return activity;
-    // }
-    // }
-    // return null;
-    // }
+    public Activity findActivity(String projectName, String activityName) {
+    // Find the project and activity by name
+    Project project = findProject(projectName);
+    if (project != null) {
+    Activity activity = project.findActivity(activityName);
+    if (activity != null) {
+    return activity;
+    }
+    }
+    return null;
+    }
 
     public void createProject(String name) throws Exception {
         if (findProject(name) == null) {
@@ -147,6 +147,19 @@ public class ProjectApp implements PropertyChangeListener {
         support.firePropertyChange("New activity", null, project.getActivities());
 
     }
+    public void RemoveActivity(String projectName, String activityName) throws Exception {
+        Project project = findProject(projectName);
+        if (project == null) {
+            throw new Exception("Project not found: " + projectName);
+        }
+
+        project.removeActivity(activityName);
+        // Fire property change event to notify observers (could be specific to
+        // activities)
+        support.firePropertyChange("Remove activity", null, project.getActivities());
+
+    }
+
 
     public List<Project> getProjects() {
         return projects;

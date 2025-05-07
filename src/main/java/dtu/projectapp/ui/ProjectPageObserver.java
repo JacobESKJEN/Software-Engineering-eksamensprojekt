@@ -23,5 +23,10 @@ public class ProjectPageObserver implements PropertyChangeListener {
             List<Activity> updatedActivities = (List<Activity>) evt.getNewValue();
             projectPage.updateActivitys(updatedActivities); // Update the ListView
         }
+        if (evt.getPropertyName().equals("Remove activity")) {
+            List<Activity> updatedActivities = (List<Activity>) evt.getNewValue();
+            
+            projectPage.updateActivitys(updatedActivities); // Update the ListView
+        }
     }
 }

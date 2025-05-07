@@ -76,7 +76,9 @@ public class Activity {
     public void addEmployeeToActivity(Employee employee) throws Exception {
         if (employee == null) {
             throw new Exception("No such employee exists");
-        }
+        }else if (employees.contains(employee)) {
+            throw new Exception("Employee already assigned to activity");
+        } 
         employees.add(employee);
     }
     public void removeEmployee(Employee employee) throws Exception {

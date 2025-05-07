@@ -21,13 +21,16 @@ public class ProjectPage implements Page {
     private Scene scene;
     private BorderPane root;
     private AssignProjectLeaderDialog assignProjectLeaderDialog;
-    private CreateActivityDialog addEmployeeToActivityDialog;
+
     private ListView ActivityListView;
     private Activity activity;
     private Label projectLeaderLabel;
 
     private Button homePageButton;
+    private Button addEmployeeButton;
+    private Button removeEmployeeButton;
     private Button setProjectLeaderButton;
+    private Button removeActivityButton;
     private Button projectStatusButton;
     private Button empStatusButton;
     private Button ETAReportButton;
@@ -41,8 +44,6 @@ public class ProjectPage implements Page {
         ActivityListView = new ListView<Activity>(); // List for activities
         root.setRight(ActivityListView);
 
-        // project.createActivity("ActivityName", "2005-09-12", "2005-10-12", 1);
-        // //debug
         VBox leftVbox = new VBox();
         homePageButton = new Button("Return to homepage");
         leftVbox.getChildren().add(homePageButton);
@@ -64,13 +65,17 @@ public class ProjectPage implements Page {
         vbox.getChildren().add(setProjectLeaderButton);
 
         addActivityButton = new Button("Add Activity");
+        removeActivityButton = new Button("Remove Activity");
+        addEmployeeButton = new Button("Add Employee");
+        removeEmployeeButton = new Button("Remove Employee");
         projectStatusButton = new Button("Get Full Report");
         ETAReportButton = new Button("Get Project ETA");
         empStatusButton = new Button("Get Employee Status");
 
         HBox hboxReports = new HBox();
-        hboxReports.setAlignment(Pos.CENTER);
-        hboxReports.getChildren().addAll(empStatusButton, ETAReportButton, projectStatusButton, addActivityButton);
+        hboxReports.setAlignment(Pos.BASELINE_LEFT);
+        hboxReports.getChildren().addAll(addEmployeeButton, empStatusButton, ETAReportButton, projectStatusButton,
+                addActivityButton, removeActivityButton);
 
         vbox.getChildren().add(hboxReports);
 
@@ -117,6 +122,10 @@ public class ProjectPage implements Page {
 
     public Button getETAReportButton() {
         return ETAReportButton;
+    }
+
+    public Button getRemoveActivityButton() {
+        return removeActivityButton;
     }
 
     public PropertyChangeListener getObserver() {

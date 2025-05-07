@@ -17,6 +17,7 @@ public class ProjectPageController implements PageController {
     private App app;
 
     private AssignProjectLeaderDialog assignProjectLeaderDialog;
+    private AssignEmployeeDialog assignEmployeeDialog;
     private ProjectStatusDialog projectStatusDialog;
     private CreateActivityDialog CreateActivityDialog;
 
@@ -46,7 +47,7 @@ public class ProjectPageController implements PageController {
                 Object selectedItem = projectPage.getActivityListView().getSelectionModel().getSelectedItem();
                 if (selectedItem != null) {
                     ActivityPageController activityPage = new ActivityPageController(projectApp, app,
-                            project.findActivityName(selectedItem.toString()));
+                            project.findActivityName(selectedItem.toString()), project);
                     app.newPage(activityPage);
                 }
             }
@@ -71,7 +72,6 @@ public class ProjectPageController implements PageController {
                         ErrorDialog.showExceptionDialog(e);
                     }
                 }
-
             }
         });
 

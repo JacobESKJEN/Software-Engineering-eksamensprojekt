@@ -1,13 +1,19 @@
 package hellocucumber;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dtu.projectapp.model.*;
-
-import io.cucumber.java.en.*;
-
-import java.time.LocalDate;
-import java.util.*;
+import dtu.projectapp.model.Activity;
+import dtu.projectapp.model.Employee;
+import dtu.projectapp.model.Project;
+import dtu.projectapp.model.ProjectApp;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class ProjectReports {
 
