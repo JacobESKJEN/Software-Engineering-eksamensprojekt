@@ -14,17 +14,16 @@ public class ActivityPageObserver implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("New Employee")) {
             System.out.println(evt.getNewValue());
-            //ActivityPage.updateActivityEmployees((String) evt.getNewValue());
+            // ActivityPage.updateActivityEmployees((String) evt.getNewValue());
         }
         if (evt.getPropertyName().equals("Remove Employee")) {
             System.out.println(evt.getNewValue());
-            //ActivityPage.updateActivityEmployees((String) evt.getNewValue());
+            // ActivityPage.updateActivityEmployees((String) evt.getNewValue());
         }
         if (evt.getPropertyName().equals("Update Time")) {
             System.out.println(evt.getNewValue());
-            //ActivityPage.updateActivityEmployees((String) evt.getNewValue());
+            // ActivityPage.updateActivityEmployees((String) evt.getNewValue());
         }
     }
 
-    
 }

@@ -15,7 +15,7 @@ public class ProjectPageController implements PageController {
     private ProjectPage projectPage;
     private ProjectApp projectApp;
     private App app;
-    
+
     private AssignProjectLeaderDialog assignProjectLeaderDialog;
     private AssignEmployeeDialog assignEmployeeDialog;
     private ProjectStatusDialog projectStatusDialog;
@@ -25,18 +25,24 @@ public class ProjectPageController implements PageController {
         projectPage = new ProjectPage(project);
         this.app = app;
         this.projectApp = projectApp;
-        
 
         project.addObserver(projectPage.getObserver());
-        
+
         assignProjectLeaderDialog = new AssignProjectLeaderDialog();
         projectStatusDialog = new ProjectStatusDialog();
 
-        
-        //creates the listVeiw of activities in the project on the right side of the page
+        projectPage.updateActivitys(project.getActivities());
+
+        projectPage.getHomePageButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                app.newPage(new HomePageController(projectApp, app));
+            }
+        });
+
         projectPage.getActivityListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            
+
             public void handle(MouseEvent evt) {
                 Object selectedItem = projectPage.getActivityListView().getSelectionModel().getSelectedItem();
                 if (selectedItem != null) {
@@ -46,54 +52,29 @@ public class ProjectPageController implements PageController {
                 }
             }
         });
-   
-        //Button for creating a new activity
-        projectPage.getAddActivityButton().setOnAction(event -> {
-        CreateActivityDialog dialog = new CreateActivityDialog((Stage) projectPage.getScene().getWindow());
-        dialog.showAndWait();
-            // Creates 4 input-lines  for Name, StartDate, EndDate and BuggetHours activity
-        if (dialog.getResult() == ButtonType.OK) {
-            String activityName = dialog.getActivityName();
-            String startDate = dialog.getStartDate();
-            String endDate = dialog.getEndDate();
-            int activityHours = dialog.getActivityHours();
-                if (!activityName.equals("")) {
-                    try {
-                        
-                        String projectName = project.getName();
-                        projectApp.createActivity(projectName, activityName, startDate, endDate , activityHours);
-                        System.err.println("Activity created");
-                        
-                    } catch (Exception e) {
-                        ErrorDialog.showExceptionDialog(e);
-                    }
-                }
-            }
-        });
 
-        //remove activity button
-        projectPage.getRemoveActivityButton().setOnAction(event -> {
-            RemoveActivityDialog dialog = new RemoveActivityDialog((Stage) projectPage.getScene().getWindow());
+        projectPage.getAddActivityButton().setOnAction(event -> {
+            CreateActivityDialog dialog = new CreateActivityDialog((Stage) projectPage.getScene().getWindow());
             dialog.showAndWait();
+
             if (dialog.getResult() == ButtonType.OK) {
                 String activityName = dialog.getActivityName();
+                String startDate = dialog.getStartDate();
+                String endDate = dialog.getEndDate();
+                int activityHours = dialog.getActivityHours();
                 if (!activityName.equals("")) {
                     try {
-                        
                         String projectName = project.getName();
-                        projectApp.RemoveActivity(projectName, activityName);
-                        System.err.println("Remove activity");
-                        
+                        projectApp.createActivity(projectName, activityName, startDate, endDate, activityHours);
+                        System.err.println("Activity created");
+
                     } catch (Exception e) {
                         ErrorDialog.showExceptionDialog(e);
                     }
                 }
             }
         });
-            
-        
 
-        //makes input employee as project leader
         projectPage.getSetProjectLeaderButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {
@@ -108,7 +89,7 @@ public class ProjectPageController implements PageController {
                 }
             }
         });
-        
+
         projectPage.getProjectStatusButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {

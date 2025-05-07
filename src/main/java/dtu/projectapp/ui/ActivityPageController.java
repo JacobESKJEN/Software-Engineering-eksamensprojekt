@@ -16,24 +16,32 @@ public class ActivityPageController implements PageController {
     private ProjectApp projectApp;
     private AssignEmployeeDialog assignEmployeeDialog;
     private App app;
-   
+
     public ActivityPageController(ProjectApp projectApp, App app, String activityName, Project project) {
-        //activityPage = new ActivityPage(activity);
+        // activityPage = new ActivityPage(activity);
         this.app = app;
         this.projectApp = projectApp;
         activityPage = new ActivityPage();
         Activity activity = project.findActivity(activityName);
-       
-        //add employee to activity button
-        activityPage.getAddEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
-            
+
+        activityPage.getHomePageButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {
-                AssignEmployeeDialog assignEmployeeDialog = new AssignEmployeeDialog((Stage) activityPage.getScene().getWindow());
+                app.newPage(new HomePageController(projectApp, app));
+            }
+        });
+
+        // add employee to activity button
+        activityPage.getAddEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent evt) {
+                AssignEmployeeDialog assignEmployeeDialog = new AssignEmployeeDialog(
+                        (Stage) activityPage.getScene().getWindow());
                 assignEmployeeDialog.showAndWait();
 
                 if (assignEmployeeDialog.getResult() == ButtonType.OK) {
-                    String employeeName = assignEmployeeDialog.getEmployeeName(); 
+                    String employeeName = assignEmployeeDialog.getEmployeeName();
                     if (!employeeName.isEmpty()) {
                         try {
                             // Add the employee to the activity
@@ -46,17 +54,17 @@ public class ActivityPageController implements PageController {
             }
         });
 
-
-        //remove employee from activity button
+        // remove employee from activity button
         activityPage.getRemoveEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent evt) {
-                AssignEmployeeDialog assignEmployeeDialog = new AssignEmployeeDialog((Stage) activityPage.getScene().getWindow());
+                AssignEmployeeDialog assignEmployeeDialog = new AssignEmployeeDialog(
+                        (Stage) activityPage.getScene().getWindow());
                 assignEmployeeDialog.showAndWait();
 
                 if (assignEmployeeDialog.getResult() == ButtonType.OK) {
-                    String employeeName = assignEmployeeDialog.getEmployeeName(); 
+                    String employeeName = assignEmployeeDialog.getEmployeeName();
                     if (!employeeName.isEmpty()) {
                         try {
                             // Remove the employee from the activity

@@ -15,6 +15,8 @@ public class ActivityPage implements Page {
     private BorderPane root;
     private ListView projectListView;
     private Button addProjectButton;
+    private Button homePageButton;
+
     private Button addEmployeeButton;
     private Button removeEmployeeButton;
     VBox vbox = new VBox();
@@ -23,6 +25,11 @@ public class ActivityPage implements Page {
     public ActivityPage() {
         root = new BorderPane();
         scene = new Scene(root);
+
+        homePageButton = new Button("Return to home page");
+        HBox topHbox = new HBox();
+        topHbox.getChildren().add(homePageButton);
+        root.setTop(topHbox);
 
         addProjectButton = new Button("Add project");
         root.setCenter(addProjectButton);
@@ -39,28 +46,26 @@ public class ActivityPage implements Page {
         root.setCenter(vbox);
     }
 
-    
+    public Button getHomePageButton() {
+        return homePageButton;
+    }
 
     @Override
     public Scene getScene() {
         return scene;
     }
 
-
-
     @Override
     public PropertyChangeListener getObserver() {
         return observer;
     }
 
-
-
     public Button getAddEmployeeButton() {
         return addEmployeeButton;
     }
+
     public Button getRemoveEmployeeButton() {
         return removeEmployeeButton;
     }
 
-   
 }
