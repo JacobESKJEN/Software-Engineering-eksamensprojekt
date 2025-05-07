@@ -12,9 +12,7 @@ public class ActivityPageObserver implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'propertyChange'");
+        System.out.println(evt.getNewValue());
     }
 
-    
 }

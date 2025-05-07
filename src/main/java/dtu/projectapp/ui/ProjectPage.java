@@ -26,6 +26,7 @@ public class ProjectPage implements Page {
     private Activity activity;
     private Label projectLeaderLabel;
 
+    private Button homePageButton;
     private Button setProjectLeaderButton;
     private Button projectStatusButton;
     private Button empStatusButton;
@@ -36,11 +37,16 @@ public class ProjectPage implements Page {
     public ProjectPage(Project project) {
         root = new BorderPane();
         scene = new Scene(root);
-        
-        ActivityListView = new ListView<Activity>(); //List for activities
+
+        ActivityListView = new ListView<Activity>(); // List for activities
         root.setRight(ActivityListView);
-        
-        //project.createActivity("ActivityName", "2005-09-12", "2005-10-12", 1); //debug
+
+        // project.createActivity("ActivityName", "2005-09-12", "2005-10-12", 1);
+        // //debug
+        VBox leftVbox = new VBox();
+        homePageButton = new Button("Return to homepage");
+        leftVbox.getChildren().add(homePageButton);
+        root.setLeft(leftVbox);
 
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
@@ -64,7 +70,7 @@ public class ProjectPage implements Page {
 
         HBox hboxReports = new HBox();
         hboxReports.setAlignment(Pos.CENTER);
-        hboxReports.getChildren().addAll(empStatusButton, ETAReportButton, projectStatusButton,addActivityButton);
+        hboxReports.getChildren().addAll(empStatusButton, ETAReportButton, projectStatusButton, addActivityButton);
 
         vbox.getChildren().add(hboxReports);
 
@@ -86,7 +92,11 @@ public class ProjectPage implements Page {
                 .collect(Collectors.toList());
         ObservableList<String> observableActivityNames = FXCollections.observableArrayList(activityNames);
         ActivityListView.setItems(observableActivityNames);
-        
+
+    }
+
+    public Button getHomePageButton() {
+        return homePageButton;
     }
 
     public Button getSetProjectLeaderButton() {

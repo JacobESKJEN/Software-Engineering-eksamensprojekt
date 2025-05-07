@@ -11,12 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class HomePage implements Page {
     private Scene scene;
     private BorderPane root;
     private ListView projectListView;
     private Button addProjectButton;
+    private Button logOutButton;
 
     private HomePageObserver observer = new HomePageObserver(this);
 
@@ -26,7 +28,11 @@ public class HomePage implements Page {
 
         projectListView = new ListView<String>();
         root.setRight(projectListView);
-        
+
+        logOutButton = new Button("Log out");
+        VBox leftVbox = new VBox();
+        leftVbox.getChildren().add(logOutButton);
+        root.setLeft(leftVbox);
 
         addProjectButton = new Button("Add project");
         root.setCenter(addProjectButton);
@@ -38,6 +44,10 @@ public class HomePage implements Page {
 
     public Button getAddProjectButton() {
         return addProjectButton;
+    }
+
+    public Button getLogOutButton() {
+        return logOutButton;
     }
 
     public PropertyChangeListener getObserver() {

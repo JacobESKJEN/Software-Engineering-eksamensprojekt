@@ -20,8 +20,9 @@ public class HomePageController implements PageController {
         this.app = app;
 
         createProjectDialog = new CreateProjectDialog();
-        
-        
+
+        homePage.updateProjects(projectApp.getProjects());
+
         homePage.getProjectListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent evt) {
@@ -44,6 +45,18 @@ public class HomePageController implements PageController {
                     } catch (Exception e) {
                         ErrorDialog.showExceptionDialog(e);
                     }
+                }
+            }
+        });
+
+        homePage.getLogOutButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    projectApp.logout();
+                    app.newPage(new LogInPageController(projectApp, app));
+                } catch (Exception e) {
+                    ErrorDialog.showExceptionDialog(e);
                 }
             }
         });

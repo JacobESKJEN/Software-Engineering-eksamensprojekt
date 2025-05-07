@@ -11,3 +11,14 @@ Feature: Log in employee
     Given there is an employee with id "1"
     When the user logs in with id "2"
     Then the error message "Invalid login" is given
+
+  Scenario: Log out
+    Given there is an employee with id "1"
+    And the user logged in with id "1"
+    When the user logs out
+    Then there is no current logged in user
+
+  Scenario: Log out without having logged in
+    Given there is an employee with id "1"
+    When the user logs out
+    Then the error message "Not possible to log out" is given

@@ -30,4 +30,23 @@ public class LoginEmployeeSteps {
     public void theCurrentLoggedInUserHasId(String string) {
         assertEquals(string, projectApp.getLoggedInEmployeeId());
     }
+
+    @Given("the user logged in with id {string}")
+    public void theUserLoggedInWithId(String string) {
+        theUserLogsInWithId(string);
+    }
+
+    @When("the user logs out")
+    public void theUserLogsOut() {
+        try {
+            projectApp.logout();
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
+    @Then("there is no current logged in user")
+    public void thereIsNoCurrentLoggedInUser() {
+        assertEquals(projectApp.getLoggedInEmployee(), null);
+    }
 }

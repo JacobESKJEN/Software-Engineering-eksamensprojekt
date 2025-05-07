@@ -71,6 +71,13 @@ public class ProjectApp implements PropertyChangeListener {
         }
     }
 
+    public void logout() throws Exception {
+        if (loggedInEmployee == null) {
+            throw new Exception("Not possible to log out");
+        }
+        loggedInEmployee = null;
+    }
+
     public String getLoggedInEmployeeId() {
         return loggedInEmployee.getId();
     }
