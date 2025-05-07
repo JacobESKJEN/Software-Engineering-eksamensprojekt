@@ -14,7 +14,7 @@ public class Project {
     private String id;
     private Employee projectLeader;
     private List<Activity> activities;
-
+    //private List<Employee> employees = new ArrayList<>(); // List of employees in the project
     PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void addObserver(PropertyChangeListener listener) {
@@ -36,6 +36,8 @@ public class Project {
         projectLeader = projLead;
         support.firePropertyChange("New project leader", null, projectLeader.getId());
     }
+
+    
 
     public Employee getProjectLeader() {
         return projectLeader;

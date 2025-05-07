@@ -1,7 +1,5 @@
 package dtu.projectapp.ui;
 
-import java.util.Optional;
-
 import javafx.scene.control.TextInputDialog;
 
 public class AssignProjectLeaderDialog extends InputDialog {

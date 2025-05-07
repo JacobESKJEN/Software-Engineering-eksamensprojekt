@@ -17,6 +17,7 @@ public class ProjectPageController implements PageController {
     private App app;
     
     private AssignProjectLeaderDialog assignProjectLeaderDialog;
+    private AssignEmployeeDialog assignEmployeeDialog;
     private ProjectStatusDialog projectStatusDialog;
     private CreateActivityDialog CreateActivityDialog;
 
@@ -24,6 +25,7 @@ public class ProjectPageController implements PageController {
         projectPage = new ProjectPage(project);
         this.app = app;
         this.projectApp = projectApp;
+        
 
         project.addObserver(projectPage.getObserver());
         
@@ -31,7 +33,7 @@ public class ProjectPageController implements PageController {
         projectStatusDialog = new ProjectStatusDialog();
 
         
-
+        //creates the listVeiw of activities in the project on the right side of the page
         projectPage.getActivityListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             
@@ -39,17 +41,17 @@ public class ProjectPageController implements PageController {
                 Object selectedItem = projectPage.getActivityListView().getSelectionModel().getSelectedItem();
                 if (selectedItem != null) {
                     ActivityPageController activityPage = new ActivityPageController(projectApp, app,
-                            project.findActivityName(selectedItem.toString()));
+                            project.findActivityName(selectedItem.toString()), project);
                     app.newPage(activityPage);
                 }
             }
         });
    
-        //button for creating a new activity
+        //Button for creating a new activity
         projectPage.getAddActivityButton().setOnAction(event -> {
         CreateActivityDialog dialog = new CreateActivityDialog((Stage) projectPage.getScene().getWindow());
         dialog.showAndWait();
-        // Creates 4 input-lines  for Name, StartDate, EndDate and BuggetHours activity
+            // Creates 4 input-lines  for Name, StartDate, EndDate and BuggetHours activity
         if (dialog.getResult() == ButtonType.OK) {
             String activityName = dialog.getActivityName();
             String startDate = dialog.getStartDate();
@@ -66,10 +68,9 @@ public class ProjectPageController implements PageController {
                         ErrorDialog.showExceptionDialog(e);
                     }
                 }
-                
-                
             }
         });
+
         //remove activity button
         projectPage.getRemoveActivityButton().setOnAction(event -> {
             RemoveActivityDialog dialog = new RemoveActivityDialog((Stage) projectPage.getScene().getWindow());
@@ -87,13 +88,10 @@ public class ProjectPageController implements PageController {
                         ErrorDialog.showExceptionDialog(e);
                     }
                 }
-                
-                
             }
         });
             
-            
-
+        
 
         //makes input employee as project leader
         projectPage.getSetProjectLeaderButton().setOnAction(new EventHandler<ActionEvent>() {

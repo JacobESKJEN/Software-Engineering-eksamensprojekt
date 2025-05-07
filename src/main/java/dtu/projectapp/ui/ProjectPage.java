@@ -26,6 +26,8 @@ public class ProjectPage implements Page {
     private Activity activity;
     private Label projectLeaderLabel;
 
+    private Button addEmployeeButton;
+    private Button removeEmployeeButton;
     private Button setProjectLeaderButton;
     private Button removeActivityButton;
     private Button projectStatusButton;
@@ -62,14 +64,16 @@ public class ProjectPage implements Page {
 
         addActivityButton = new Button("Add Activity");
         removeActivityButton = new Button("Remove Activity");
+        addEmployeeButton = new Button("Add Employee");
+        removeEmployeeButton = new Button("Remove Employee");
         projectStatusButton = new Button("Get Full Report"); 
         ETAReportButton = new Button("Get Project ETA");
         empStatusButton = new Button("Get Employee Status");
        
 
         HBox hboxReports = new HBox();
-        hboxReports.setAlignment(Pos.CENTER);
-        hboxReports.getChildren().addAll(empStatusButton, ETAReportButton, projectStatusButton,addActivityButton,removeActivityButton);
+        hboxReports.setAlignment(Pos.BASELINE_LEFT);
+        hboxReports.getChildren().addAll(addEmployeeButton,empStatusButton, ETAReportButton, projectStatusButton,addActivityButton,removeActivityButton);
 
         vbox.getChildren().add(hboxReports);
 
@@ -117,6 +121,7 @@ public class ProjectPage implements Page {
     public Button getRemoveActivityButton() {
         return removeActivityButton;
     }
+
 
     public PropertyChangeListener getObserver() {
         return observer;
