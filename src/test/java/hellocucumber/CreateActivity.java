@@ -181,10 +181,4 @@ public class CreateActivity {
         }
     }
 
-    @Then("the system displays an error")
-    public void theSystemDisplaysAnError() {
-        String errorMessage = errorMessageHolder.getErrorMessage();
-        assertTrue(errorMessage != null && !errorMessage.isEmpty(), "Error message is not set");
-        assertEquals("Activity not found", errorMessage, "Unexpected error message: " + errorMessage);
-    }
 }

@@ -162,11 +162,13 @@ public class Project {
         }
         return null; // Return null if not found
     }
+
     public void removeActivity(String activityName) throws Exception {
-        Activity activityToRemove = findActivity(activityName);
-        if (activityToRemove == null) {
+        try {
+            Activity activityToRemove = findActivity(activityName);
+            activities.remove(activityToRemove);
+        } catch (Exception e) {
             throw new Exception("Activity not found");
         }
-        activities.remove(activityToRemove);
     }
 }
