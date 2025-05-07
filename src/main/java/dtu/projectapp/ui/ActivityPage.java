@@ -27,9 +27,9 @@ public class ActivityPage implements Page {
         scene = new Scene(root);
 
         homePageButton = new Button("Return to home page");
-        VBox leftVbox = new VBox();
-        leftVbox.getChildren().add(homePageButton);
-        root.setLeft(leftVbox);
+        HBox topHbox = new HBox();
+        topHbox.getChildren().add(homePageButton);
+        root.setTop(topHbox);
 
         addProjectButton = new Button("Add project");
         root.setCenter(addProjectButton);

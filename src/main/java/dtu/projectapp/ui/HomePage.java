@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
 public class HomePage implements Page {
     private Scene scene;
@@ -30,9 +30,9 @@ public class HomePage implements Page {
         root.setRight(projectListView);
 
         logOutButton = new Button("Log out");
-        VBox leftVbox = new VBox();
-        leftVbox.getChildren().add(logOutButton);
-        root.setLeft(leftVbox);
+        HBox topHbox = new HBox();
+        topHbox.getChildren().add(logOutButton);
+        root.setLeft(topHbox);
 
         addProjectButton = new Button("Add project");
         root.setCenter(addProjectButton);

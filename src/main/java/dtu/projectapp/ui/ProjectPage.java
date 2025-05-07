@@ -44,10 +44,10 @@ public class ProjectPage implements Page {
         ActivityListView = new ListView<Activity>(); // List for activities
         root.setRight(ActivityListView);
 
-        VBox leftVbox = new VBox();
+        HBox topHbox = new HBox();
         homePageButton = new Button("Return to homepage");
-        leftVbox.getChildren().add(homePageButton);
-        root.setLeft(leftVbox);
+        topHbox.getChildren().add(homePageButton);
+        root.setLeft(topHbox);
 
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
