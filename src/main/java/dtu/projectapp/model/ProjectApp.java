@@ -140,6 +140,19 @@ public class ProjectApp implements PropertyChangeListener {
         support.firePropertyChange("New activity", null, project.getActivities());
 
     }
+    public void RemoveActivity(String projectName, String activityName) throws Exception {
+        Project project = findProject(projectName);
+        if (project == null) {
+            throw new Exception("Project not found: " + projectName);
+        }
+
+        project.removeActivity(activityName);
+        // Fire property change event to notify observers (could be specific to
+        // activities)
+        support.firePropertyChange("Remove activity", null, project.getActivities());
+
+    }
+
 
     public List<Project> getProjects() {
         return projects;

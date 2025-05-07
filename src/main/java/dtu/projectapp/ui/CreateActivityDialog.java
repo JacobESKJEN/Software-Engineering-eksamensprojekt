@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 
 public class CreateActivityDialog extends Dialog<ButtonType> {
     private TextField nameField;
-    private TextField startField;
-    private TextField endField;
+    private TextField startDateField;
+    private TextField endDateField;
     private TextField priorityField;
 
     public CreateActivityDialog(Stage owner) {
@@ -19,8 +19,8 @@ public class CreateActivityDialog extends Dialog<ButtonType> {
 
         // Create input fields
         nameField = new TextField();
-        startField = new TextField();
-        endField = new TextField();
+        startDateField = new TextField("2025-05-12");
+        endDateField = new TextField("2025-05-12");
         priorityField = new TextField();
 
         // Create a grid to layout the fields
@@ -28,9 +28,9 @@ public class CreateActivityDialog extends Dialog<ButtonType> {
         grid.add(new Label("Activity Name:"), 0, 0);
         grid.add(nameField, 1, 0);
         grid.add(new Label("Start Date (YYYY-MM-DD):"), 0, 1);
-        grid.add(startField, 1, 1);
+        grid.add(startDateField, 1, 1);
         grid.add(new Label("End Date (YYYY-MM-DD):"), 0, 2);
-        grid.add(endField, 1, 2);
+        grid.add(endDateField, 1, 2);
         grid.add(new Label("Hours (Integer):"), 0, 3);
         grid.add(priorityField, 1, 3);
 
@@ -51,11 +51,11 @@ public class CreateActivityDialog extends Dialog<ButtonType> {
     }
 
     public String getStartDate() {
-        return startField.getText();
+        return startDateField.getText();
     }
 
     public String getEndDate() {
-        return endField.getText();
+        return endDateField.getText();
     }
 
     public int getActivityHours() {

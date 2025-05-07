@@ -45,10 +45,11 @@ public class ProjectPageController implements PageController {
             }
         });
    
+        //button for creating a new activity
         projectPage.getAddActivityButton().setOnAction(event -> {
         CreateActivityDialog dialog = new CreateActivityDialog((Stage) projectPage.getScene().getWindow());
         dialog.showAndWait();
-
+        // Creates 4 input-lines  for Name, StartDate, EndDate and BuggetHours activity
         if (dialog.getResult() == ButtonType.OK) {
             String activityName = dialog.getActivityName();
             String startDate = dialog.getStartDate();
@@ -69,7 +70,32 @@ public class ProjectPageController implements PageController {
                 
             }
         });
-       
+        //remove activity button
+        projectPage.getRemoveActivityButton().setOnAction(event -> {
+            RemoveActivityDialog dialog = new RemoveActivityDialog((Stage) projectPage.getScene().getWindow());
+            dialog.showAndWait();
+            if (dialog.getResult() == ButtonType.OK) {
+                String activityName = dialog.getActivityName();
+                if (!activityName.equals("")) {
+                    try {
+                        
+                        String projectName = project.getName();
+                        projectApp.RemoveActivity(projectName, activityName);
+                        System.err.println("Remove activity");
+                        
+                    } catch (Exception e) {
+                        ErrorDialog.showExceptionDialog(e);
+                    }
+                }
+                
+                
+            }
+        });
+            
+            
+
+
+        //makes input employee as project leader
         projectPage.getSetProjectLeaderButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {
@@ -84,7 +110,7 @@ public class ProjectPageController implements PageController {
                 }
             }
         });
-
+        
         projectPage.getProjectStatusButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {
