@@ -181,4 +181,47 @@ public class CreateActivity {
         }
     }
 
+    @When("the project leader removes the activity {string}")
+    public void theProjectLeaderRemovesTheActivity(String string) {
+        activity = project.findActivity(string);
+        try {
+            if (activity == null) {
+                throw new Exception("Activity not found");
+            }
+            project.removeActivity(activity.getName());
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
+    @Then("the system confirms the activity has been removed")
+    public void theSystemConfirmsTheActivityHasBeenRemoved() {
+        assertTrue(project.getActivities().isEmpty());
+        
+    }
+
+    
+@When("the project leader checks the weeks till completion of {string}")
+public void theProjectLeaderChecksTheWeeksTillCompletionOf(String string) {
+    Activity activity = project.findActivity(string);
+    try {
+        if (activity == null) {
+            throw new Exception("Activity not found");
+        }
+        long weeksBetween = activity.calculateWeeks(activity.getStartDate(), activity.getEndDate());
+        System.out.println("Number of weeks till completion: " + weeksBetween);
+    } catch (Exception e) {
+        errorMessageHolder.setErrorMessage(e.getMessage());
+    }
+}
+
+@Then("the system returns the number of weeks till completion: {int} weeks")
+public void theSystemReturnsTheNumberOfWeeksTillCompletionWeeks(Integer int1) {
+    activity = project.findActivity("UI Programming");
+    long weeksBetween = activity.calculateWeeks(activity.getStartDate(), activity.getEndDate());
+    assertEquals(int1, (int) weeksBetween);
+}
+
+
+
 }

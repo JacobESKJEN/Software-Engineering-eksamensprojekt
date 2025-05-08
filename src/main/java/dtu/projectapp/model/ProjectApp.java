@@ -115,14 +115,14 @@ public class ProjectApp implements PropertyChangeListener {
 
     public Activity findActivity(String projectName, String activityName) {
     // Find the project and activity by name
-    Project project = findProject(projectName);
-    if (project != null) {
-    Activity activity = project.findActivity(activityName);
-    if (activity != null) {
-    return activity;
-    }
-    }
-    return null;
+        Project project = findProject(projectName);
+        if (project != null) {
+            Activity activity = project.findActivity(activityName);
+            if (activity != null) {
+                return activity;
+            }
+        }
+        return null;
     }
 
     public void createProject(String name) throws Exception {

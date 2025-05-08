@@ -70,3 +70,32 @@ Actors: Project leader
     And there is no activity named "Research"
     When the project leader attempts to edit "Research"
     Then the error message "Activity not found" is given
+
+  Scenario: Remove Activity 
+    Given a project exists
+    And signed-in as Project leader
+    And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    When the project leader removes the activity "Design"
+    Then the system confirms the activity has been removed
+  
+  Scenario: Fails to Remove Activity 
+    Given a project exists
+    And signed-in as Project leader
+    And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    When the project leader removes the activity "misspellDisign"
+    Then the error message "Activity not found" is given
+  
+  Scenario: Activity Calulates Weeks till Completion
+    Given a project exists
+    And signed-in as Project leader
+    And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    When the project leader checks the weeks till completion of "Design"
+    Then the system returns the number of weeks till completion: 4 weeks
+
+  # Scenario: Activity Needs Completion
+  #   Given a project exists
+  #   And signed-in as Project leader
+  #   And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-01", and budgeted time 100
+  #   When the project leader checks the weeks till completion of "Design"
+  #   Then the system returns the message "Activity needs completion"
+    

@@ -1,6 +1,9 @@
 package dtu.projectapp.model;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +44,23 @@ public class Activity {
             throw new IllegalArgumentException("End date must be after start date");
         }
         this.endDate = endDate;
+    }
+
+    public long calculateWeeks(LocalDate startDate, LocalDate endDate) {
+        // Find the first day of the week for the start date
+        LocalDate startWeek = startDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        
+        // Find the last day of the week for the end date
+        LocalDate endWeek = endDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        
+        // Calculate the number of weeks between the start and end weeks
+        long weeksBetween = ChronoUnit.WEEKS.between(startWeek, endWeek);
+        
+        System.out.println("Start Week: " + startWeek);
+        System.out.println("End Week: " + endWeek);
+        System.out.println("Number of Weeks: " + weeksBetween);
+
+        return weeksBetween;
     }
 
     public double getBudgetedTime() {
