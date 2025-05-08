@@ -39,7 +39,7 @@ public class ProjectPageController implements PageController {
                 app.newPage(new HomePageController(projectApp, app));
             }
         });
-
+        // click on activity in list view to open activity page
         projectPage.getActivityListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
 
@@ -52,7 +52,7 @@ public class ProjectPageController implements PageController {
                 }
             }
         });
-
+        //create activity button
         projectPage.getAddActivityButton().setOnAction(event -> {
             CreateActivityDialog dialog = new CreateActivityDialog((Stage) projectPage.getScene().getWindow());
             dialog.showAndWait();
@@ -95,7 +95,7 @@ public class ProjectPageController implements PageController {
 
             }
         });
-
+        // set project leader button
         projectPage.getSetProjectLeaderButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {

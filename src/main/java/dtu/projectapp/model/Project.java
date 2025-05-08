@@ -101,7 +101,7 @@ public class Project {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
-
+        
         StringBuilder report = new StringBuilder();
         report.append(" -- Project Status --\n");
 
@@ -112,11 +112,16 @@ public class Project {
             double logged = activity.getHoursWorked();
             double remaining = activity.getRemainingHours();
             double completion = activity.getCompletionPercentage();
+            long weeks = activity.calculateWeeks();//currently weeks are only calculated when this is called.
+            int start=activity.getStartWeek(); 
+            int end=activity.getEndWeek();
 
             // stores all the info in the report string
             report.append("- ").append(activity.getName()).append(":\n")
                     .append("       ").append(logged).append(" hours logged\n")
                     .append("       ").append(remaining).append(" hours remaining\n")
+                    .append("       ").append(start+"-"+end).append(" WeekPlan\n")
+                    .append("       ").append(weeks).append(" Total Weeks\n")
                     .append("       ").append(String.format("%.2f", completion)).append("% complete\n");
 
             totalHoursLogged += logged;

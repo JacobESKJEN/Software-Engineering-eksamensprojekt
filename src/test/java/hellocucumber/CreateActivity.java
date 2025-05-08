@@ -208,7 +208,8 @@ public void theProjectLeaderChecksTheWeeksTillCompletionOf(String string) {
         if (activity == null) {
             throw new Exception("Activity not found");
         }
-        long weeksBetween = activity.calculateWeeks(activity.getStartDate(), activity.getEndDate());
+        long weeksBetween = activity.calculateWeeks();
+        //weeksBetween = activity.getWeeks();
         System.out.println("Number of weeks till completion: " + weeksBetween);
     } catch (Exception e) {
         errorMessageHolder.setErrorMessage(e.getMessage());
@@ -218,7 +219,7 @@ public void theProjectLeaderChecksTheWeeksTillCompletionOf(String string) {
 @Then("the system returns the number of weeks till completion: {int} weeks")
 public void theSystemReturnsTheNumberOfWeeksTillCompletionWeeks(Integer int1) {
     activity = project.findActivity("UI Programming");
-    long weeksBetween = activity.calculateWeeks(activity.getStartDate(), activity.getEndDate());
+    long weeksBetween = activity.calculateWeeks();
     assertEquals(int1, (int) weeksBetween);
 }
 

@@ -4,13 +4,17 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Activity {
     private String name;
     private LocalDate startDate;
     private LocalDate endDate;
+    private int startWeek;
+    private int endWeek;
     private double budgetedTime;               // expected hours worked
     private double hoursWorked = 0;            // total hours worked
     private List<Employee> employees = new ArrayList<>();
@@ -46,21 +50,31 @@ public class Activity {
         this.endDate = endDate;
     }
 
-    public long calculateWeeks(LocalDate startDate, LocalDate endDate) {
-        // Find the first day of the week for the start date
+    public long calculateWeeks() {
         LocalDate startWeek = startDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        
-        // Find the last day of the week for the end date
         LocalDate endWeek = endDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         
         // Calculate the number of weeks between the start and end weeks
         long weeksBetween = ChronoUnit.WEEKS.between(startWeek, endWeek);
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
         
-        System.out.println("Start Week: " + startWeek);
-        System.out.println("End Week: " + endWeek);
+        System.out.println("Start Week: " + startWeek.get(weekFields.weekOfWeekBasedYear()));
+        System.out.println("End Week: " + endWeek.get(weekFields.weekOfWeekBasedYear()));
         System.out.println("Number of Weeks: " + weeksBetween);
 
+
+        this.startWeek = startWeek.get(weekFields.weekOfWeekBasedYear());
+        this.endWeek = endWeek.get(weekFields.weekOfWeekBasedYear());
+
+        
         return weeksBetween;
+    }
+
+    public int getStartWeek() {
+        return startWeek;
+    }
+    public int getEndWeek() {
+        return endWeek;
     }
 
     public double getBudgetedTime() {

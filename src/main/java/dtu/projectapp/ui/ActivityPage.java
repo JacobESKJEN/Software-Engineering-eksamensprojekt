@@ -31,8 +31,8 @@ public class ActivityPage implements Page {
         topHbox.getChildren().add(homePageButton);
         root.setTop(topHbox);
 
-        addProjectButton = new Button("Add project");
-        root.setCenter(addProjectButton);
+        // addProjectButton = new Button("Add project"); //is this used?
+        // root.setCenter(addProjectButton); 
 
         addEmployeeButton = new Button("Add Employee");
         removeEmployeeButton = new Button("Remove Employee");
