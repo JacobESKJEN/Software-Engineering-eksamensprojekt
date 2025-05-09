@@ -31,7 +31,7 @@ public class ProjectReports {
 
     @Given("signed-in as Project leader with id {string}")
     public void signed_in_as_project_leader_with_id(String id) throws Exception {
-        Employee leader = new Employee(id, 0);
+        Employee leader = new Employee(id);
         employeeMap.put(id, leader);
         project = new Project("Unnamed", "20251");
         project.setProjectLeader(leader, leader);
@@ -57,7 +57,7 @@ public class ProjectReports {
 
     @And("employee {string} is added to the activity {string}")
     public void employee_added_to_activity(String empId, String activityName) {
-        Employee e = employeeMap.computeIfAbsent(empId, id -> new Employee(id, 0));
+        Employee e = employeeMap.computeIfAbsent(empId, id -> new Employee(id));
         Activity a = activityMap.get(activityName);
         try {
             a.addEmployeeToActivity(e);

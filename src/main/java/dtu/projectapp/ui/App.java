@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
 
@@ -45,6 +46,9 @@ public class App extends Application {
 
     public static void main(String[] args) {
         projectApp = new ProjectApp();
+
+        projectApp.getEmployees().add(new Employee("huba"));
+        projectApp.getEmployees().add(new Employee("w"));
 
         launch();
     }

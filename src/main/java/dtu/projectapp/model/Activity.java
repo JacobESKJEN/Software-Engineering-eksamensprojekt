@@ -15,8 +15,8 @@ public class Activity {
     private LocalDate endDate;
     private int startWeek;
     private int endWeek;
-    private double budgetedTime;               // expected hours worked
-    private double hoursWorked = 0;            // total hours worked
+    private double budgetedTime; // expected hours worked
+    private double hoursWorked = 0; // total hours worked
     private List<Employee> employees = new ArrayList<>();
 
     public Activity(String name, LocalDate startDate, LocalDate endDate, double budgetedTime) {
@@ -28,9 +28,11 @@ public class Activity {
         this.endDate = endDate;
         this.budgetedTime = budgetedTime;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getName() {
         return name;
     }
@@ -53,26 +55,25 @@ public class Activity {
     public long calculateWeeks() {
         LocalDate startWeek = startDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDate endWeek = endDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-        
+
         // Calculate the number of weeks between the start and end weeks
         long weeksBetween = ChronoUnit.WEEKS.between(startWeek, endWeek);
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        
+
         System.out.println("Start Week: " + startWeek.get(weekFields.weekOfWeekBasedYear()));
         System.out.println("End Week: " + endWeek.get(weekFields.weekOfWeekBasedYear()));
         System.out.println("Number of Weeks: " + weeksBetween);
 
-
         this.startWeek = startWeek.get(weekFields.weekOfWeekBasedYear());
         this.endWeek = endWeek.get(weekFields.weekOfWeekBasedYear());
 
-        
         return weeksBetween;
     }
 
     public int getStartWeek() {
         return startWeek;
     }
+
     public int getEndWeek() {
         return endWeek;
     }
@@ -80,6 +81,7 @@ public class Activity {
     public double getBudgetedTime() {
         return budgetedTime;
     }
+
     public void setBudgetedTime(double budgeted) throws Exception {
         if (budgeted < 0) {
             throw new Exception("time out of bounds");
@@ -87,40 +89,46 @@ public class Activity {
         this.budgetedTime = budgeted;
     }
 
-    public void setLoggedHours(double hours){       //sums the hours the empoloyee loggs
+    public void setLoggedHours(double hours) { // sums the hours the empoloyee loggs
         this.hoursWorked += hours;
     }
 
-    public double getHoursWorked(){
+    public double getHoursWorked() {
         return hoursWorked;
     }
 
     public double getCompletionPercentage() {
-        if (budgetedTime == 0) return 0;            // safety, no dividing by 0
+        if (budgetedTime == 0)
+            return 0; // safety, no dividing by 0
         return (hoursWorked / budgetedTime) * 100;
     }
 
-
-    public double getRemainingHours(){
+    public double getRemainingHours() {
         return budgetedTime - hoursWorked;
     }
+
     public List<Employee> getEmployees() {
         return employees;
     }
+
     public void addEmployeeToActivity(Employee employee) throws Exception {
         if (employee == null) {
             throw new Exception("No such employee exists");
-        }else if (employees.contains(employee)) {
+        } else if (employees.contains(employee)) {
             throw new Exception("Employee already assigned to activity");
-        } 
+        }
+        employee.assignActivity(this);
         employees.add(employee);
     }
+
     public void removeEmployee(Employee employee) throws Exception {
         if (!employees.contains(employee)) {
             throw new Exception("No such employee assigned to activity");
         }
+        employee.unAssignActivity(this);
         employees.remove(employee);
     }
+
     public int getEmployeesAmount() {
         return employees.size();
     }

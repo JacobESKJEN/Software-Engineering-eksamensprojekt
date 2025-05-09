@@ -10,7 +10,7 @@ import java.util.List;
 
 import dtu.projectapp.ui.LogInPage;
 
-public class ProjectApp implements PropertyChangeListener {
+public class ProjectApp {
     private List<Employee> employees;
     private List<Project> projects;
 
@@ -22,44 +22,13 @@ public class ProjectApp implements PropertyChangeListener {
         support.addPropertyChangeListener(listener);
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("project")) {
-            List<Project> prevProjects = new ArrayList<Project>();
-            prevProjects.addAll(projects);
-            try {
-                createProject(evt.getNewValue().toString());
-                support.firePropertyChange("Projects", prevProjects, projects);
-            } catch (Exception e) {
-                System.out.println("Test");
-                support.firePropertyChange("Exception", null, e.getMessage());
-            }
-        } else if (evt.getPropertyName().equals("Login request")) {
-            LogInPage logInPage = (LogInPage) evt.getSource();
-            try {
-                // login(logInPage.getIdInput(), logInPage.getPasswordInput());
-            } catch (Exception e) {
-                support.firePropertyChange("Exception", null, e.getMessage());
-            }
-        } else if (evt.getPropertyName().equals("SetProjectLeader")) {
-            Employee employee = findEmployee((String) evt.getNewValue());
-            Project project = (Project) evt.getOldValue();
-            try {
-                project.setProjectLeader(loggedInEmployee, employee);
-                support.firePropertyChange("ProjectLeaderChanged", null, project.getProjectLeader().getId());
-            } catch (Exception e) {
-                System.out.println("Project leader changed exception");
-                support.firePropertyChange("Exception", null, e.getMessage());
-            }
-        }
-    }
-
     public ProjectApp() {
         employees = new ArrayList<>();
         projects = new ArrayList<>();
+    }
 
-        employees.add(new Employee("huba", 0));
-        employees.add(new Employee("w", 0));
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
     public void login(String id) throws Exception {
@@ -114,7 +83,7 @@ public class ProjectApp implements PropertyChangeListener {
     }
 
     public Activity findActivity(String projectName, String activityName) {
-    // Find the project and activity by name
+        // Find the project and activity by name
         Project project = findProject(projectName);
         if (project != null) {
             Activity activity = project.findActivity(activityName);
@@ -147,6 +116,7 @@ public class ProjectApp implements PropertyChangeListener {
         support.firePropertyChange("New activity", null, project.getActivities());
 
     }
+
     public void RemoveActivity(String projectName, String activityName) throws Exception {
         Project project = findProject(projectName);
         if (project == null) {
@@ -160,6 +130,15 @@ public class ProjectApp implements PropertyChangeListener {
 
     }
 
+    public List<Employee> getAvailableEmployees(int startWeek, int endWeek) {
+        List<Employee> availableEmployees = new ArrayList<>();
+        for (Employee employee : employees) {
+            if (employee.isAvailableBetweenWeeks(startWeek, endWeek)) {
+                availableEmployees.add(employee);
+            }
+        }
+        return availableEmployees;
+    }
 
     public List<Project> getProjects() {
         return projects;

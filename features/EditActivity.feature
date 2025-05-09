@@ -10,6 +10,7 @@ Actors: Project leader
     And there is an employee with id "id3"
     When the project leader adds employee with id "id3" to the activity "Requirements Specification"
     Then the activity "Requirements Specification" has 1 member
+    And the employee with id "id3" has the activity "Requirements Specification" in their activity list
 
   Scenario: Fails to Add member to Activity
     Given a project exists
@@ -23,10 +24,12 @@ Actors: Project leader
   Scenario: Remove member from Activity
     Given a project exists
     And signed-in as Project leader
+    And there is an employee with id "id3"
     And I create a new activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
     When the project leader adds employee with id "id3" to the activity "Requirements Specification"
     And the project leader removes employee with "id3" from the activity
     Then the activity "Requirements Specification" has no members
+    And the employee with id "id3" does not have the activity "Requirements Specification" in their activity list
 
   Scenario: Fails to Remove member from Activity
     Given a project exists
@@ -71,31 +74,32 @@ Actors: Project leader
     When the project leader attempts to edit "Research"
     Then the error message "Activity not found" is given
 
-  Scenario: Remove Activity 
+  Scenario: Remove Activity
     Given a project exists
     And signed-in as Project leader
     And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
-    When the project leader removes the activity "Design"
+    And there is an employee with id "id3"
+    When the project leader adds employee with id "id3" to the activity "Design"
+    And the project leader removes the activity "Design"
     Then the system confirms the activity has been removed
-  
-  Scenario: Fails to Remove Activity 
+    And the employee with id "id3" does not have the activity "Requirements Specification" in their activity list
+
+  Scenario: Fails to Remove Activity
     Given a project exists
     And signed-in as Project leader
     And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
     When the project leader removes the activity "misspellDisign"
     Then the error message "Activity not found" is given
-  
+
   Scenario: Activity Calulates Weeks till Completion
     Given a project exists
     And signed-in as Project leader
     And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
     When the project leader checks the weeks till completion of "Design"
     Then the system returns the number of weeks till completion: 4 weeks
-
   # Scenario: Activity Needs Completion
   #   Given a project exists
   #   And signed-in as Project leader
   #   And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-01", and budgeted time 100
   #   When the project leader checks the weeks till completion of "Design"
   #   Then the system returns the message "Activity needs completion"
-    

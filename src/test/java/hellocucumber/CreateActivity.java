@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
@@ -15,7 +16,6 @@ import io.cucumber.java.en.When;
 
 public class CreateActivity {
     private Project project;
-    private String errorMessage;
     private Activity activity;
     private Employee employee;
     private ProjectApp projectApp;
@@ -68,7 +68,7 @@ public class CreateActivity {
 
     @Given("signed-in as Project leader")
     public void signedInAsProjectLeader() {
-        employee = new Employee("ProjectLeader", 0);
+        employee = new Employee("ProjectLeader");
         try {
             project.setProjectLeader(employee, employee);
         } catch (Exception e) {
@@ -197,32 +197,49 @@ public class CreateActivity {
     @Then("the system confirms the activity has been removed")
     public void theSystemConfirmsTheActivityHasBeenRemoved() {
         assertTrue(project.getActivities().isEmpty());
-        
+
     }
 
-    
-@When("the project leader checks the weeks till completion of {string}")
-public void theProjectLeaderChecksTheWeeksTillCompletionOf(String string) {
-    Activity activity = project.findActivity(string);
-    try {
-        if (activity == null) {
-            throw new Exception("Activity not found");
+    @When("the project leader checks the weeks till completion of {string}")
+    public void theProjectLeaderChecksTheWeeksTillCompletionOf(String string) {
+        Activity activity = project.findActivity(string);
+        try {
+            if (activity == null) {
+                throw new Exception("Activity not found");
+            }
+            long weeksBetween = activity.calculateWeeks();
+            // weeksBetween = activity.getWeeks();
+            System.out.println("Number of weeks till completion: " + weeksBetween);
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
         }
-        long weeksBetween = activity.calculateWeeks();
-        //weeksBetween = activity.getWeeks();
-        System.out.println("Number of weeks till completion: " + weeksBetween);
-    } catch (Exception e) {
-        errorMessageHolder.setErrorMessage(e.getMessage());
     }
-}
 
-@Then("the system returns the number of weeks till completion: {int} weeks")
-public void theSystemReturnsTheNumberOfWeeksTillCompletionWeeks(Integer int1) {
-    activity = project.findActivity("UI Programming");
-    long weeksBetween = activity.calculateWeeks();
-    assertEquals(int1, (int) weeksBetween);
-}
+    @Then("the system returns the number of weeks till completion: {int} weeks")
+    public void theSystemReturnsTheNumberOfWeeksTillCompletionWeeks(Integer int1) {
+        activity = project.findActivity("UI Programming");
+        long weeksBetween = activity.calculateWeeks();
+        assertEquals(int1, (int) weeksBetween);
+    }
 
+    @Then("the employee with id {string} has the activity {string} in their activity list")
+    public void theEmployeeWithIdHasTheActivityInTheirActivityList(String string, String string2) {
+        Employee employee = projectApp.findEmployee(string);
+        Activity activity = project.findActivity(string2);
+        assertTrue(employee.getActivities().contains(activity));
+    }
 
+    @Then("the employee with id {string} does not have the activity {string} in their activity list")
+    public void theEmployeeWithIdDoesNotHaveTheActivityInTheirActivityList(String string, String string2) {
+        Employee employee = projectApp.findEmployee(string);
+        boolean containsActivity = false;
+        for (Activity activity : employee.getActivities()) {
+            if (activity.getName().equals(string2)) {
+                containsActivity = true;
+                break;
+            }
+        }
+        assertFalse(containsActivity);
+    }
 
 }

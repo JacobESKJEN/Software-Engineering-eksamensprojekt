@@ -14,7 +14,8 @@ public class Project {
     private String id;
     private Employee projectLeader;
     private List<Activity> activities;
-    //private List<Employee> employees = new ArrayList<>(); // List of employees in the project
+    // private List<Employee> employees = new ArrayList<>(); // List of employees in
+    // the project
     PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void addObserver(PropertyChangeListener listener) {
@@ -36,8 +37,6 @@ public class Project {
         projectLeader = projLead;
         support.firePropertyChange("New project leader", null, projectLeader.getId());
     }
-
-    
 
     public Employee getProjectLeader() {
         return projectLeader;
@@ -101,7 +100,7 @@ public class Project {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
-        
+
         StringBuilder report = new StringBuilder();
         report.append(" -- Project Status --\n");
 
@@ -112,15 +111,15 @@ public class Project {
             double logged = activity.getHoursWorked();
             double remaining = activity.getRemainingHours();
             double completion = activity.getCompletionPercentage();
-            long weeks = activity.calculateWeeks();//currently weeks are only calculated when this is called.
-            int start=activity.getStartWeek(); 
-            int end=activity.getEndWeek();
+            long weeks = activity.calculateWeeks();// currently weeks are only calculated when this is called.
+            int start = activity.getStartWeek();
+            int end = activity.getEndWeek();
 
             // stores all the info in the report string
             report.append("- ").append(activity.getName()).append(":\n")
                     .append("       ").append(logged).append(" hours logged\n")
                     .append("       ").append(remaining).append(" hours remaining\n")
-                    .append("       ").append(start+"-"+end).append(" WeekPlan\n")
+                    .append("       ").append(start + "-" + end).append(" WeekPlan\n")
                     .append("       ").append(weeks).append(" Total Weeks\n")
                     .append("       ").append(String.format("%.2f", completion)).append("% complete\n");
 
@@ -171,6 +170,9 @@ public class Project {
     public void removeActivity(String activityName) throws Exception {
         try {
             Activity activityToRemove = findActivity(activityName);
+            for (Employee employee : activityToRemove.getEmployees()) {
+                employee.unAssignActivity(activityToRemove);
+            }
             activities.remove(activityToRemove);
         } catch (Exception e) {
             throw new Exception("Activity not found");
