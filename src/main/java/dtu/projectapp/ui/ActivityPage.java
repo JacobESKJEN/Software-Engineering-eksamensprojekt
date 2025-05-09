@@ -13,10 +13,9 @@ import javafx.scene.layout.VBox;
 public class ActivityPage implements Page {
     private Scene scene;
     private BorderPane root;
-    private ListView projectListView;
-    private Button addProjectButton;
     private Button homePageButton;
 
+    private Button availableEmployeesButton;
     private Button addEmployeeButton;
     private Button removeEmployeeButton;
     VBox vbox = new VBox();
@@ -32,14 +31,15 @@ public class ActivityPage implements Page {
         root.setTop(topHbox);
 
         // addProjectButton = new Button("Add project"); //is this used?
-        // root.setCenter(addProjectButton); 
+        // root.setCenter(addProjectButton);
 
         addEmployeeButton = new Button("Add Employee");
         removeEmployeeButton = new Button("Remove Employee");
+        availableEmployeesButton = new Button("Find available employees");
 
         HBox hboxReports = new HBox();
         hboxReports.setAlignment(Pos.BASELINE_LEFT);
-        hboxReports.getChildren().addAll(addEmployeeButton, removeEmployeeButton);
+        hboxReports.getChildren().addAll(addEmployeeButton, removeEmployeeButton, availableEmployeesButton);
 
         vbox.getChildren().add(hboxReports);
 
@@ -48,6 +48,10 @@ public class ActivityPage implements Page {
 
     public Button getHomePageButton() {
         return homePageButton;
+    }
+
+    public Button getAvailableEmployeesButton() {
+        return availableEmployeesButton;
     }
 
     @Override

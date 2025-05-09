@@ -40,6 +40,8 @@ public class Employee {
                 activitiesDuringInterval++;
             } else if (activity.getEndWeek() >= startWeek && activity.getEndWeek() <= endWeek) {
                 activitiesDuringInterval++;
+            } else if (activity.getStartWeek() < startWeek && activity.getEndWeek() > endWeek) {
+                activitiesDuringInterval++;
             }
         }
 

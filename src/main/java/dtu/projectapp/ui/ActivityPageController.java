@@ -77,6 +77,16 @@ public class ActivityPageController implements PageController {
             }
         });
 
+        activityPage.getAvailableEmployeesButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                AvailableEmployeesDialog availableEmployeesDialog = new AvailableEmployeesDialog();
+                availableEmployeesDialog
+                        .resetDialog(projectApp.getAvailableEmployees(project.findActivity(activityName)));
+                availableEmployeesDialog.showAndWait();
+            }
+        });
+
     }
 
     @Override

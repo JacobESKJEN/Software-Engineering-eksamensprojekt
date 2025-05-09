@@ -140,6 +140,18 @@ public class ProjectApp {
         return availableEmployees;
     }
 
+    public List<Employee> getAvailableEmployees(Activity activity) {
+        activity.calculateWeeks();
+        List<Employee> employeesWithTime = getAvailableEmployees(activity.getStartWeek(), activity.getEndWeek());
+        List<Employee> availableEmployees = new ArrayList<>();
+        for (Employee employee : employeesWithTime) {
+            if (!employee.getActivities().contains(activity)) {
+                availableEmployees.add(employee);
+            }
+        }
+        return availableEmployees;
+    }
+
     public List<Project> getProjects() {
         return projects;
     }

@@ -26,6 +26,7 @@ public class Activity {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
+        calculateWeeks();
         this.budgetedTime = budgetedTime;
     }
 

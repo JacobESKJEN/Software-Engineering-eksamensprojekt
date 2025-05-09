@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
@@ -21,12 +22,12 @@ public class FindAvailableEmployee {
         this.errorMessageHolder = errorMessageHolder;
     }
 
-    @Given("the project {string} has {int} activities")
-    public void theProjectHasActivities(String string, Integer int1) {
+    @Given("the project {string} has {int} activities between {string} and {string}")
+    public void theProjectHasActivities(String string, Integer int1, String string2, String string3) {
         Project project = projectApp.findProject(string);
         for (int i = 0; i < int1; i++) {
-            project.addActivity(
-                    new Activity("" + i, LocalDate.parse("2024-04-20"), LocalDate.parse("2024-05-20"), 100));
+            Activity activity = new Activity("" + i, LocalDate.parse(string2), LocalDate.parse(string3), 100);
+            project.addActivity(activity);
         }
     }
 
@@ -63,5 +64,42 @@ public class FindAvailableEmployee {
     @Then("the list of available employees is empty")
     public void theListOfAvailableEmployeesIsEmpty() {
         assertTrue(availableEmployees.isEmpty());
+    }
+
+    @Then("the employee with id {string} is not in the list of available employees")
+    public void theEmployeeWithIdIsNotInTheListOfAvailableEmployees(String string) {
+        boolean containsEmployee = false;
+
+        for (Employee employee : availableEmployees) {
+            if (employee.getId().equals(string)) {
+                containsEmployee = true;
+                break;
+            }
+        }
+
+        assertFalse(containsEmployee);
+    }
+
+    @When("a project leader checks for available employees for activity {string} with start date {string}, end date {string}, and budgeted time {int}")
+    public void aProjectLeaderChecksForAvailableEmployeesForActivityWithStartDateEndDateAndBudgetedTime(String string,
+            String string2, String string3, Integer int1) {
+        try {
+            Activity activity = new Activity(string,
+                    LocalDate.parse(string2),
+                    LocalDate.parse(string3),
+                    int1);
+
+            availableEmployees = projectApp.getAvailableEmployees(activity);
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
+    @When("a project leader checks for available employees for activity at index {int} for project {string}")
+    public void aProjectLeaderChecksForAvailableEmployeesForActivityAtIndexForProject(Integer int1, String string) {
+        Project project = projectApp.findProject(string);
+        Activity activity = project.getActivities().get(int1);
+
+        availableEmployees = projectApp.getAvailableEmployees(activity);
     }
 }
