@@ -77,7 +77,7 @@ public class Project {
                 if (activities.contains(activity)) {
                     report.append("   - ").append(activity.getName()).append(": ").append(hours).append(" hours\n");
                     totalHours += hours;
-                }
+}
             }
 
             report.append("    Total: ").append(totalHours).append(" hours\n\n");
