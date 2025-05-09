@@ -22,13 +22,20 @@ public class Employee {
         return activitiesAssigned;
     }
 
-    public void logWork(Activity activity, double hours) { // tracks hours worked per activity
-        hoursPerActivity.put(activity, hoursPerActivity.getOrDefault(activity, 0.0) + hours); // the Map is updated with
-                                                                                              // the activity as a key
-                                                                                              // and the hours worked as
-                                                                                              // a value
-        activity.setLoggedHours((hours));
+    public void logWork(Activity activity, double hours) {
+    if (!activity.getEmployees().contains(this)) {
+        try {
+            activity.addEmployeeToActivity(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    hoursPerActivity.put(activity, hoursPerActivity.getOrDefault(activity, 0.0) + hours);
+
+    
+    activity.setLoggedHours(hours);
+}
 
     public double getTotalWork() {
         double total = 0;

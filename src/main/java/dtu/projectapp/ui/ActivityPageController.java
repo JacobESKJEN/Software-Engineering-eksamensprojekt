@@ -3,6 +3,7 @@ package dtu.projectapp.ui;
 import java.beans.PropertyChangeListener;
 
 import dtu.projectapp.model.Activity;
+import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
 import javafx.event.ActionEvent;
@@ -77,7 +78,26 @@ public class ActivityPageController implements PageController {
             }
         });
 
-    }
+        activityPage.getLogWorkButton().setOnAction(evt -> {
+        LogWorkDialog logWorkDialog = new LogWorkDialog((Stage) activityPage.getScene().getWindow());
+        logWorkDialog.showAndWait();
+
+        if (logWorkDialog.getResult() == ButtonType.OK) {
+            try {
+                String employeeId = logWorkDialog.getEmployeeId();
+                double hours = logWorkDialog.getEmployeeHours();
+
+                Employee employee = projectApp.findEmployee(employeeId);
+
+                employee.logWork(activity, hours);
+                System.out.println("Logged " + hours + " hours for " + employee.getId());
+                System.out.println(employee.getHoursWorkedPerActivity());
+            } catch (Exception e) {
+                ErrorDialog.showExceptionDialog(e);
+            }
+        }});
+
+    }   
 
     @Override
     public Scene getScene() {
