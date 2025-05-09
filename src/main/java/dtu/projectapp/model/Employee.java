@@ -31,6 +31,7 @@ public class Employee {
         }
     }
 
+    
     hoursPerActivity.put(activity, hoursPerActivity.getOrDefault(activity, 0.0) + hours);
 
     
