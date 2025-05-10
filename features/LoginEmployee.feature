@@ -22,3 +22,9 @@ Feature: Log in employee
     Given there is an employee with id "1"
     When the user logs out
     Then the error message "Not possible to log out" is given
+
+  Scenario: Logged in employee adds employee to list of employees
+    Given there is an employee with id "1"
+    And the user logged in with id "1"
+    When the user adds employee with id "2"
+    Then the employee with id "2" is in the list of employees

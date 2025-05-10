@@ -59,7 +59,10 @@ public class ProjectApp {
         projects = list;
     }
 
-    public void addEmployee(Employee emp) {
+    public void addEmployee(Employee emp) throws Exception {
+        if (employees.contains(emp)) {
+            throw new Exception("Employee already exists!");
+        }
         employees.add(emp);
     }
 

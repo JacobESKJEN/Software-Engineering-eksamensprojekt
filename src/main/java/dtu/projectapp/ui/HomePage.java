@@ -19,6 +19,7 @@ public class HomePage implements Page {
     private ListView projectListView;
     private Button addProjectButton;
     private Button logOutButton;
+    private Button addEmployeeButton;
 
     private HomePageObserver observer = new HomePageObserver(this);
 
@@ -30,8 +31,9 @@ public class HomePage implements Page {
         root.setRight(projectListView);
 
         logOutButton = new Button("Log out");
+        addEmployeeButton = new Button("Add new employee");
         HBox topHbox = new HBox();
-        topHbox.getChildren().add(logOutButton);
+        topHbox.getChildren().addAll(logOutButton, addEmployeeButton);
         root.setLeft(topHbox);
 
         addProjectButton = new Button("Add project");
@@ -40,6 +42,10 @@ public class HomePage implements Page {
 
     public ListView getProjectListView() {
         return projectListView;
+    }
+
+    public Button getAddEmployeeButton() {
+        return addEmployeeButton;
     }
 
     public Button getAddProjectButton() {

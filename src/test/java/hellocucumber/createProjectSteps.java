@@ -28,13 +28,7 @@ public class createProjectSteps {
     @Given("there is an employee with id {string}")
     public void thereIsAnEmployeeWithId(String string) {
         emp = new Employee(string);
-        projectApp.addEmployee(emp);
-    }
-
-    @Given("there is an employee with id {string} and password {string}")
-    public void thereIsAnEmployeeWithId(String string1, String pass) {
-        emp = new Employee(string1);
-        projectApp.addEmployee(emp);
+        projectApp.getEmployees().add(emp);
     }
 
     @When("an employee creates a new project with name {string}")

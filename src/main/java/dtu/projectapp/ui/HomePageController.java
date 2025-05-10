@@ -2,6 +2,7 @@ package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeListener;
 
+import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.ProjectApp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +14,7 @@ public class HomePageController implements PageController {
     private ProjectApp projectApp;
     private App app;
     private CreateProjectDialog createProjectDialog;
+    private AddEmployeeDialog addEmployeeDialog;
 
     public HomePageController(ProjectApp projectApp, App app) {
         homePage = new HomePage();
@@ -20,6 +22,7 @@ public class HomePageController implements PageController {
         this.app = app;
 
         createProjectDialog = new CreateProjectDialog();
+        addEmployeeDialog = new AddEmployeeDialog();
 
         homePage.updateProjects(projectApp.getProjects());
 
@@ -55,6 +58,18 @@ public class HomePageController implements PageController {
                 try {
                     projectApp.logout();
                     app.newPage(new LogInPageController(projectApp, app));
+                } catch (Exception e) {
+                    ErrorDialog.showExceptionDialog(e);
+                }
+            }
+        });
+
+        homePage.getAddEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                String employeeId = addEmployeeDialog.getResult();
+                try {
+                    projectApp.addEmployee(new Employee(employeeId));
                 } catch (Exception e) {
                     ErrorDialog.showExceptionDialog(e);
                 }

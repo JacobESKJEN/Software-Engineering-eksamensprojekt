@@ -1,6 +1,7 @@
 package hellocucumber;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.ProjectApp;
@@ -48,5 +49,28 @@ public class LoginEmployeeSteps {
     @Then("there is no current logged in user")
     public void thereIsNoCurrentLoggedInUser() {
         assertEquals(projectApp.getLoggedInEmployee(), null);
+    }
+
+    @When("the user adds employee with id {string}")
+    public void theUserAddsEmployeeWithId(String string) {
+        try {
+            projectApp.addEmployee(new Employee(string));
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(string);
+        }
+
+    }
+
+    @Then("the employee with id {string} is in the list of employees")
+    public void theEmployeeWithIdIsInTheListOfEmployees(String string) {
+        boolean containsEmployee = false;
+        for (Employee employee : projectApp.getEmployees()) {
+            if (employee.getId().equals(string)) {
+                containsEmployee = true;
+                break;
+            }
+        }
+
+        assertTrue(containsEmployee);
     }
 }
