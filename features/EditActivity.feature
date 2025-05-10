@@ -103,3 +103,8 @@ Actors: Project leader
   #   And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-01", and budgeted time 100
   #   When the project leader checks the weeks till completion of "Design"
   #   Then the system returns the message "Activity needs completion"
+<<<<<<< HEAD
+    
+  # Scenario: Activity is not in 30 min interval
+=======
+>>>>>>> c3b04c6f4adf3922f01688cf2ae3f56f329721c7

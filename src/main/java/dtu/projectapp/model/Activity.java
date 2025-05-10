@@ -1,13 +1,8 @@
 package dtu.projectapp.model;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class Activity {
     private String name;
@@ -15,18 +10,18 @@ public class Activity {
     private LocalDate endDate;
     private int startWeek;
     private int endWeek;
-    private double budgetedTime; // expected hours worked
-    private double hoursWorked = 0; // total hours worked
+    private int startYear;
+    private int endYear;
+    private double budgetedTime;               // expected hours worked
+    private double hoursWorked = 0;            // total hours worked
     private List<Employee> employees = new ArrayList<>();
 
-    public Activity(String name, LocalDate startDate, LocalDate endDate, double budgetedTime) {
-        if (endDate.isBefore(startDate)) {
-            throw new IllegalArgumentException("End date must be after start date");
-        }
+    public Activity(String name, int startWeek, int endWeek, int startYear, int endYear, double budgetedTime) {
         this.name = name;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        calculateWeeks();
+        this.startWeek = startWeek;
+        this.endWeek = endWeek;
+        this.startYear = startYear;
+        this.endYear = endYear;
         this.budgetedTime = budgetedTime;
     }
 
@@ -38,47 +33,43 @@ public class Activity {
         return name;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) throws IllegalArgumentException {
-        if (endDate.isBefore(this.startDate)) {
-            throw new IllegalArgumentException("End date must be after start date");
-        }
-        this.endDate = endDate;
-    }
-
-    public long calculateWeeks() {
-        LocalDate startWeek = startDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        LocalDate endWeek = endDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-
-        // Calculate the number of weeks between the start and end weeks
-        long weeksBetween = ChronoUnit.WEEKS.between(startWeek, endWeek);
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
-
-        System.out.println("Start Week: " + startWeek.get(weekFields.weekOfWeekBasedYear()));
-        System.out.println("End Week: " + endWeek.get(weekFields.weekOfWeekBasedYear()));
-        System.out.println("Number of Weeks: " + weeksBetween);
-
-        this.startWeek = startWeek.get(weekFields.weekOfWeekBasedYear());
-        this.endWeek = endWeek.get(weekFields.weekOfWeekBasedYear());
-
-        return weeksBetween;
-    }
-
     public int getStartWeek() {
         return startWeek;
     }
-
+    public int getStartYear() {
+        return startYear;
+    }
     public int getEndWeek() {
         return endWeek;
     }
+    public int getEndYear() {
+        return endYear;
+    }
 
+    public void setEndDate(int endDate, int endyear) throws IllegalArgumentException {
+        if (endyear < startYear) {
+            throw new IllegalArgumentException("End year must be greater than or equal to start year.");
+        } else if (endyear >= startYear && endDate < startWeek) {
+            throw new IllegalArgumentException("End week must be greater than or equal to start week.");
+        }
+        this.endWeek = endDate;
+        this.endYear = endyear;
+    }
+
+    public long calculateWeeks() {
+        // Calculate the number of weeks between the start and end weeks
+        long weeksBetween = 0;
+        if (startYear == endYear) {
+            weeksBetween = endWeek - startWeek; 
+        } else {
+            int startTotalWeeks = startYear * 53 + startWeek;
+            int endTotalWeeks = endYear * 53 + endWeek;
+            weeksBetween= endTotalWeeks - startTotalWeeks;
+        }
+        return weeksBetween;
+    }
+    
+    
     public double getBudgetedTime() {
         return budgetedTime;
     }
@@ -111,7 +102,7 @@ public class Activity {
     public List<Employee> getEmployees() {
         return employees;
     }
-
+    
     public void addEmployeeToActivity(Employee employee) throws Exception {
         if (employee == null) {
             throw new Exception("No such employee exists");
