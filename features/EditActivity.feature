@@ -5,7 +5,7 @@ Actors: Project leader
   Scenario: Add member to Activity
     Given a project exists
     And signed-in as Project leader
-    And there exists an activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-01", and budgeted time 100
+    And there exists an activity with the name "Requirements Specification", start week "3", end week "4", start year "2025", end year "2025" and budgeted time 100
     And the activity "Requirements Specification" has no members
     And there is an employee with id "id3"
     When the project leader adds employee with id "id3" to the activity "Requirements Specification"
@@ -15,7 +15,7 @@ Actors: Project leader
   Scenario: Fails to Add member to Activity
     Given a project exists
     And signed-in as Project leader
-    And there exists an activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-01", and budgeted time 100
+    And there exists an activity with the name "Requirements Specification", start week "3", end week "4", start year "2025", end year "2025" and budgeted time 100   
     And the activity "Requirements Specification" has no members
     And there is an employee with id "id1"
     When the project leader adds employee with id "id3" to the activity "Requirements Specification"
@@ -25,7 +25,7 @@ Actors: Project leader
     Given a project exists
     And signed-in as Project leader
     And there is an employee with id "id3"
-    And I create a new activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    And there exists an activity with the name "Requirements Specification", start week "3", end week "4", start year "2025", end year "2025" and budgeted time 100  
     When the project leader adds employee with id "id3" to the activity "Requirements Specification"
     And the project leader removes employee with "id3" from the activity
     Then the activity "Requirements Specification" has no members
@@ -34,7 +34,7 @@ Actors: Project leader
   Scenario: Fails to Remove member from Activity
     Given a project exists
     And signed-in as Project leader
-    And there exists an activity with the name "Requirements Specification", start date "2025-03-01", end date "2025-04-01", and budgeted time 100
+    And there exists an activity with the name "Requirements Specification", start week "3", end week "4", start year "2025", end year "2025" and budgeted time 100
     And the activity "Requirements Specification" has no members
     When the project leader removes employee with "id3" from the activity
     Then the error message "No such employee assigned to activity" is given
@@ -42,29 +42,29 @@ Actors: Project leader
   Scenario: Update activity time estimate
     Given a project exists
     And signed-in as Project leader
-    And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    And there exists an activity with the name "Design", start week "3", end week "4", start year "2025", end year "2025" and budgeted time 100
     When the project leader updates the time estimate of "Design" to budgeted time of 50
     Then the system reflects the new estimate: of 50.0
 
   Scenario: Update activity time fails
     Given a project exists
     And signed-in as Project leader
-    And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    And there exists an activity with the name "Design", start week "3", end week "4", start year "2025", end year "2025" and budgeted time 100
     When the project leader updates the time estimate of "Design" to budgeted time of -1
     Then the error message "time out of bounds" is given
 
   Scenario: Rename an activity
     Given a project exists
     And signed-in as Project leader
-    And I create a new activity with the name "Programming", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    And there exists an activity with the name "Programming", start week "3", end week "4", start year "2025", end year "2025" and budgeted time 100
     When the project leader renames "Programming" to "UI Programming"
     Then the system updates the activity name
 
   Scenario: Extend an activity's deadline
     Given a project exists
     And signed-in as Project leader
-    And I create a new activity with the name "NewYear", start date "2025-12-31", end date "2025-12-31", and budgeted time 1
-    When the project leader extends the deadline to new "2026-01-01"
+    And there exists an activity with the name "NewYear", start week "52", end week "52", start year "2025", end year "2025" and budgeted time 100
+    When the project leader extends the deadline to: end week "1", end year "52"
     Then the system updates the activity deadline
 
   Scenario: Edit an activity that does not exist
@@ -77,7 +77,7 @@ Actors: Project leader
   Scenario: Remove Activity
     Given a project exists
     And signed-in as Project leader
-    And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    And there exists an activity with the name "Design", start week "51", end week "52", start year "2025", end year "2025" and budgeted time 100
     And there is an employee with id "id3"
     When the project leader adds employee with id "id3" to the activity "Design"
     And the project leader removes the activity "Design"
@@ -87,24 +87,27 @@ Actors: Project leader
   Scenario: Fails to Remove Activity
     Given a project exists
     And signed-in as Project leader
-    And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    And there exists an activity with the name "Design", start week "51", end week "52", start year "2025", end year "2025" and budgeted time 100
     When the project leader removes the activity "misspellDisign"
     Then the error message "Activity not found" is given
 
   Scenario: Activity Calulates Weeks till Completion
     Given a project exists
     And signed-in as Project leader
-    And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-31", and budgeted time 100
+    And there exists an activity with the name "Design", start week "51", end week "52", start year "2025", end year "2025" and budgeted time 100
     When the project leader checks the weeks till completion of "Design"
     Then the system returns the number of weeks till completion: 4 weeks
-  # Scenario: Activity Needs Completion
-  #   Given a project exists
-  #   And signed-in as Project leader
-  #   And I create a new activity with the name "Design", start date "2025-03-01", end date "2025-03-01", and budgeted time 100
-  #   When the project leader checks the weeks till completion of "Design"
-  #   Then the system returns the message "Activity needs completion"
-<<<<<<< HEAD
-    
-  # Scenario: Activity is not in 30 min interval
-=======
->>>>>>> c3b04c6f4adf3922f01688cf2ae3f56f329721c7
+  Scenario: Activity Needs Completion
+    Given a project exists
+    And signed-in as Project leader
+    And there exists an activity with the name "Design", start week "51", end week "52", start year "2025", end year "2025" and budgeted time 100
+    When the project leader checks the weeks till completion of "Design"
+    Then the system returns the message "Activity needs completion"
+
+#below are the scenarioes for spacial activity
+  Scenario: Extend an activity's deadline
+    Given a project exists
+    And signed-in as Project leader
+    And I create a new activity with the name "NewYear", start date "2025-12-31", end date "2025-12-31", and budgeted time 1
+    When the project leader extends the deadline to new "2026-01-01"
+    Then the system updates the activity deadline
