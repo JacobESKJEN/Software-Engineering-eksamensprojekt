@@ -1,7 +1,6 @@
 package dtu.projectapp.model;
 
 import java.time.LocalDate;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +28,7 @@ public class Activity {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getName() {
         return name;
     }
@@ -56,18 +56,24 @@ public class Activity {
         this.endYear = endyear;
     }
 
-    private static LocalDate weekToDate(int year, int weekNumber) {
-        if (weekNumber < 1 || weekNumber > 53) {
-            throw new IllegalArgumentException("Week number must be between 1 and 53");
+    public long calculateWeeks() {
+        // Calculate the number of weeks between the start and end weeks
+        long weeksBetween = 0;
+        if (startYear == endYear) {
+            weeksBetween = endWeek - startWeek; 
+        } else {
+            int startTotalWeeks = startYear * 53 + startWeek;
+            int endTotalWeeks = endYear * 53 + endWeek;
+            weeksBetween= endTotalWeeks - startTotalWeeks;
         }
-        return LocalDate.of(year, 1, 4)  // The 4th Jan is always in week 1 of ISO
-                .with(WeekFields.ISO.weekOfWeekBasedYear(), weekNumber)
-                .with(WeekFields.ISO.dayOfWeek(), 1);
+        return weeksBetween;
     }
+    
     
     public double getBudgetedTime() {
         return budgetedTime;
     }
+
     public void setBudgetedTime(double budgeted) throws Exception {
         if (budgeted < 0) {
             throw new Exception("time out of bounds");
@@ -75,23 +81,24 @@ public class Activity {
         this.budgetedTime = budgeted;
     }
 
-    public void setLoggedHours(double hours){       //sums the hours the empoloyee loggs
+    public void setLoggedHours(double hours) { // sums the hours the empoloyee loggs
         this.hoursWorked += hours;
     }
 
-    public double getHoursWorked(){
+    public double getHoursWorked() {
         return hoursWorked;
     }
 
     public double getCompletionPercentage() {
-        if (budgetedTime == 0) return 0;            // safety, no dividing by 0
+        if (budgetedTime == 0)
+            return 0; // safety, no dividing by 0
         return (hoursWorked / budgetedTime) * 100;
     }
 
-
-    public double getRemainingHours(){
+    public double getRemainingHours() {
         return budgetedTime - hoursWorked;
     }
+
     public List<Employee> getEmployees() {
         return employees;
     }
@@ -99,17 +106,21 @@ public class Activity {
     public void addEmployeeToActivity(Employee employee) throws Exception {
         if (employee == null) {
             throw new Exception("No such employee exists");
-        }else if (employees.contains(employee)) {
+        } else if (employees.contains(employee)) {
             throw new Exception("Employee already assigned to activity");
-        } 
+        }
+        employee.assignActivity(this);
         employees.add(employee);
     }
+
     public void removeEmployee(Employee employee) throws Exception {
         if (!employees.contains(employee)) {
             throw new Exception("No such employee assigned to activity");
         }
+        employee.unAssignActivity(this);
         employees.remove(employee);
     }
+
     public int getEmployeesAmount() {
         return employees.size();
     }
