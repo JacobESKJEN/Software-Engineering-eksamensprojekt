@@ -77,7 +77,7 @@ public class Project {
                 if (activities.contains(activity)) {
                     report.append("   - ").append(activity.getName()).append(": ").append(hours).append(" hours\n");
                     totalHours += hours;
-}
+                }
             }
 
             report.append("    Total: ").append(totalHours).append(" hours\n\n");
@@ -111,7 +111,8 @@ public class Project {
             double logged = activity.getHoursWorked();
             double remaining = activity.getRemainingHours();
             double completion = activity.getCompletionPercentage();
-            long weeks = activity.calculateWeeks();// currently weeks are only calculated when this is called.
+            long weeks = WeekYearConversions.calculateWeeksBetween(activity.getStartWeek(), activity.getEndWeek(),
+                    activity.getStartYear(), activity.getEndYear());
             int start = activity.getStartWeek();
             int end = activity.getEndWeek();
 
@@ -152,41 +153,35 @@ public class Project {
         return activities;
     }
 
-    public void createActivity(String activityName, int date, int date2, int year, int year2, double i) throws Exception {
+    public void createActivity(String activityName, int date, int date2, int year, int year2, double i)
+            throws Exception {
         if (!(i % 0.5 == 0)) {
             throw new Exception("Time must be in 30 min intervals");
-        }
-        else if (findActivity(activityName) != null) {
+        } else if (findActivity(activityName) != null) {
             throw new Exception("Activity already exists");
         }
-        else if (date < 0 || date > 53 || date2 < 0 || date2 > 53) {
-            throw new Exception("Week must be between 1 and 52");
+        try {
+            Activity activity = new Activity(activityName, date, date2, year, year2, i);
+            activities.add(activity);
+        } catch (Exception e) {
+            throw e;
         }
-        else if (date2 < date) {
-            throw new Exception("End week must be greater than or equal to start week.");
-        }
-        Activity activity = new Activity(activityName, date, date2, year, year2, i);
-        activities.add(activity);
     }
 
     public void createSpecialActivity(String activityName, String date, String date2, double i) throws Exception {
         if (!(i % 0.5 == 0)) {
             throw new Exception("Time must be in 30 min intervals");
-        }
-        else if (findActivity(activityName) != null) {
+        } else if (findActivity(activityName) != null) {
             throw new Exception("Activity already exists");
-        }
-        else if (date == null || date2 == null) {
+        } else if (date == null || date2 == null) {
             throw new Exception("Date cannot be null");
-        }
-        else if (LocalDate.parse(date).isBefore(LocalDate.now())) {
+        } else if (LocalDate.parse(date).isBefore(LocalDate.now())) {
             throw new Exception("Start date cant be in the past");
-        }
-        else if (LocalDate.parse(date).isAfter(LocalDate.parse(date2))) {
+        } else if (LocalDate.parse(date).isAfter(LocalDate.parse(date2))) {
             throw new Exception("End date must be after start date");
         }
-        
-        SpecialActivity activity = new SpecialActivity(activityName,LocalDate.parse(date),LocalDate.parse(date2),i);
+
+        SpecialActivity activity = new SpecialActivity(activityName, LocalDate.parse(date), LocalDate.parse(date2), i);
         activities.add(activity);
     }
 

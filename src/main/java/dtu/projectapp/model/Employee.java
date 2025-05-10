@@ -33,14 +33,21 @@ public class Employee {
         return activities;
     }
 
-    public boolean isAvailableBetweenWeeks(int startWeek, int endWeek) {
+    public boolean isAvailableBetweenWeeks(int startWeek, int endWeek, int startYear, int endYear) {
         int activitiesDuringInterval = 0;
         for (Activity activity : activities) {
-            if (activity.getStartWeek() >= startWeek && activity.getStartWeek() <= endWeek) {
-                activitiesDuringInterval++;
-            } else if (activity.getEndWeek() >= startWeek && activity.getEndWeek() <= endWeek) {
-                activitiesDuringInterval++;
-            } else if (activity.getStartWeek() < startWeek && activity.getEndWeek() > endWeek) {
+            int activityStartTotalWeeks = WeekYearConversions.totalWeeks(activity.getStartWeek(),
+                    activity.getStartYear());
+            int activityEndTotalWeeks = WeekYearConversions.totalWeeks(activity.getEndWeek(), activity.getEndYear());
+            int startTotalWeeks = WeekYearConversions.totalWeeks(startWeek, startYear);
+            int endTotalWeeks = WeekYearConversions.totalWeeks(endWeek, endYear);
+
+            boolean activityWithinInterval = (activityStartTotalWeeks >= startTotalWeeks
+                    && activityStartTotalWeeks <= endTotalWeeks) ||
+                    (activityEndTotalWeeks >= startTotalWeeks && activityEndTotalWeeks <= endTotalWeeks) ||
+                    (activityStartTotalWeeks <= startTotalWeeks && activityEndTotalWeeks >= endTotalWeeks);
+
+            if (activityWithinInterval) {
                 activitiesDuringInterval++;
             }
         }
@@ -49,20 +56,18 @@ public class Employee {
     }
 
     public void logWork(Activity activity, double hours) {
-    if (!activity.getEmployees().contains(this)) {
-        try {
-            activity.addEmployeeToActivity(this);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!activity.getEmployees().contains(this)) {
+            try {
+                activity.addEmployeeToActivity(this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+        hoursPerActivity.put(activity, hoursPerActivity.getOrDefault(activity, 0.0) + hours);
+
+        activity.setLoggedHours(hours);
     }
-
-    
-    hoursPerActivity.put(activity, hoursPerActivity.getOrDefault(activity, 0.0) + hours);
-
-    
-    activity.setLoggedHours(hours);
-}
 
     public double getTotalWork() {
         double total = 0;

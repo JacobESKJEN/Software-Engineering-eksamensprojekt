@@ -37,37 +37,6 @@ public class ProjectApp {
             throw new Exception("Invalid login");
         }
     }
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("project")) {
-            List<Project> prevProjects = new ArrayList<Project>();
-            prevProjects.addAll(projects);
-            try {
-                createProject(evt.getNewValue().toString());
-                support.firePropertyChange("Projects", prevProjects, projects);
-            } catch (Exception e) {
-                System.out.println("Test");
-                support.firePropertyChange("Exception", null, e.getMessage());
-            }
-        } else if (evt.getPropertyName().equals("Login request")) {
-            LogInPage logInPage = (LogInPage) evt.getSource();
-            try {
-                // login(logInPage.getIdInput(), logInPage.getPasswordInput());
-            } catch (Exception e) {
-                support.firePropertyChange("Exception", null, e.getMessage());
-            }
-        } else if (evt.getPropertyName().equals("SetProjectLeader")) {
-            Employee employee = findEmployee((String) evt.getNewValue());
-            Project project = (Project) evt.getOldValue();
-            try {
-                project.setProjectLeader(loggedInEmployee, employee);
-                support.firePropertyChange("ProjectLeaderChanged", null, project.getProjectLeader().getId());
-            } catch (Exception e) {
-                System.out.println("Project leader changed exception");
-                support.firePropertyChange("Exception", null, e.getMessage());
-            }
-        }
-    }
-
 
     public void logout() throws Exception {
         if (loggedInEmployee == null) {
@@ -135,7 +104,8 @@ public class ProjectApp {
         }
     }
 
-    public void createActivity(String projectName, String activityName, int startDate, int  endDate,int year, int year2, double time)
+    public void createActivity(String projectName, String activityName, int startDate, int endDate, int year, int year2,
+            double time)
             throws Exception {
         Project project = findProject(projectName);
         if (project == null) {
@@ -149,16 +119,18 @@ public class ProjectApp {
 
     }
 
-    public void createSpecialActivity(String projectName, String activityName, String startDate, String endDate, double time) throws Exception {
+    public void createSpecialActivity(String projectName, String activityName, String startDate, String endDate,
+            double time) throws Exception {
         Project project = findProject(projectName);
         if (project == null) {
             throw new Exception("Project not found: " + projectName);
         }
 
         project.createSpecialActivity(activityName, startDate, endDate, time);
-        // Fire property change event to notify observers (could be specific to activities)
+        // Fire property change event to notify observers (could be specific to
+        // activities)
         support.firePropertyChange("New activity", null, project.getActivities());
-        
+
     }
 
     public void RemoveActivity(String projectName, String activityName) throws Exception {
@@ -174,10 +146,10 @@ public class ProjectApp {
 
     }
 
-    public List<Employee> getAvailableEmployees(int startWeek, int endWeek) {
+    public List<Employee> getAvailableEmployees(int startWeek, int endWeek, int startYear, int endYear) {
         List<Employee> availableEmployees = new ArrayList<>();
         for (Employee employee : employees) {
-            if (employee.isAvailableBetweenWeeks(startWeek, endWeek)) {
+            if (employee.isAvailableBetweenWeeks(startWeek, endWeek, startYear, endYear)) {
                 availableEmployees.add(employee);
             }
         }
@@ -185,8 +157,8 @@ public class ProjectApp {
     }
 
     public List<Employee> getAvailableEmployees(Activity activity) {
-        //activity.calculateWeeks(); // is this used?
-        List<Employee> employeesWithTime = getAvailableEmployees(activity.getStartWeek(), activity.getEndWeek());
+        List<Employee> employeesWithTime = getAvailableEmployees(activity.getStartWeek(), activity.getEndWeek(),
+                activity.getStartYear(), activity.getEndYear());
         List<Employee> availableEmployees = new ArrayList<>();
         for (Employee employee : employeesWithTime) {
             if (!employee.getActivities().contains(activity)) {

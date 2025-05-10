@@ -8,13 +8,13 @@ public class SpecialActivity extends Activity {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public SpecialActivity(String name, LocalDate startDate, LocalDate endDate, double hours) {
+    public SpecialActivity(String name, LocalDate startDate, LocalDate endDate, double hours) throws Exception {
         super(name,
-            startDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()),
-            endDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()),
-            startDate.getYear(),
-            endDate.getYear(),
-            hours);
+                startDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()),
+                endDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()),
+                startDate.getYear(),
+                endDate.getYear(),
+                hours);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -27,10 +27,4 @@ public class SpecialActivity extends Activity {
         return endDate;
     }
 
-    
 }
-
-   
-
-    
-

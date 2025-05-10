@@ -23,18 +23,25 @@ public class FindAvailableEmployee {
         this.errorMessageHolder = errorMessageHolder;
     }
 
-    // @Given("the project {string} has {int} activities between {string} and {string}")
-    // public void theProjectHasActivities(String string, Integer int1, String string2, String string3) {
-    //     Project project = projectApp.findProject(string);
-    //     for (int i = 0; i < int1; i++) {
-    //         Activity activity = new Activity("" + i, LocalDate.parse(string2), LocalDate.parse(string3), 100);
-    //         project.addActivity(activity);
-    //     }
-    // }
+    @Given("the project {string} has {int} activities between week {int} of year {int} and week {int} of year {int}")
+    public void theProjectHasActivities(String string, Integer int1, Integer int2, Integer int3, Integer int4,
+            Integer int5) {
+        Project project = projectApp.findProject(string);
+        for (int i = 0; i < int1; i++) {
+            try {
+                Activity activity = new Activity("" + i, int2, int4, int3, int5, 100);
+                project.addActivity(activity);
+            } catch (Exception e) {
+                errorMessageHolder.setErrorMessage(e.getMessage());
+            }
 
-    @When("a project leader checks for available employees between week {int} and week {int}")
-    public void aProjectLeaderChecksForAvailableEmployeesBetweenWeekAndWeek(Integer int1, Integer int2) {
-        availableEmployees = projectApp.getAvailableEmployees(int1, int2);
+        }
+    }
+
+    @When("a project leader checks for available employees between week {int} of year {int} and week {int} of year {int}")
+    public void aProjectLeaderChecksForAvailableEmployeesBetweenWeekAndWeek(Integer int1, Integer int2, Integer int3,
+            Integer int4) {
+        availableEmployees = projectApp.getAvailableEmployees(int1, int3, int2, int4);
     }
 
     @Then("the employee with id {string} is in the list of available employees")
@@ -81,20 +88,17 @@ public class FindAvailableEmployee {
         assertFalse(containsEmployee);
     }
 
-    // @When("a project leader checks for available employees for activity {string} with start date {string}, end date {string}, and budgeted time {int}")
-    // public void aProjectLeaderChecksForAvailableEmployeesForActivityWithStartDateEndDateAndBudgetedTime(String string,
-    //         String string2, String string3, Integer int1) {
-    //     try {
-    //         Activity activity = new Activity(string,
-    //                 LocalDate.parse(string2),
-    //                 LocalDate.parse(string3),
-    //                 int1);
+    @When("a project leader checks for available employees for activity {string} with start week {int}, start year {int}, end week {int}, end year {int}, and budgeted time {int}")
+    public void aProjectLeaderChecksForAvailableEmployeesForActivityWithStartDateEndDateAndBudgetedTime(String string,
+            Integer int1, Integer int2, Integer int3, Integer int4, Integer int5) {
+        try {
+            Activity activity = new Activity(string, int1, int3, int2, int4, int5);
 
-    //         availableEmployees = projectApp.getAvailableEmployees(activity);
-    //     } catch (Exception e) {
-    //         errorMessageHolder.setErrorMessage(e.getMessage());
-    //     }
-    // }
+            availableEmployees = projectApp.getAvailableEmployees(activity);
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
 
     @When("a project leader checks for available employees for activity at index {int} for project {string}")
     public void aProjectLeaderChecksForAvailableEmployeesForActivityAtIndexForProject(Integer int1, String string) {
