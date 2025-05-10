@@ -35,6 +35,8 @@ public class ProjectPage implements Page {
     private Button empStatusButton;
     private Button ETAReportButton;
     private Button addActivityButton;
+    private Button addSpecialActivityButton;
+    
     ProjectPageObserver observer = new ProjectPageObserver(this);
 
     public ProjectPage(Project project) {
@@ -65,6 +67,7 @@ public class ProjectPage implements Page {
         vbox.getChildren().add(setProjectLeaderButton);
 
         addActivityButton = new Button("Add Activity");
+        addSpecialActivityButton = new Button("Add Special Activity");
         removeActivityButton = new Button("Remove Activity");
         addEmployeeButton = new Button("Add Employee");
         removeEmployeeButton = new Button("Remove Employee");
@@ -75,7 +78,7 @@ public class ProjectPage implements Page {
         HBox hboxReports = new HBox();
         hboxReports.setAlignment(Pos.BASELINE_LEFT);
         hboxReports.getChildren().addAll(addEmployeeButton, empStatusButton, ETAReportButton, projectStatusButton,
-                addActivityButton, removeActivityButton);
+                addActivityButton, removeActivityButton,addSpecialActivityButton);
 
         vbox.getChildren().add(hboxReports);
 
@@ -110,6 +113,9 @@ public class ProjectPage implements Page {
 
     public Button getAddActivityButton() {
         return addActivityButton;
+    }
+    public Button getAddSpecialActivityButton() {
+        return addSpecialActivityButton;
     }
 
     public Button getProjectStatusButton() {

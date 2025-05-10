@@ -1,6 +1,7 @@
 package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeListener;
+import java.time.LocalDate;
 
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
@@ -76,6 +77,27 @@ public class ProjectPageController implements PageController {
                 }
             }
         });
+        // create special activity button //sick leave, vacation, etc.
+        projectPage.getAddSpecialActivityButton().setOnAction(event -> {
+            CreateSpecialActivityDialog dialog = new CreateSpecialActivityDialog((Stage) projectPage.getScene().getWindow());
+            dialog.showAndWait();
+            if (dialog.getResult() == ButtonType.OK) {
+                String activityName = dialog.getActivityName();
+                String startDate = dialog.getStartDate();
+                String endDate = dialog.getEndDate();
+                double activityHours = dialog.getActivityHours();
+                if (!activityName.equals("")) {
+                    try {
+                        String projectName = project.getName();
+                        projectApp.createSpecialActivity(projectName, activityName, startDate, endDate, activityHours);
+                        System.err.println("Activity created");
+
+                    } catch (Exception e) {
+                        ErrorDialog.showExceptionDialog(e);
+                    }
+                }
+            }
+        });
 
         // remove activity button
         projectPage.getRemoveActivityButton().setOnAction(event -> {
@@ -97,6 +119,7 @@ public class ProjectPageController implements PageController {
 
             }
         });
+        
         // set project leader button
         projectPage.getSetProjectLeaderButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override

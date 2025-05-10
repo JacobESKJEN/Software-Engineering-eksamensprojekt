@@ -18,9 +18,6 @@ public class Activity {
     private List<Employee> employees = new ArrayList<>();
 
     public Activity(String name, int startWeek, int endWeek, int startYear, int endYear, double budgetedTime) {
-        // if (!isValidActivity(startWeek, endWeek, startYear, endYear)) {
-        //     throw new IllegalArgumentException("Start week must be less than end week.");
-        // }
         this.name = name;
         this.startWeek = startWeek;
         this.endWeek = endWeek;
@@ -28,17 +25,6 @@ public class Activity {
         this.endYear = endYear;
         this.budgetedTime = budgetedTime;
     }
-
-    // private boolean isValidActivity(int startWeek, int endWeek, int startYear, int endYear) {
-        
-    //     // if (startYear < endYear) {
-    //     //     return true;
-    //     // } else if (startYear == endYear) {
-    //     //     return startWeek < endWeek; 
-    //     // } else {
-    //     //     return false;
-    //     // }
-    // }
 
     public void setName(String name) {
         this.name = name;
@@ -60,8 +46,6 @@ public class Activity {
         return endYear;
     }
 
- 
-    
     public void setEndDate(int endDate, int endyear) throws IllegalArgumentException {
         if (endyear < startYear) {
             throw new IllegalArgumentException("End year must be greater than or equal to start year.");
@@ -71,8 +55,6 @@ public class Activity {
         this.endWeek = endDate;
         this.endYear = endyear;
     }
-
-
 
     private static LocalDate weekToDate(int year, int weekNumber) {
         if (weekNumber < 1 || weekNumber > 53) {

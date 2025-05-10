@@ -147,6 +147,18 @@ public class ProjectApp implements PropertyChangeListener {
         support.firePropertyChange("New activity", null, project.getActivities());
 
     }
+    public void createSpecialActivity(String projectName, String activityName, String startDate, String endDate, double time) throws Exception {
+        Project project = findProject(projectName);
+        if (project == null) {
+            throw new Exception("Project not found: " + projectName);
+        }
+
+        project.createSpecialActivity(activityName, startDate, endDate, time);
+        // Fire property change event to notify observers (could be specific to activities)
+        support.firePropertyChange("New activity", null, project.getActivities());
+        
+    }
+
     public void RemoveActivity(String projectName, String activityName) throws Exception {
         Project project = findProject(projectName);
         if (project == null) {

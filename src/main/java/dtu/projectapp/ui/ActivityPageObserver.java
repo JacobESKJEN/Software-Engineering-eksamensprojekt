@@ -22,7 +22,7 @@ public class ActivityPageObserver implements PropertyChangeListener {
         }
         if (evt.getPropertyName().equals("Update Time")) {
             System.out.println(evt.getNewValue());
-            // ActivityPage.updateActivityTime((String) evt.getNewValue());
+            //ActivityPage.updateActivityTime((String) evt.getNewValue());
         }
     }
 

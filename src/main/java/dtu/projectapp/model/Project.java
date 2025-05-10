@@ -2,6 +2,7 @@ package dtu.projectapp.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -165,6 +166,27 @@ public class Project {
             throw new Exception("End week must be greater than or equal to start week.");
         }
         Activity activity = new Activity(activityName, date, date2, year, year2, i);
+        activities.add(activity);
+    }
+
+    public void createSpecialActivity(String activityName, String date, String date2, double i) throws Exception {
+        if (!(i % 0.5 == 0)) {
+            throw new Exception("Time must be in 30 min intervals");
+        }
+        else if (findActivity(activityName) != null) {
+            throw new Exception("Activity already exists");
+        }
+        else if (date == null || date2 == null) {
+            throw new Exception("Date cannot be null");
+        }
+        else if (LocalDate.parse(date).isBefore(LocalDate.now())) {
+            throw new Exception("Start date cant be in the past");
+        }
+        else if (LocalDate.parse(date).isAfter(LocalDate.parse(date2))) {
+            throw new Exception("End date must be after start date");
+        }
+        
+        SpecialActivity activity = new SpecialActivity(activityName,LocalDate.parse(date),LocalDate.parse(date2),i);
         activities.add(activity);
     }
 
