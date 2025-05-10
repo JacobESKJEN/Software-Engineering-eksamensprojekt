@@ -2,7 +2,6 @@ package dtu.projectapp.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -112,7 +111,7 @@ public class Project {
             double logged = activity.getHoursWorked();
             double remaining = activity.getRemainingHours();
             double completion = activity.getCompletionPercentage();
-            long weeks = activity.calculateWeeks();//currently weeks are only calculated when this is called.
+           
             int start=activity.getStartWeek(); 
             int end=activity.getEndWeek();
 
@@ -121,7 +120,6 @@ public class Project {
                     .append("       ").append(logged).append(" hours logged\n")
                     .append("       ").append(remaining).append(" hours remaining\n")
                     .append("       ").append(start+"-"+end).append(" WeekPlan\n")
-                    .append("       ").append(weeks).append(" Total Weeks\n")
                     .append("       ").append(String.format("%.2f", completion)).append("% complete\n");
 
             totalHoursLogged += logged;
@@ -153,8 +151,20 @@ public class Project {
         return activities;
     }
 
-    public void createActivity(String activityName, String date, String date2, int i) {
-        Activity activity = new Activity(activityName, LocalDate.parse(date), LocalDate.parse(date2), i);
+    public void createActivity(String activityName, int date, int date2, int year, int year2, double i) throws Exception {
+        if (!(i % 0.5 == 0)) {
+            throw new Exception("Time must be in 30 min intervals");
+        }
+        else if (findActivity(activityName) != null) {
+            throw new Exception("Activity already exists");
+        }
+        else if (date < 0 || date > 53 || date2 < 0 || date2 > 53) {
+            throw new Exception("Week must be between 1 and 52");
+        }
+        else if (date2 < date) {
+            throw new Exception("End week must be greater than or equal to start week.");
+        }
+        Activity activity = new Activity(activityName, date, date2, year, year2, i);
         activities.add(activity);
     }
 

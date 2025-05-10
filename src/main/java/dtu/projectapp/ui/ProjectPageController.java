@@ -59,13 +59,15 @@ public class ProjectPageController implements PageController {
 
             if (dialog.getResult() == ButtonType.OK) {
                 String activityName = dialog.getActivityName();
-                String startDate = dialog.getStartDate();
-                String endDate = dialog.getEndDate();
-                int activityHours = dialog.getActivityHours();
+                int startDate = dialog.getStartDate();
+                int endDate = dialog.getEndDate();
+                int startYear = dialog.getStartDate();
+                int endYear = dialog.getEndDate();
+                double activityHours = dialog.getActivityHours();
                 if (!activityName.equals("")) {
                     try {
                         String projectName = project.getName();
-                        projectApp.createActivity(projectName, activityName, startDate, endDate, activityHours);
+                        projectApp.createActivity(projectName, activityName, startDate, endDate,startYear,endYear, activityHours);
                         System.err.println("Activity created");
 
                     } catch (Exception e) {

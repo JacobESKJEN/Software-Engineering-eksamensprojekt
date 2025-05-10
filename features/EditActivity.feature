@@ -99,3 +99,4 @@ Actors: Project leader
   #   When the project leader checks the weeks till completion of "Design"
   #   Then the system returns the message "Activity needs completion"
     
+  # Scenario: Activity is not in 30 min interval

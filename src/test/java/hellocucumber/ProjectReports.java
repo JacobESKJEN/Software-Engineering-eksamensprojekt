@@ -1,6 +1,5 @@
 package hellocucumber;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,15 +44,15 @@ public class ProjectReports {
         }
     }
 
-    @And("the project {string} has activities {string} and {string}")
-    public void the_project_has_activities(String projectName, String activity1, String activity2) {
-        Activity a1 = new Activity(activity1, LocalDate.now(), LocalDate.now().plusDays(5), 10);
-        Activity a2 = new Activity(activity2, LocalDate.now(), LocalDate.now().plusDays(5), 10);
-        project.addActivity(a1);
-        project.addActivity(a2);
-        activityMap.put(activity1, a1);
-        activityMap.put(activity2, a2);
-    }
+    // @And("the project {string} has activities {string} and {string}")
+    // public void the_project_has_activities(String projectName, String activity1, String activity2) {
+    //     Activity a1 = new Activity(activity1, LocalDate.now(), LocalDate.now().plusDays(5), 10);
+    //     Activity a2 = new Activity(activity2, LocalDate.now(), LocalDate.now().plusDays(5), 10);
+    //     project.addActivity(a1);
+    //     project.addActivity(a2);
+    //     activityMap.put(activity1, a1);
+    //     activityMap.put(activity2, a2);
+    // }
 
     @And("employee {string} is added to the activity {string}")
     public void employee_added_to_activity(String empId, String activityName) {
