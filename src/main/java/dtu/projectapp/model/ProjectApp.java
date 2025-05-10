@@ -1,9 +1,12 @@
 package dtu.projectapp.model;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
+
+import dtu.projectapp.ui.LogInPage;
 
 public class ProjectApp {
     private List<Employee> employees;
@@ -34,6 +37,37 @@ public class ProjectApp {
             throw new Exception("Invalid login");
         }
     }
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("project")) {
+            List<Project> prevProjects = new ArrayList<Project>();
+            prevProjects.addAll(projects);
+            try {
+                createProject(evt.getNewValue().toString());
+                support.firePropertyChange("Projects", prevProjects, projects);
+            } catch (Exception e) {
+                System.out.println("Test");
+                support.firePropertyChange("Exception", null, e.getMessage());
+            }
+        } else if (evt.getPropertyName().equals("Login request")) {
+            LogInPage logInPage = (LogInPage) evt.getSource();
+            try {
+                // login(logInPage.getIdInput(), logInPage.getPasswordInput());
+            } catch (Exception e) {
+                support.firePropertyChange("Exception", null, e.getMessage());
+            }
+        } else if (evt.getPropertyName().equals("SetProjectLeader")) {
+            Employee employee = findEmployee((String) evt.getNewValue());
+            Project project = (Project) evt.getOldValue();
+            try {
+                project.setProjectLeader(loggedInEmployee, employee);
+                support.firePropertyChange("ProjectLeaderChanged", null, project.getProjectLeader().getId());
+            } catch (Exception e) {
+                System.out.println("Project leader changed exception");
+                support.firePropertyChange("Exception", null, e.getMessage());
+            }
+        }
+    }
+
 
     public void logout() throws Exception {
         if (loggedInEmployee == null) {

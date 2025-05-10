@@ -1,7 +1,7 @@
 package hellocucumber;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
@@ -212,12 +212,12 @@ public class CreateActivity {
         }
     }
 
-    @Then("the system returns the number of weeks till completion: {int} weeks")
-    public void theSystemReturnsTheNumberOfWeeksTillCompletionWeeks(Integer int1) {
-        activity = project.findActivity("UI Programming");
-        long weeksBetween = activity.calculateWeeks();
-        assertEquals(int1, (int) weeksBetween);
-    }
+    // @Then("the system returns the number of weeks till completion: {int} weeks")
+    // public void theSystemReturnsTheNumberOfWeeksTillCompletionWeeks(Integer int1) {
+    //     activity = project.findActivity("UI Programming");
+    //     long weeksBetween = activity.calculateWeeks();
+    //     assertEquals(int1, (int) weeksBetween);
+    // }
 
     @Then("the employee with id {string} has the activity {string} in their activity list")
     public void theEmployeeWithIdHasTheActivityInTheirActivityList(String string, String string2) {

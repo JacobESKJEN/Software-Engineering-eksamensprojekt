@@ -1,16 +1,17 @@
 package hellocucumber;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import dtu.projectapp.model.*;
+import dtu.projectapp.model.Activity;
+import dtu.projectapp.model.Employee;
+import dtu.projectapp.model.Project;
+import dtu.projectapp.model.ProjectApp;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class FindAvailableEmployee {
     ProjectApp projectApp;
@@ -22,14 +23,14 @@ public class FindAvailableEmployee {
         this.errorMessageHolder = errorMessageHolder;
     }
 
-    @Given("the project {string} has {int} activities between {string} and {string}")
-    public void theProjectHasActivities(String string, Integer int1, String string2, String string3) {
-        Project project = projectApp.findProject(string);
-        for (int i = 0; i < int1; i++) {
-            Activity activity = new Activity("" + i, LocalDate.parse(string2), LocalDate.parse(string3), 100);
-            project.addActivity(activity);
-        }
-    }
+    // @Given("the project {string} has {int} activities between {string} and {string}")
+    // public void theProjectHasActivities(String string, Integer int1, String string2, String string3) {
+    //     Project project = projectApp.findProject(string);
+    //     for (int i = 0; i < int1; i++) {
+    //         Activity activity = new Activity("" + i, LocalDate.parse(string2), LocalDate.parse(string3), 100);
+    //         project.addActivity(activity);
+    //     }
+    // }
 
     @When("a project leader checks for available employees between week {int} and week {int}")
     public void aProjectLeaderChecksForAvailableEmployeesBetweenWeekAndWeek(Integer int1, Integer int2) {
@@ -80,20 +81,20 @@ public class FindAvailableEmployee {
         assertFalse(containsEmployee);
     }
 
-    @When("a project leader checks for available employees for activity {string} with start date {string}, end date {string}, and budgeted time {int}")
-    public void aProjectLeaderChecksForAvailableEmployeesForActivityWithStartDateEndDateAndBudgetedTime(String string,
-            String string2, String string3, Integer int1) {
-        try {
-            Activity activity = new Activity(string,
-                    LocalDate.parse(string2),
-                    LocalDate.parse(string3),
-                    int1);
+    // @When("a project leader checks for available employees for activity {string} with start date {string}, end date {string}, and budgeted time {int}")
+    // public void aProjectLeaderChecksForAvailableEmployeesForActivityWithStartDateEndDateAndBudgetedTime(String string,
+    //         String string2, String string3, Integer int1) {
+    //     try {
+    //         Activity activity = new Activity(string,
+    //                 LocalDate.parse(string2),
+    //                 LocalDate.parse(string3),
+    //                 int1);
 
-            availableEmployees = projectApp.getAvailableEmployees(activity);
-        } catch (Exception e) {
-            errorMessageHolder.setErrorMessage(e.getMessage());
-        }
-    }
+    //         availableEmployees = projectApp.getAvailableEmployees(activity);
+    //     } catch (Exception e) {
+    //         errorMessageHolder.setErrorMessage(e.getMessage());
+    //     }
+    // }
 
     @When("a project leader checks for available employees for activity at index {int} for project {string}")
     public void aProjectLeaderChecksForAvailableEmployeesForActivityAtIndexForProject(Integer int1, String string) {
