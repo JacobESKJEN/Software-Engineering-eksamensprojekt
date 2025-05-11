@@ -100,7 +100,6 @@ public class ActivityPageController implements PageController {
 
         // add employee to activity button
         activityPage.getAddEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent evt) {
                 AssignEmployeeDialog assignEmployeeDialog = new AssignEmployeeDialog(
@@ -123,7 +122,6 @@ public class ActivityPageController implements PageController {
 
         // remove employee from activity button
         activityPage.getRemoveEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent evt) {
                 AssignEmployeeDialog assignEmployeeDialog = new AssignEmployeeDialog(
@@ -153,7 +151,14 @@ public class ActivityPageController implements PageController {
                 availableEmployeesDialog.showAndWait();
             }
         });
-
+        //if the activity is a special activity, disable the log work button
+        if (project.isActivitySpecial(activityName)) {
+            activityPage.getLogWorkButton().setDisable(true);
+            activityPage.getChangeBudgetedHoursButton().setDisable(true);
+        } else {
+            activityPage.getLogWorkButton().setDisable(false);
+            activityPage.getChangeBudgetedHoursButton().setDisable(false);
+        }
         activityPage.getLogWorkButton().setOnAction(evt -> {
             LogWorkDialog logWorkDialog = new LogWorkDialog((Stage) activityPage.getScene().getWindow());
             logWorkDialog.showAndWait();

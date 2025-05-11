@@ -1,7 +1,6 @@
 package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeListener;
-import java.time.LocalDate;
 
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
@@ -48,7 +47,7 @@ public class ProjectPageController implements PageController {
                 Object selectedItem = projectPage.getActivityListView().getSelectionModel().getSelectedItem();
                 if (selectedItem != null) {
                     ActivityPageController activityPage = new ActivityPageController(projectApp, app,
-                            project.findActivity(selectedItem.toString()), project);
+                            project.findActivity(selectedItem.toString()).getName(), project);
                     app.newPage(activityPage);
                 }
             }
@@ -87,10 +86,12 @@ public class ProjectPageController implements PageController {
                 String startDate = dialog.getStartDate();
                 String endDate = dialog.getEndDate();
                 String activityEmployee = dialog.getAssignedEmployee();
-                if (!activityName.equals("")) {
+                if (!activityName.equals("") && !activityEmployee.equals("")) {
                     try {
                         String projectName = project.getName();
-                        projectApp.createSpecialActivity(projectName, activityName, startDate, endDate,
+                            projectApp.createSpecialActivity(projectName, 
+                                activityName+" ("+projectApp.findEmployee(activityEmployee).getId()+")", 
+                                startDate, endDate,
                                 projectApp.findEmployee(activityEmployee));
                         System.err.println("Activity created");
                     } catch (Exception e) {

@@ -38,6 +38,7 @@ public class Employee {
 
     public boolean isAvailableBetweenWeeks(int startWeek, int endWeek, int startYear, int endYear) {
         int activitiesDuringInterval = 0;
+        boolean specialActivityWithinInterval = false;
         for (Activity activity : activities) {
             int activityStartTotalWeeks = WeekYearConversions.totalWeeks(activity.getStartWeek(),
                     activity.getStartYear());
@@ -52,10 +53,13 @@ public class Employee {
 
             if (activityWithinInterval) {
                 activitiesDuringInterval++;
+                if (activity instanceof SpecialActivity) {
+                    specialActivityWithinInterval = true;
+                }
             }
         }
 
-        return activitiesDuringInterval < 20;
+        return activitiesDuringInterval < 20 && !specialActivityWithinInterval;
     }
 
     public void logWork(Activity activity, double hours) throws Exception {
