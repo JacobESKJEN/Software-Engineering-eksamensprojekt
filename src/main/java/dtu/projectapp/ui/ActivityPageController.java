@@ -35,7 +35,9 @@ public class ActivityPageController implements PageController {
         activityPage.getAssignedEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {
-                System.out.println(activity.getEmployees());
+                ViewAssignedEmployeesDialog viewAssignedEmployeesDialog = new ViewAssignedEmployeesDialog();
+                viewAssignedEmployeesDialog.updateList(activity.getEmployees());
+                viewAssignedEmployeesDialog.showAndWait();
             }
         });
 

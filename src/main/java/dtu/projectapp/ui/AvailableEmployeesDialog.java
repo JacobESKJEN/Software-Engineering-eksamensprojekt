@@ -26,6 +26,7 @@ public class AvailableEmployeesDialog extends ListDialog {
     }
 
     public void updateList(List<Employee> availableEmployees) {
+        resetDialog();
         List<String> employeeIds = availableEmployees.stream().map(Employee::getId).collect(Collectors.toList());
         ObservableList<String> observableEmployeeIds = FXCollections.observableArrayList(employeeIds);
         super.listView.setItems(observableEmployeeIds);
