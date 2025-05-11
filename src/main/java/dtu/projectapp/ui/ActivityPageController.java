@@ -153,7 +153,12 @@ public class ActivityPageController implements PageController {
                 availableEmployeesDialog.showAndWait();
             }
         });
-
+        //if the activity is a special activity, disable the log work button
+        if (project.isActivitySpecial(activityName)) {
+            activityPage.getLogWorkButton().setDisable(true);
+        } else {
+            activityPage.getLogWorkButton().setDisable(false);
+        }
         activityPage.getLogWorkButton().setOnAction(evt -> {
             LogWorkDialog logWorkDialog = new LogWorkDialog((Stage) activityPage.getScene().getWindow());
             logWorkDialog.showAndWait();
@@ -162,6 +167,10 @@ public class ActivityPageController implements PageController {
                 try {
                     String employeeId = logWorkDialog.getEmployeeId();
                     double hours = logWorkDialog.getEmployeeHours();
+
+                    if (hours < 0 || (hours * 2) % 1 != 0){
+                        throw new IllegalArgumentException("Only whole hours with 30 minute increments allowed (e.g. 1.0, 1.5, 2.0)");
+                    }
 
                     Employee employee = projectApp.findEmployee(employeeId);
 

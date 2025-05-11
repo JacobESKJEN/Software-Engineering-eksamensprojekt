@@ -1,7 +1,6 @@
 package dtu.projectapp.ui;
 
 import java.beans.PropertyChangeListener;
-import java.time.LocalDate;
 
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
