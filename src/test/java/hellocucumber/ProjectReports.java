@@ -1,14 +1,11 @@
 package hellocucumber;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
-import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
+import dtu.projectapp.model.Project;
+import dtu.projectapp.model.Activity;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,9 +13,7 @@ import io.cucumber.java.en.When;
 
 public class ProjectReports {
 
-    private Project project;
-    private Map<String, Activity> activityMap = new HashMap<>();
-    private Map<String, Employee> employeeMap = new HashMap<>();
+    private String projectName = "";
     private String report;
     private ProjectApp projectApp;
     private ErrorMessageHolder errorMessageHolder;
@@ -30,63 +25,81 @@ public class ProjectReports {
 
     @Given("signed-in as Project leader with id {string}")
     public void signed_in_as_project_leader_with_id(String id) throws Exception {
-        Employee leader = new Employee(id);
-        employeeMap.put(id, leader);
-        project = new Project("Unnamed", "20251");
+        projectApp.addEmployee(id);
+        //projectName = "test";
+        projectApp.createProject(projectName);
+        Project project = projectApp.findProject(projectName);
+        Employee leader = projectApp.findEmployee(id);
         project.setProjectLeader(leader, leader);
     }
 
     @And("there exists a project with name {string}")
-    public void there_exists_a_project_with_name(String name) {
-        if (project == null) {
-            project = new Project(name, "20251");
-        } else {
+    public void there_exists_a_project_with_name(String name) throws Exception{
+        projectName = name;
+        if (projectApp.findProject(projectName) == null) {
+            projectApp.createProject(name);
         }
+
+        Project project = projectApp.findProject(projectName);
+        Employee leader = projectApp.getEmployees().get(0);
+        project.setProjectLeader(leader, leader);
     }
 
     @And("the project {string} has activities {string} and {string}")
     public void the_project_has_activities(String projectName, String activity1, String activity2) {
         try {
-            Activity a1 = new Activity(activity1, 20, 21, 2025, 2025, 10);
-            Activity a2 = new Activity(activity2, 20, 21, 2025, 2025, 10);
-            project.addActivity(a1);
-            project.addActivity(a2);
-            activityMap.put(activity1, a1);
-            activityMap.put(activity2, a2);
+            projectApp.createActivity(projectName, activity1, 20, 21, 2025, 2025, 10);
+            projectApp.createActivity(projectName, activity2, 20, 21, 2025, 2025, 10);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
     }
 
-    private Employee createEmployee(String id) {
-        try {
-            return new Employee(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     @And("employee {string} is added to the activity {string}")
     public void employee_added_to_activity(String empId, String activityName) {
-        try {
-            Employee e = employeeMap.computeIfAbsent(empId, id -> createEmployee(id));
-            Activity a = activityMap.get(activityName);
-            a.addEmployeeToActivity(e);
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        try{
+            if(projectApp.findEmployee(empId) == null){
+                projectApp.addEmployee(empId);
+            }
+
+            Employee employee = projectApp.findEmployee(empId);
+            Activity activity = null;
+            for (Project p : projectApp.getProjects()){
+                activity = p.findActivity(activityName);
+                if(activity != null){
+                    break;
+                }
+            }
+            if(activity != null){
+                activity.addEmployeeToActivity(employee);
+            }
+        } catch (Exception e){
+            errorMessageHolder.setErrorMessage(e.getMessage());
         }
     }
 
     @And("{double} hours are logged by {string} on {string}")
     public void hours_logged_by_employee(double hours, String empId, String activityName) {
-        Employee e = employeeMap.get(empId);
-        Activity a = activityMap.get(activityName);
-        e.logWork(a, hours);
+        try{
+            Employee employee = projectApp.findEmployee(empId);
+            Activity activity = null;
+            for(Project p : projectApp.getProjects()){
+                activity = p.findActivity(activityName);
+                if(activity != null){
+                    break;
+                }
+            }
+            if(employee != null && activity != null){
+                employee.logWork(activity, hours);
+            }
+        }catch(Exception e){
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
     }
 
     @When("the project leader generates a project report")
     public void the_project_leader_generates_a_project_report() throws Exception {
+        Project project = projectApp.findProject(projectName);
         report = project.getProjectReport();
     }
 
