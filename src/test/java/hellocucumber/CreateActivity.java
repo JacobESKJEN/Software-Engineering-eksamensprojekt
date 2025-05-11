@@ -33,7 +33,12 @@ public class CreateActivity {
 
     @Given("a project exists")
     public void a_project_exists() {
-        project = new Project("Test Project", "20251");
+        try {
+            projectApp.createProject("Test Project");
+            project = projectApp.findProject("Test Project");
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
     }
 
     @Then("the activity is created and added to the project")
@@ -51,10 +56,10 @@ public class CreateActivity {
     // string2, string3, 0);
     // }
 
-    @Given("there exists an activity with the name {string}, start week {int}, end week {int}, start year {int}, end year {int}, and budgeted time {int}")
+    @Given("there exists an activity with the name {string}, start week {int}, end week {int}, start year {int}, end year {int}, and budgeted time {double}")
     public void thereExistsAnActivityWithTheNameStartDateEndDateAndBudgetedTime(String string, int int1, int int2,
-            int int3, int int4, int int5) {
-        iCreateANewActivityWithTheNameStartDateEndDateAndBudgetedTime(string, int1, int2, int3, int4, int5);
+            int int3, int int4, double double1) {
+        iCreateANewActivityWithTheNameStartWeekEndWeekStartYearEndYearAndBudgetedTime(string, int1, int2, int3, int4, double1);
     }
 
     @When("I try to find an activity with the name {string}")
@@ -84,12 +89,23 @@ public class CreateActivity {
     // }
     // }
 
-    @When("I create a new activity with the name {string}, start week {int}, end week {int}, start year {int}, end year {int}, and budgeted time {int}")
-    public void iCreateANewActivityWithTheNameStartDateEndDateAndBudgetedTime(String string, int int1, int int2,
-            int int3, int int4, int int5) {
-        try {
-            activity = new Activity(string, int1, int2, int3, int4, int5);
-            project.addActivity(activity);
+    // @When("I create a new activity with the name {string}, start week {int}, end week {int}, start year {int}, end year {int}, and budgeted time {int}")
+    // public void iCreateANewActivityWithTheNameStartDateEndDateAndBudgetedTime(String string, int int1, int int2,
+    //         int int3, int int4, int int5) {
+    //     try {
+    //         project.createActivity(string, int1, int2, int3, int4, int5);
+    //         activity = project.findActivity(string);
+    //     } catch (Exception e) {
+    //         errorMessageHolder.setErrorMessage(e.getMessage());
+    //     }
+    // }
+
+    @When("I create a new activity with the name {string}, start week {int}, end week {int}, start year {int}, end year {int}, and budgeted time {double}")
+    public void iCreateANewActivityWithTheNameStartWeekEndWeekStartYearEndYearAndBudgetedTime(String string,
+            Integer int1, Integer int2, Integer int3, Integer int4, Double double1) {
+                try {
+            project.createActivity(string, int1, int2, int3, int4, double1);
+            activity = project.findActivity(string);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
@@ -158,7 +174,7 @@ public class CreateActivity {
     public void theProjectLeaderRenamesTo(String string, String string2) {
         activity = project.findActivity(string);
         try {
-            activity.setName(string2);
+            project.changeActivityName(activity,string2);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
@@ -216,16 +232,15 @@ public class CreateActivity {
             if (activity == null) {
                 throw new Exception("Activity not found");
             }
-            project.removeActivity(activity.getName());
+            projectApp.RemoveActivity(project.getName(),activity.getName());
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
     }
 
-    @Then("the system confirms the activity has been removed")
-    public void theSystemConfirmsTheActivityHasBeenRemoved() {
-        assertTrue(project.getActivities().isEmpty());
-
+    @Then("the system confirms the activity {string} has been removed")
+    public void theSystemConfirmsTheActivityHasBeenRemoved(String string) {
+        assertTrue(project.findActivity(string) == null);
     }
 
     @When("the project leader checks the weeks till completion of {string}")
@@ -295,7 +310,8 @@ public class CreateActivity {
     public void theProjectLeaderRetrievesTheDetailsOfTheSpecialActivity(String activityName) {
         activity = project.findActivity(activityName); // Retrieve the activity by name
         assertNotNull(activity, "The special activity was not found in the project."); // Ensure the activity exists
-        assertTrue(activity instanceof SpecialActivity, "The activity is not a SpecialActivity."); // Ensure it's a special activity
+        assertTrue(activity instanceof SpecialActivity, "The activity is not a SpecialActivity."); // Ensure it's a
+                                                                                                   // special activity
     }
 
     @Then("the activity {string} is created and added to the project")

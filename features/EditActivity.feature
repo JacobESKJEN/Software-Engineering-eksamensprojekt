@@ -60,6 +60,14 @@ Actors: Project leader
     When the project leader renames "Programming" to "UI Programming"
     Then the system updates the activity name
 
+  Scenario: Rename to an activity that already exists
+    Given a project exists
+    And signed-in as Project leader
+    And I create a new activity with the name "UI Programming", start week 12, end week 14, start year 2025, end year 2025, and budgeted time 100
+    And I create a new activity with the name "Programming", start week 12, end week 14, start year 2025, end year 2025, and budgeted time 100
+    When the project leader renames "Programming" to "UI Programming"
+    Then the error message "Activity already exists" is given
+
   Scenario: Extend an activity's deadline
     Given a project exists
     And signed-in as Project leader
@@ -81,7 +89,7 @@ Actors: Project leader
     And there is an employee with id "id3"
     When the project leader adds employee with id "id3" to the activity "Design"
     And the project leader removes the activity "Design"
-    Then the system confirms the activity has been removed
+    Then the system confirms the activity "Design" has been removed
     And the employee with id "id3" does not have the activity "Requirements Specification" in their activity list
 
   Scenario: Fails to Remove Activity
@@ -104,3 +112,4 @@ Actors: Project leader
   #   When the project leader checks the weeks till completion of "Design"
   #   Then the system returns the message "Activity needs completion"
   # Scenario: Activity is not in 30 min interval
+
