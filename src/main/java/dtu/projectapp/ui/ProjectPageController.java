@@ -62,8 +62,8 @@ public class ProjectPageController implements PageController {
                 String activityName = dialog.getActivityName();
                 int startDate = dialog.getStartDate();
                 int endDate = dialog.getEndDate();
-                int startYear = dialog.getStartDate();
-                int endYear = dialog.getEndDate();
+                int startYear = dialog.getStartYear();
+                int endYear = dialog.getEndYear();
                 double activityHours = dialog.getActivityHours();
                 if (!activityName.equals("")) {
                     try {

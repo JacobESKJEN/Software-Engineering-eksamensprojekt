@@ -6,6 +6,7 @@ import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
+import dtu.projectapp.ui.ChangeActivityDialogs.ChangeNameDialog;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -24,11 +25,30 @@ public class ActivityPageController implements PageController {
         this.projectApp = projectApp;
         activityPage = new ActivityPage();
         Activity activity = project.findActivity(activityName);
+        activity.addObserver(getObserver());
+        activityPage.setActivity(activity);
+
+        activityPage.getActivityNameLabel().setText(activity.getName());
+        activityPage.getDeadlineLabel()
+                .setText("Deadline: week " + activity.getEndWeek() + " year " + activity.getEndYear());
+        activityPage.getBudgetedHoursLabel()
+                .setText("Budgeted hours: " + activity.getHoursWorked() + "/" + activity.getBudgetedTime());
 
         activityPage.getHomePageButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {
                 app.newPage(new HomePageController(projectApp, app));
+            }
+        });
+
+        activityPage.getChangeNameButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                ChangeNameDialog changeNameDialog = new ChangeNameDialog();
+                String newName = changeNameDialog.getResult();
+                if (!newName.equals("")) {
+                    activity.setName(newName);
+                }
             }
         });
 
@@ -109,8 +129,6 @@ public class ActivityPageController implements PageController {
                     Employee employee = projectApp.findEmployee(employeeId);
 
                     employee.logWork(activity, hours);
-                    System.out.println("Logged " + hours + " hours for " + employee.getId());
-                    System.out.println(employee.getHoursWorkedPerActivity());
                 } catch (Exception e) {
                     ErrorDialog.showExceptionDialog(e);
                 }

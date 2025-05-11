@@ -3,26 +3,30 @@ package dtu.projectapp.ui;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class ActivityPageObserver implements PropertyChangeListener {
-    private ActivityPage ActivityPage;
+import dtu.projectapp.model.Activity;
 
-    public ActivityPageObserver(ActivityPage ActivityPage) {
-        this.ActivityPage = ActivityPage;
+public class ActivityPageObserver implements PropertyChangeListener {
+    private ActivityPage activityPage;
+    private Activity activity;
+
+    public ActivityPageObserver(ActivityPage activityPage) {
+        this.activityPage = activityPage;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("New Employee")) {
-            System.out.println(evt.getNewValue());
-            // ActivityPage.updateActivityEmployees((String) evt.getNewValue());
-        }
-        if (evt.getPropertyName().equals("Remove Employee")) {
-            System.out.println(evt.getNewValue());
-            // ActivityPage.updateActivityEmployees((String) evt.getNewValue());
-        }
-        if (evt.getPropertyName().equals("Update Time")) {
-            System.out.println(evt.getNewValue());
-            //ActivityPage.updateActivityTime((String) evt.getNewValue());
+        if (evt.getPropertyName().equals("Name change")) {
+            activityPage.getActivityNameLabel().setText(activity.getName());
+        } else if (evt.getPropertyName().equals("End date change")) {
+            activityPage.getDeadlineLabel()
+                    .setText("Deadline: week " + activity.getEndWeek() + " year " + activity.getEndYear());
+        } else if (evt.getPropertyName().equals("Update budgeted time")) {
+            activityPage.getBudgetedHoursLabel()
+                    .setText("Budgeted hours: " + activity.getHoursWorked() + "/" + activity.getBudgetedTime());
         }
     }
 

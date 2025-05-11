@@ -16,10 +16,14 @@ public class Project {
     private List<Activity> activities;
     // private List<Employee> employees = new ArrayList<>(); // List of employees in
     // the project
-    PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void addObserver(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
+    }
+
+    public void setPropertyChangeSupport(PropertyChangeSupport support) {
+        this.support = support;
     }
 
     public Project(String name, String id) {
@@ -157,27 +161,26 @@ public class Project {
         return activities;
     }
 
-    public void createActivity(String activityName, 
-            int date, int date2, 
-            int year, int year2, 
+    public void createActivity(String activityName,
+            int date, int date2,
+            int year, int year2,
             double i)
-        throws Exception {
+            throws Exception {
         if (!(i % 0.5 == 0)) { // 1
-            throw new Exception("Time must be in 30 min intervals"); 
+            throw new Exception("Time must be in 30 min intervals");
         } else if (findActivity(activityName) != null) { // 2
             throw new Exception("Activity already exists");
-        }
-         else if (date < 1 || date2 > 53 || date2 < 1 || date > 53) {
+        } else if (date < 1 || date2 > 53 || date2 < 1 || date > 53) {
             throw new Exception("Week must be between 1 and 53");
-        }
-         else if (WeekYearConversions.totalWeeks(date, year) > WeekYearConversions.totalWeeks(date2, year2)) {
+        } else if (WeekYearConversions.totalWeeks(date, year) > WeekYearConversions.totalWeeks(date2, year2)) {
             throw new Exception("End date must be after start date");
         }
-        try { 
-            Activity activity = new Activity(activityName, 
-                    date, date2, 
+        try {
+            Activity activity = new Activity(activityName,
+                    date, date2,
                     year, year2,
-                     i); 
+                    i);
+            activity.setPropertyChangeSupport(support);
             activities.add(activity);
         } catch (Exception e) {
             throw e;

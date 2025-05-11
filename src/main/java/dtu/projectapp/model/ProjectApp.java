@@ -96,7 +96,9 @@ public class ProjectApp {
 
     public void createProject(String name) throws Exception {
         if (findProject(name) == null) {
-            projects.add(new Project(name, LocalDate.now().getYear() + "" + (projects.size() + 1)));
+            Project project = new Project(name, LocalDate.now().getYear() + "" + (projects.size() + 1));
+            project.setPropertyChangeSupport(support);
+            projects.add(project);
             support.firePropertyChange("Update projects", null, projects);
         } else {
             throw new Exception("Project already exists");
