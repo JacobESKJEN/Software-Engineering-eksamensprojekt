@@ -3,6 +3,7 @@ package dtu.projectapp.model;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,10 +58,11 @@ public class ProjectApp {
         projects = list;
     }
 
-    public void addEmployee(Employee emp) throws Exception {
-        if (employees.contains(emp)) {
+    public void addEmployee(String id) throws Exception {
+        if (findEmployee(id) != null) {
             throw new Exception("Employee already exists!");
         }
+        Employee emp = new Employee(id);
         employees.add(emp);
     }
 
@@ -97,7 +99,7 @@ public class ProjectApp {
 
     public void createProject(String name) throws Exception {
         if (findProject(name) == null) {
-            projects.add(new Project(name, "2025" + projects.size() + 1));
+            projects.add(new Project(name, LocalDate.now().getYear() + "" + (projects.size() + 1)));
             support.firePropertyChange("Update projects", null, projects);
         } else {
             throw new Exception("Project already exists");
@@ -120,13 +122,13 @@ public class ProjectApp {
     }
 
     public void createSpecialActivity(String projectName, String activityName, String startDate, String endDate,
-            double time) throws Exception {
+            Employee employee) throws Exception {
         Project project = findProject(projectName);
         if (project == null) {
             throw new Exception("Project not found: " + projectName);
         }
 
-        project.createSpecialActivity(activityName, startDate, endDate, time);
+        project.createSpecialActivity(activityName, startDate, endDate, employee);
         // Fire property change event to notify observers (could be specific to
         // activities)
         support.firePropertyChange("New activity", null, project.getActivities());
@@ -171,5 +173,4 @@ public class ProjectApp {
     public List<Project> getProjects() {
         return projects;
     }
-
 }

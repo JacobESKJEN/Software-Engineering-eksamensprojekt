@@ -92,8 +92,8 @@ public class CreateActivity {
 
     @Given("signed-in as Project leader")
     public void signedInAsProjectLeader() {
-        employee = new Employee("ProjectLeader");
         try {
+            employee = new Employee("PjLd");
             project.setProjectLeader(employee, employee);
         } catch (Exception e) {
             e.printStackTrace();

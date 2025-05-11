@@ -16,6 +16,7 @@ public class ActivityPage implements Page {
     private BorderPane root;
     private Button homePageButton;
 
+    private Button assignedEmployeesButton;
     private Button availableEmployeesButton;
     private Button addEmployeeButton;
     private Button removeEmployeeButton;
@@ -32,9 +33,7 @@ public class ActivityPage implements Page {
         topHbox.getChildren().add(homePageButton);
         root.setTop(topHbox);
 
-        // addProjectButton = new Button("Add project"); //is this used?
-        // root.setCenter(addProjectButton);
-
+        assignedEmployeesButton = new Button("View assigned employees");
         addEmployeeButton = new Button("Add Employee");
         removeEmployeeButton = new Button("Remove Employee");
         availableEmployeesButton = new Button("Find available employees");
@@ -42,11 +41,15 @@ public class ActivityPage implements Page {
         HBox hboxReports = new HBox();
         hboxReports.setAlignment(Pos.BASELINE_LEFT);
         hboxReports.getChildren().addAll(addEmployeeButton, removeEmployeeButton, availableEmployeesButton,
-                logWorkButton);
+                logWorkButton, assignedEmployeesButton);
 
         vbox.getChildren().add(hboxReports);
 
         root.setCenter(vbox);
+    }
+
+    public Button getAssignedEmployeeButton() {
+        return assignedEmployeesButton;
     }
 
     public Button getHomePageButton() {
