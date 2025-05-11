@@ -13,7 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Dialog;
 
-public class ListDialog extends Dialog {
+public class ListDialog extends Dialog { // Jacob
     protected ListView<String> listView = new ListView<>();
 
     public ListDialog() {

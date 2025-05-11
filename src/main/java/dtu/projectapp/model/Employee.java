@@ -58,7 +58,11 @@ public class Employee {
         return activitiesDuringInterval < 20;
     }
 
-    public void logWork(Activity activity, double hours) {
+    public void logWork(Activity activity, double hours) throws Exception {
+        if (hours % 0.5 != 0.0) {
+            throw new Exception("Time is given in half hour intervals");
+        }
+
         if (!activity.getEmployees().contains(this)) {
             try {
                 activity.addEmployeeToActivity(this);

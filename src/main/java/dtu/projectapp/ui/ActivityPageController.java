@@ -6,6 +6,9 @@ import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
+import dtu.projectapp.ui.ChangeActivityDialogs.ChangeBudgetedHoursDialog;
+import dtu.projectapp.ui.ChangeActivityDialogs.ChangeEndDateDialog;
+import dtu.projectapp.ui.ChangeActivityDialogs.ChangeNameDialog;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -24,6 +27,14 @@ public class ActivityPageController implements PageController {
         this.projectApp = projectApp;
         activityPage = new ActivityPage();
         Activity activity = project.findActivity(activityName);
+        activity.addObserver(getObserver());
+        activityPage.setActivity(activity);
+
+        activityPage.getActivityNameLabel().setText(activity.getName());
+        activityPage.getDeadlineLabel()
+                .setText("Deadline: week " + activity.getEndWeek() + " year " + activity.getEndYear());
+        activityPage.getBudgetedHoursLabel()
+                .setText("Budgeted hours: " + activity.getHoursWorked() + "/" + activity.getBudgetedTime());
 
         activityPage.getHomePageButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -32,10 +43,58 @@ public class ActivityPageController implements PageController {
             }
         });
 
+        activityPage.getChangeNameButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                ChangeNameDialog changeNameDialog = new ChangeNameDialog();
+                String newName = changeNameDialog.getResult();
+                if (!newName.equals("")) {
+                    try {
+                        project.changeActivityName(activity, newName);
+                    } catch (Exception e) {
+                        ErrorDialog.showExceptionDialog(e);
+                    }
+                }
+            }
+        });
+
+        activityPage.getChangeEndDateButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                ChangeEndDateDialog changeEndDateDialog = new ChangeEndDateDialog();
+                changeEndDateDialog.showAndWait();
+                if (changeEndDateDialog.getResult() == ButtonType.OK) {
+                    try {
+                        activity.setEndDate(Integer.parseInt(changeEndDateDialog.getEndWeek()),
+                                Integer.parseInt(changeEndDateDialog.getEndYear()));
+                    } catch (Exception e) {
+                        ErrorDialog.showExceptionDialog(e);
+                    }
+                }
+            }
+        });
+
+        activityPage.getChangeBudgetedHoursButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                ChangeBudgetedHoursDialog changeBudgetedHoursDialog = new ChangeBudgetedHoursDialog();
+                String budgetedHours = changeBudgetedHoursDialog.getResult();
+                if (!budgetedHours.equals("")) {
+                    try {
+                        activity.setBudgetedTime(Double.parseDouble(budgetedHours));
+                    } catch (Exception e) {
+                        ErrorDialog.showExceptionDialog(e);
+                    }
+                }
+            }
+        });
+
         activityPage.getAssignedEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {
-                System.out.println(activity.getEmployees());
+                ViewAssignedEmployeesDialog viewAssignedEmployeesDialog = new ViewAssignedEmployeesDialog();
+                viewAssignedEmployeesDialog.updateList(activity.getEmployees());
+                viewAssignedEmployeesDialog.showAndWait();
             }
         });
 
@@ -90,7 +149,7 @@ public class ActivityPageController implements PageController {
             public void handle(ActionEvent evt) {
                 AvailableEmployeesDialog availableEmployeesDialog = new AvailableEmployeesDialog();
                 availableEmployeesDialog
-                        .updateList(projectApp.getAvailableEmployees(project.findActivity(activityName)));
+                        .updateList(projectApp.getAvailableEmployees(activity));
                 availableEmployeesDialog.showAndWait();
             }
         });
@@ -104,11 +163,13 @@ public class ActivityPageController implements PageController {
                     String employeeId = logWorkDialog.getEmployeeId();
                     double hours = logWorkDialog.getEmployeeHours();
 
+                    if (hours < 0 || (hours * 2) % 1 != 0){
+                        throw new IllegalArgumentException("Only whole hours with 30 minute increments allowed (e.g. 1.0, 1.5, 2.0)");
+                    }
+
                     Employee employee = projectApp.findEmployee(employeeId);
 
                     employee.logWork(activity, hours);
-                    System.out.println("Logged " + hours + " hours for " + employee.getId());
-                    System.out.println(employee.getHoursWorkedPerActivity());
                 } catch (Exception e) {
                     ErrorDialog.showExceptionDialog(e);
                 }

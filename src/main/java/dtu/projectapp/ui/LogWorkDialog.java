@@ -24,7 +24,7 @@ public class LogWorkDialog extends Dialog<ButtonType> {
         employeeIdInput.setPromptText("Employee ID");
 
         hoursInput = new TextField();
-        hoursInput.setPromptText("e.g. 2.5");
+        hoursInput.setPromptText("e.g. 2 or 2.5");
 
         grid.add(new Label("Employee ID:"), 0, 0);
         grid.add(employeeIdInput, 1, 0);

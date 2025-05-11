@@ -14,13 +14,14 @@ public class CreateActivityDialog extends Dialog<ButtonType> {
     private TextField priorityField;
     private TextField startYearField;
     private TextField endYearField;
+
     public CreateActivityDialog(Stage owner) {
         setTitle("Create Activity");
         initOwner(owner);
 
         // Create input fields
         nameField = new TextField();
-        startDateField = new TextField("0");
+        startDateField = new TextField("1");
         endDateField = new TextField("1");
         startYearField = new TextField("2025");
         endYearField = new TextField("2025");
@@ -72,6 +73,7 @@ public class CreateActivityDialog extends Dialog<ButtonType> {
             return -1; // or handle it as needed
         }
     }
+
     public int getStartYear() {
         try {
             return Integer.parseInt(startYearField.getText());
@@ -79,6 +81,7 @@ public class CreateActivityDialog extends Dialog<ButtonType> {
             return -1; // or handle it as needed
         }
     }
+
     public int getEndYear() {
         try {
             return Integer.parseInt(endYearField.getText());
@@ -87,12 +90,7 @@ public class CreateActivityDialog extends Dialog<ButtonType> {
         }
     }
 
-    public double getActivityHours() {
-        try {
-            return Integer.parseInt(priorityField.getText());
-        } catch (NumberFormatException e) {
-            return -1; // or handle it as needed
-        }
+    public double getActivityHours() throws Exception {
+        return Double.parseDouble(priorityField.getText());
     }
 }
-

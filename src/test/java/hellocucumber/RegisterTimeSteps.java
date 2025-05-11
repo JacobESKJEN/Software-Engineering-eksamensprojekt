@@ -20,26 +20,20 @@ public class RegisterTimeSteps {
     }
 
     // @Given("signed-in as Employee")
-    //     public void signedInAsEmployee() {
-            
+    // public void signedInAsEmployee() {
+
     // }
 
     @When("the employee registers {int} hours to the activity {string}")
     public void theEmployeeRegistersHoursToTheActivity(Integer int1, String string) {
-        //project = ProjectApp.findProject("Test Projec");
+        // project = ProjectApp.findProject("Test Projec");
         activity = project.findActivity(string);
-        employee.logWork(activity, int1);
+        try {
+            employee.logWork(activity, int1);
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+
     }
-
- 
-
- 
-
- 
-    
-
-    
-
-    
 
 }
