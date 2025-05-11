@@ -71,31 +71,14 @@ public class Activity {
     public void setEndDate(int endDate, int endyear) throws IllegalArgumentException {
         if (endyear < startYear) {
             throw new IllegalArgumentException("End year must be greater than or equal to start year.");
-        } else if (endyear >= startYear && endDate < startWeek) {
-            throw new IllegalArgumentException("End week must be greater than or equal to start week.");
-        } // Måske ændr til at bare at beregne totalweeks og om den ene totalweeks er
-          // større eller mindre end den anden. F.eks.
-          // if (WeekYearConversions.totalWeeks(startWeek, startYear) <=
-          // WeekYearConversions.totalWeeks(endWeek, endYear)) {
-          // throw new Exception("End date must be after start date");
-          // }
+        }
+        if (WeekYearConversions.totalWeeks(startWeek, startYear) > WeekYearConversions.totalWeeks(endDate, endYear)) {
+            throw new IllegalArgumentException("End date must be after start date");
+        }
         this.endWeek = endDate;
         this.endYear = endyear;
         support.firePropertyChange("End date change", null, this);
     }
-
-    // public long calculateWeeks() {
-    // // Calculate the number of weeks between the start and end weeks
-    // long weeksBetween = 0;
-    // if (startYear == endYear) {
-    // weeksBetween = endWeek - startWeek;
-    // } else {
-    // int startTotalWeeks = startYear * 53 + startWeek;
-    // int endTotalWeeks = endYear * 53 + endWeek;
-    // weeksBetween= endTotalWeeks - startTotalWeeks;
-    // }
-    // return weeksBetween;
-    // }
 
     public double getBudgetedTime() {
         return budgetedTime;
@@ -104,6 +87,9 @@ public class Activity {
     public void setBudgetedTime(double budgeted) throws Exception {
         if (budgeted < 0) {
             throw new Exception("time out of bounds");
+        }
+        if (budgeted % 0.5 != 0.0) {
+            throw new Exception("Time is given in half hour intervals");
         }
         this.budgetedTime = budgeted;
         support.firePropertyChange("Update budgeted time", null, this.budgetedTime);
