@@ -6,7 +6,6 @@ import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.ProjectApp;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.Activity;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -33,7 +32,7 @@ public class ProjectReports {
         project.setProjectLeader(leader, leader);
     }
 
-    @And("there exists a project with name {string}")
+    @Given("there exists a project with name {string}")
     public void there_exists_a_project_with_name(String name) throws Exception{
         projectName = name;
         if (projectApp.findProject(projectName) == null) {
@@ -45,7 +44,7 @@ public class ProjectReports {
         project.setProjectLeader(leader, leader);
     }
 
-    @And("the project {string} has activities {string} and {string}")
+    @Given("the project {string} has activities {string} and {string}")
     public void the_project_has_activities(String projectName, String activity1, String activity2) {
         try {
             projectApp.createActivity(projectName, activity1, 20, 21, 2025, 2025, 10);
@@ -55,7 +54,7 @@ public class ProjectReports {
         }
     }
 
-    @And("employee {string} is added to the activity {string}")
+    @Given("employee {string} is added to the activity {string}")
     public void employee_added_to_activity(String empId, String activityName) {
         try{
             if(projectApp.findEmployee(empId) == null){
@@ -78,7 +77,7 @@ public class ProjectReports {
         }
     }
 
-    @And("{double} hours are logged by {string} on {string}")
+    @Given("{double} hours are logged by {string} on {string}")
     public void hours_logged_by_employee(double hours, String empId, String activityName) {
         try{
             Employee employee = projectApp.findEmployee(empId);
