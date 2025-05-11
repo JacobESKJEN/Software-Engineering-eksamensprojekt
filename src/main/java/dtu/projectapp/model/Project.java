@@ -54,7 +54,7 @@ public class Project {
         return name;
     }
 
-    public String getEmployeeStatus() throws Exception {
+    public String getEmployeeStatus() throws Exception { // Oliver
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
@@ -115,7 +115,7 @@ public class Project {
         return activity instanceof SpecialActivity;
     }
 
-    public String getProjectETA() throws Exception {
+    public String getProjectETA() throws Exception {    //Oliver
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
@@ -155,7 +155,7 @@ public class Project {
 
     // This final/total report is the "sum" of getEmployeeStatus() and
     // getProjectETA()
-    public String getProjectReport() throws Exception {
+    public String getProjectReport() throws Exception { //Oliver
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }

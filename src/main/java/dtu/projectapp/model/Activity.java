@@ -100,17 +100,17 @@ public class Activity {
         support.firePropertyChange("Update budgeted time", null, this.budgetedTime);
     }
 
-    public double getHoursWorked() {
+    public double getHoursWorked() {    //Oliver
         return hoursWorked;
     }
 
-    public double getCompletionPercentage() {
+    public double getCompletionPercentage() {   //Oliver
         if (budgetedTime == 0)
             return 0; // safety, no dividing by 0
         return (hoursWorked / budgetedTime) * 100;
     }
 
-    public double getRemainingHours() {
+    public double getRemainingHours() { //oliver
         return budgetedTime - hoursWorked;
     }
 
