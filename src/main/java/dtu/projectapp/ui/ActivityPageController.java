@@ -153,7 +153,12 @@ public class ActivityPageController implements PageController {
                 availableEmployeesDialog.showAndWait();
             }
         });
-
+        //if the activity is a special activity, disable the log work button
+        if (project.isActivitySpecial(activityName)) {
+            activityPage.getLogWorkButton().setDisable(true);
+        } else {
+            activityPage.getLogWorkButton().setDisable(false);
+        }
         activityPage.getLogWorkButton().setOnAction(evt -> {
             LogWorkDialog logWorkDialog = new LogWorkDialog((Stage) activityPage.getScene().getWindow());
             logWorkDialog.showAndWait();

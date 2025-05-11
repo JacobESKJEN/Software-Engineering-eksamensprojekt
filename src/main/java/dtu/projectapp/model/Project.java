@@ -110,6 +110,10 @@ public class Project {
         }
         activity.setName(newName);
     }
+    public boolean isActivitySpecial(String activityName) {
+        Activity activity = findActivity(activityName);
+        return activity instanceof SpecialActivity;
+    }
 
     public String getProjectETA() throws Exception {
         if (getProjectLeader() == null) {
