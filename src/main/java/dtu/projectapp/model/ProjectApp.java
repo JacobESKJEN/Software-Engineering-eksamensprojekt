@@ -1,12 +1,9 @@
 package dtu.projectapp.model;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
-
-import dtu.projectapp.ui.LogInPage;
 
 public class ProjectApp {
     private List<Employee> employees;

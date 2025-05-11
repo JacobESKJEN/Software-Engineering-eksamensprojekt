@@ -16,15 +16,7 @@ public class Activity {
     private double hoursWorked = 0; // total hours worked
     private List<Employee> employees = new ArrayList<>();
 
-    public Activity(String name, int startWeek, int endWeek, int startYear, int endYear, double budgetedTime)
-            throws Exception {
-        if (startWeek < 1 || startWeek > 53 || endWeek < 1 || endWeek > 53) {
-            throw new Exception("Week must be between 1 and 53");
-        }
-        if (WeekYearConversions.totalWeeks(startWeek, startYear) > WeekYearConversions.totalWeeks(endWeek, endYear)) {
-            throw new Exception("End date must be after start date");
-        }
-
+    public Activity(String name, int startWeek, int endWeek, int startYear, int endYear, double budgetedTime){
         this.name = name;
         this.startWeek = startWeek;
         this.endWeek = endWeek;

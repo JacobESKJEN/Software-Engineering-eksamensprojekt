@@ -153,15 +153,27 @@ public class Project {
         return activities;
     }
 
-    public void createActivity(String activityName, int date, int date2, int year, int year2, double i)
-            throws Exception {
-        if (!(i % 0.5 == 0)) {
-            throw new Exception("Time must be in 30 min intervals");
-        } else if (findActivity(activityName) != null) {
+    public void createActivity(String activityName, 
+            int date, int date2, 
+            int year, int year2, 
+            double i)
+        throws Exception {
+        if (!(i % 0.5 == 0)) { // 1
+            throw new Exception("Time must be in 30 min intervals"); 
+        } else if (findActivity(activityName) != null) { // 2
             throw new Exception("Activity already exists");
         }
-        try {
-            Activity activity = new Activity(activityName, date, date2, year, year2, i);
+         else if (date < 1 || date2 > 53 || date2 < 1 || date > 53) {
+            throw new Exception("Week must be between 1 and 53");
+        }
+         else if (WeekYearConversions.totalWeeks(date, year) > WeekYearConversions.totalWeeks(date2, year2)) {
+            throw new Exception("End date must be after start date");
+        }
+        try { 
+            Activity activity = new Activity(activityName, 
+                    date, date2, 
+                    year, year2,
+                     i); 
             activities.add(activity);
         } catch (Exception e) {
             throw e;
