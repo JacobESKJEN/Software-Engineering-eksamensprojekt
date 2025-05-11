@@ -104,6 +104,13 @@ public class Project {
         return null;
     }
 
+    public void changeActivityName(Activity activity, String newName) throws Exception {
+        if (findActivity(newName) != null) {
+            throw new Exception("Activity already exists");
+        }
+        activity.setName(newName);
+    }
+
     public String getProjectETA() throws Exception {
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");

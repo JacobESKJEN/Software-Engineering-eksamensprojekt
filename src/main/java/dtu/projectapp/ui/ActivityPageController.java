@@ -6,6 +6,8 @@ import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
+import dtu.projectapp.ui.ChangeActivityDialogs.ChangeBudgetedHoursDialog;
+import dtu.projectapp.ui.ChangeActivityDialogs.ChangeEndDateDialog;
 import dtu.projectapp.ui.ChangeActivityDialogs.ChangeNameDialog;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -47,7 +49,42 @@ public class ActivityPageController implements PageController {
                 ChangeNameDialog changeNameDialog = new ChangeNameDialog();
                 String newName = changeNameDialog.getResult();
                 if (!newName.equals("")) {
-                    activity.setName(newName);
+                    try {
+                        project.changeActivityName(activity, newName);
+                    } catch (Exception e) {
+                        ErrorDialog.showExceptionDialog(e);
+                    }
+                }
+            }
+        });
+
+        activityPage.getChangeEndDateButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                ChangeEndDateDialog changeEndDateDialog = new ChangeEndDateDialog();
+                changeEndDateDialog.showAndWait();
+                if (changeEndDateDialog.getResult() == ButtonType.OK) {
+                    try {
+                        activity.setEndDate(Integer.parseInt(changeEndDateDialog.getEndWeek()),
+                                Integer.parseInt(changeEndDateDialog.getEndYear()));
+                    } catch (Exception e) {
+                        ErrorDialog.showExceptionDialog(e);
+                    }
+                }
+            }
+        });
+
+        activityPage.getChangeBudgetedHoursButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                ChangeBudgetedHoursDialog changeBudgetedHoursDialog = new ChangeBudgetedHoursDialog();
+                String budgetedHours = changeBudgetedHoursDialog.getResult();
+                if (!budgetedHours.equals("")) {
+                    try {
+                        activity.setBudgetedTime(Double.parseDouble(budgetedHours));
+                    } catch (Exception e) {
+                        ErrorDialog.showExceptionDialog(e);
+                    }
                 }
             }
         });
@@ -112,7 +149,7 @@ public class ActivityPageController implements PageController {
             public void handle(ActionEvent evt) {
                 AvailableEmployeesDialog availableEmployeesDialog = new AvailableEmployeesDialog();
                 availableEmployeesDialog
-                        .updateList(projectApp.getAvailableEmployees(project.findActivity(activityName)));
+                        .updateList(projectApp.getAvailableEmployees(activity));
                 availableEmployeesDialog.showAndWait();
             }
         });
