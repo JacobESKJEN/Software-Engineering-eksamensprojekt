@@ -80,13 +80,6 @@ public class Employee {
         activity.setLoggedHours(hours);
     }
 
-    public double getTotalWork() {  //Oliver
-        double total = 0;
-        for (double hours : hoursPerActivity.values()) {
-            total += hours;
-        }
-        return total;
-    }
 
     public Map<Activity, Double> getHoursWorkedPerActivity() {  //Oliver
         return hoursPerActivity;
