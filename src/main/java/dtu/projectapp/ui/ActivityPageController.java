@@ -126,6 +126,10 @@ public class ActivityPageController implements PageController {
                     String employeeId = logWorkDialog.getEmployeeId();
                     double hours = logWorkDialog.getEmployeeHours();
 
+                    if (hours < 0 || (hours * 2) % 1 != 0){
+                        throw new IllegalArgumentException("Only whole hours with 30 minute increments allowed (e.g. 1.0, 1.5, 2.0)");
+                    }
+
                     Employee employee = projectApp.findEmployee(employeeId);
 
                     employee.logWork(activity, hours);
