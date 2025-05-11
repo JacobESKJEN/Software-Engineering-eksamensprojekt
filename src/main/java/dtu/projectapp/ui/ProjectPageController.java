@@ -86,10 +86,12 @@ public class ProjectPageController implements PageController {
                 String startDate = dialog.getStartDate();
                 String endDate = dialog.getEndDate();
                 String activityEmployee = dialog.getAssignedEmployee();
-                if (!activityName.equals("")) {
+                if (!activityName.equals("") && !activityEmployee.equals("")) {
                     try {
                         String projectName = project.getName();
-                        projectApp.createSpecialActivity(projectName, activityName, startDate, endDate,
+                            projectApp.createSpecialActivity(projectName, 
+                                activityName+" ("+projectApp.findEmployee(activityEmployee).getId()+")", 
+                                startDate, endDate,
                                 projectApp.findEmployee(activityEmployee));
                         System.err.println("Activity created");
                     } catch (Exception e) {
