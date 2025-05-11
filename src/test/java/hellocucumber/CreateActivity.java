@@ -2,12 +2,17 @@ package hellocucumber;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
+import dtu.projectapp.model.SpecialActivity;
 import dtu.projectapp.model.WeekYearConversions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -263,4 +268,40 @@ public class CreateActivity {
         assertFalse(containsActivity);
     }
 
+    @When("the project leader creates a special activity named {string} with start date {string} and end date {string} for employee {string}")
+    public void theProjectLeaderCreatesASpecialActivity(String activityName, String startDate, String endDate,
+            String employeeId) {
+        try {
+            Employee employee = projectApp.findEmployee(employeeId);
+            project.createSpecialActivity(activityName, startDate, endDate, employee);
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
+    @Then("the special activity {string} has start date {string} and end date {string}")
+    public void theSpecialActivityHasStartDateAndEndDate(String activityName, String startDate, String endDate) {
+        SpecialActivity activity = (SpecialActivity) project.findActivity(activityName);
+        assertEquals(LocalDate.parse(startDate), activity.getStartDate());
+        assertEquals(LocalDate.parse(endDate), activity.getEndDate());
+    }
+
+    @Then("the special activity is assigned to employee {string}")
+    public void theSpecialActivityIsAssignedToEmployee(String employeeId) {
+        assertTrue(activity.getEmployees().stream().anyMatch(e -> e.getId().equals(employeeId)));
+    }
+
+    @When("the project leader retrieves the details of the special activity {string}")
+    public void theProjectLeaderRetrievesTheDetailsOfTheSpecialActivity(String activityName) {
+        activity = project.findActivity(activityName); // Retrieve the activity by name
+        assertNotNull(activity, "The special activity was not found in the project."); // Ensure the activity exists
+        assertTrue(activity instanceof SpecialActivity, "The activity is not a SpecialActivity."); // Ensure it's a special activity
+    }
+
+    @Then("the activity {string} is created and added to the project")
+    public void theActivityIsCreatedAndAddedToTheProject(String string) {
+        Activity activity = project.findActivity(string);
+        System.out.println(project.getActivities());
+        assertTrue(activity != null);
+    }
 }

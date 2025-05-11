@@ -184,23 +184,19 @@ public class Project {
         }
     }
 
-    public void createSpecialActivity(String activityName, String date, String date2, Employee employee)
-            throws Exception {
+    public void createSpecialActivity(String activityName, String date, String date2, Employee employee) throws Exception {
         if (employee == null) {
             throw new Exception("Unable to find employee");
         } else if (findActivity(activityName) != null) {
             throw new Exception("Activity already exists");
         } else if (date == null || date2 == null) {
             throw new Exception("Date cannot be null");
-        } else if (LocalDate.parse(date).isBefore(LocalDate.now())) {
-            throw new Exception("Start date cant be in the past");
         } else if (LocalDate.parse(date).isAfter(LocalDate.parse(date2))) {
             throw new Exception("End date must be after start date");
         }
 
-        SpecialActivity activity = new SpecialActivity(activityName, LocalDate.parse(date), LocalDate.parse(date2),
-                employee);
-        activities.add(activity);
+        Activity activity = new SpecialActivity(activityName, LocalDate.parse(date), LocalDate.parse(date2), employee);
+        activities.add(activity); 
     }
 
     public String findActivityName(String activityName) {
