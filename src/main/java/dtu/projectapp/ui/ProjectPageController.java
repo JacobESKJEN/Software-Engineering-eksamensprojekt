@@ -64,13 +64,12 @@ public class ProjectPageController implements PageController {
                 int endDate = dialog.getEndDate();
                 int startYear = dialog.getStartYear();
                 int endYear = dialog.getEndYear();
-                double activityHours = dialog.getActivityHours();
                 if (!activityName.equals("")) {
                     try {
+                        double activityHours = dialog.getActivityHours();
                         String projectName = project.getName();
                         projectApp.createActivity(projectName, activityName, startDate, endDate, startYear, endYear,
                                 activityHours);
-                        System.err.println("Activity created");
 
                     } catch (Exception e) {
                         ErrorDialog.showExceptionDialog(e);

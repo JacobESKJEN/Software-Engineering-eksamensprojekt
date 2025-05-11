@@ -90,11 +90,7 @@ public class CreateActivityDialog extends Dialog<ButtonType> {
         }
     }
 
-    public double getActivityHours() {
-        try {
-            return Integer.parseInt(priorityField.getText());
-        } catch (NumberFormatException e) {
-            return -1; // or handle it as needed
-        }
+    public double getActivityHours() throws Exception {
+        return Double.parseDouble(priorityField.getText());
     }
 }
