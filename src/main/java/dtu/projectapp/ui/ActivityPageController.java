@@ -32,6 +32,13 @@ public class ActivityPageController implements PageController {
             }
         });
 
+        activityPage.getAssignedEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent evt) {
+                System.out.println(activity.getEmployees());
+            }
+        });
+
         // add employee to activity button
         activityPage.getAddEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
 
@@ -83,7 +90,7 @@ public class ActivityPageController implements PageController {
             public void handle(ActionEvent evt) {
                 AvailableEmployeesDialog availableEmployeesDialog = new AvailableEmployeesDialog();
                 availableEmployeesDialog
-                        .resetDialog(projectApp.getAvailableEmployees(project.findActivity(activityName)));
+                        .updateList(projectApp.getAvailableEmployees(project.findActivity(activityName)));
                 availableEmployeesDialog.showAndWait();
             }
         });

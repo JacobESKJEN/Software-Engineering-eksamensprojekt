@@ -27,8 +27,13 @@ public class createProjectSteps {
 
     @Given("there is an employee with id {string}")
     public void thereIsAnEmployeeWithId(String string) {
-        emp = new Employee(string);
-        projectApp.getEmployees().add(emp);
+        try {
+            emp = new Employee(string);
+            projectApp.getEmployees().add(emp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @When("an employee creates a new project with name {string}")

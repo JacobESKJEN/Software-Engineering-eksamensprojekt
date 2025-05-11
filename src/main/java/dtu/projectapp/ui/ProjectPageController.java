@@ -53,7 +53,7 @@ public class ProjectPageController implements PageController {
                 }
             }
         });
-        //create activity button
+        // create activity button
         projectPage.getAddActivityButton().setOnAction(event -> {
             CreateActivityDialog dialog = new CreateActivityDialog((Stage) projectPage.getScene().getWindow());
             dialog.showAndWait();
@@ -68,7 +68,8 @@ public class ProjectPageController implements PageController {
                 if (!activityName.equals("")) {
                     try {
                         String projectName = project.getName();
-                        projectApp.createActivity(projectName, activityName, startDate, endDate,startYear,endYear, activityHours);
+                        projectApp.createActivity(projectName, activityName, startDate, endDate, startYear, endYear,
+                                activityHours);
                         System.err.println("Activity created");
 
                     } catch (Exception e) {
@@ -79,19 +80,20 @@ public class ProjectPageController implements PageController {
         });
         // create special activity button //sick leave, vacation, etc.
         projectPage.getAddSpecialActivityButton().setOnAction(event -> {
-            CreateSpecialActivityDialog dialog = new CreateSpecialActivityDialog((Stage) projectPage.getScene().getWindow());
+            CreateSpecialActivityDialog dialog = new CreateSpecialActivityDialog(
+                    (Stage) projectPage.getScene().getWindow());
             dialog.showAndWait();
             if (dialog.getResult() == ButtonType.OK) {
                 String activityName = dialog.getActivityName();
                 String startDate = dialog.getStartDate();
                 String endDate = dialog.getEndDate();
-                double activityHours = dialog.getActivityHours();
+                String activityEmployee = dialog.getAssignedEmployee();
                 if (!activityName.equals("")) {
                     try {
                         String projectName = project.getName();
-                        projectApp.createSpecialActivity(projectName, activityName, startDate, endDate, activityHours);
+                        projectApp.createSpecialActivity(projectName, activityName, startDate, endDate,
+                                projectApp.findEmployee(activityEmployee));
                         System.err.println("Activity created");
-
                     } catch (Exception e) {
                         ErrorDialog.showExceptionDialog(e);
                     }
@@ -119,7 +121,7 @@ public class ProjectPageController implements PageController {
 
             }
         });
-        
+
         // set project leader button
         projectPage.getSetProjectLeaderButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override

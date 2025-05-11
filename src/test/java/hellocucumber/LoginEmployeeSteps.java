@@ -54,7 +54,7 @@ public class LoginEmployeeSteps {
     @When("the user adds employee with id {string}")
     public void theUserAddsEmployeeWithId(String string) {
         try {
-            projectApp.addEmployee(new Employee(string));
+            projectApp.addEmployee(string);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(string);
         }

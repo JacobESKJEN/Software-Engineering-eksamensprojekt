@@ -58,11 +58,20 @@ public class ProjectReports {
         }
     }
 
+    private Employee createEmployee(String id) {
+        try {
+            return new Employee(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @And("employee {string} is added to the activity {string}")
     public void employee_added_to_activity(String empId, String activityName) {
-        Employee e = employeeMap.computeIfAbsent(empId, id -> new Employee(id));
-        Activity a = activityMap.get(activityName);
         try {
+            Employee e = employeeMap.computeIfAbsent(empId, id -> createEmployee(id));
+            Activity a = activityMap.get(activityName);
             a.addEmployeeToActivity(e);
         } catch (Exception exception) {
             exception.printStackTrace();

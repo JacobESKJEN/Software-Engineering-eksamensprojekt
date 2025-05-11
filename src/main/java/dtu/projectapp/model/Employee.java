@@ -11,7 +11,10 @@ public class Employee {
     private List<Activity> activities = new ArrayList<>();
     private Map<Activity, Double> hoursPerActivity = new HashMap<>();
 
-    public Employee(String id) {
+    public Employee(String id) throws Exception {
+        if (id.length() > 4) {
+            throw new IllegalArgumentException("Maximum length of employee id is 4");
+        }
         this.id = id;
     }
 

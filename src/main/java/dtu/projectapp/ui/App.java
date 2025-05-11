@@ -47,8 +47,12 @@ public class App extends Application {
     public static void main(String[] args) {
         projectApp = new ProjectApp();
 
-        projectApp.getEmployees().add(new Employee("huba"));
-        projectApp.getEmployees().add(new Employee("w"));
+        try {
+            projectApp.getEmployees().add(new Employee("huba"));
+            projectApp.getEmployees().add(new Employee("w"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         launch();
     }

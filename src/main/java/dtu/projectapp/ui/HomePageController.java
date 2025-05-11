@@ -69,7 +69,7 @@ public class HomePageController implements PageController {
             public void handle(ActionEvent evt) {
                 String employeeId = addEmployeeDialog.getResult();
                 try {
-                    projectApp.addEmployee(new Employee(employeeId));
+                    projectApp.addEmployee(employeeId);
                 } catch (Exception e) {
                     ErrorDialog.showExceptionDialog(e);
                 }

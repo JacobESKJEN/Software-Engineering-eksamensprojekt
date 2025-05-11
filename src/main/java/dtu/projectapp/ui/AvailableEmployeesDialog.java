@@ -15,31 +15,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
-public class AvailableEmployeesDialog extends Dialog {
+public class AvailableEmployeesDialog extends ListDialog {
     public AvailableEmployeesDialog() {
         super();
-
-        resetDialog(new ArrayList<>());
     }
 
-    public void resetDialog(List<Employee> availableEmployees) {
-        super.getDialogPane().getButtonTypes().clear();
-        super.setTitle("Available employees");
+    @Override
+    public String getCustomTitle() {
+        return "Available employees";
+    }
 
-        VBox vbox = new VBox();
-        super.getDialogPane().setContent(vbox);
-
-        ButtonType closeButton = new ButtonType("Close", ButtonData.CANCEL_CLOSE);
-        super.getDialogPane().getButtonTypes().add(closeButton);
-
-        ListView<String> availableEmployeesListView = new ListView<>();
+    public void updateList(List<Employee> availableEmployees) {
         List<String> employeeIds = availableEmployees.stream().map(Employee::getId).collect(Collectors.toList());
         ObservableList<String> observableEmployeeIds = FXCollections.observableArrayList(employeeIds);
-        availableEmployeesListView.setItems(observableEmployeeIds);
-        vbox.getChildren().add(availableEmployeesListView);
-    }
-
-    public void showDialog() {
-        super.showAndWait();
+        super.listView.setItems(observableEmployeeIds);
     }
 }

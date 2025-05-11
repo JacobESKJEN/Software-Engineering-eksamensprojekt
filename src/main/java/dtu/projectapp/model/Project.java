@@ -28,6 +28,10 @@ public class Project {
         this.id = id;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void setProjectLeader(Employee setterEmployee, Employee projLead) throws Exception {
         if (projectLeader != null && !(projectLeader.equals(setterEmployee))) {
             throw new Exception("Project already has a leader");
@@ -180,9 +184,10 @@ public class Project {
         }
     }
 
-    public void createSpecialActivity(String activityName, String date, String date2, double i) throws Exception {
-        if (!(i % 0.5 == 0)) {
-            throw new Exception("Time must be in 30 min intervals");
+    public void createSpecialActivity(String activityName, String date, String date2, Employee employee)
+            throws Exception {
+        if (employee == null) {
+            throw new Exception("Unable to find employee");
         } else if (findActivity(activityName) != null) {
             throw new Exception("Activity already exists");
         } else if (date == null || date2 == null) {
@@ -193,7 +198,8 @@ public class Project {
             throw new Exception("End date must be after start date");
         }
 
-        SpecialActivity activity = new SpecialActivity(activityName, LocalDate.parse(date), LocalDate.parse(date2), i);
+        SpecialActivity activity = new SpecialActivity(activityName, LocalDate.parse(date), LocalDate.parse(date2),
+                employee);
         activities.add(activity);
     }
 
