@@ -33,7 +33,7 @@ public class RegisterTimeSteps {
     @Given("there exists an activity with the name {string}, start date {string}, end date {string}, and budgeted time {int}")
     public void activityExists(String name, String startDate, String endDate, Integer budget) throws Exception{
         projectApp.createActivity(project.getName(), name, 19, 20, 2025, 2025, budget);
-        activity = projectApp.findActivity(project.getName(), name);
+        activity = project.findActivity(name);
     }
 
     @Given("there exists an employee with id {string}")
@@ -48,7 +48,8 @@ public class RegisterTimeSteps {
 
     @When("the employee registers {double} hours to the activity {string}")
     public void empRegHoursAct(Double hours, String activityName){
-        activity = projectApp.findActivity(project.getName(), activityName);
+        project = projectApp.findProject("Test");
+        activity = project.findActivity(activityName);
         try{
             employee.logWork(activity, hours);
         } catch(Exception e){
