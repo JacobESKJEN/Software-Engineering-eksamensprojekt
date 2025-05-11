@@ -10,9 +10,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class RegisterTimeSteps {
+public class RegisterTimeSteps { //Oliver
     private Project project;
-    private String errorMessage;
     private Activity activity;
     private Employee employee;
     private ProjectApp projectApp;

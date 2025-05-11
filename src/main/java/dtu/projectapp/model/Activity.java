@@ -95,7 +95,7 @@ public class Activity {
         support.firePropertyChange("Update budgeted time", null, this.budgetedTime);
     }
 
-    public void setLoggedHours(double hours) { // sums the hours the empoloyee loggs
+    public void setLoggedHours(double hours) { // sums the hours the empoloyee registers  Oliver
         this.hoursWorked += hours;
         support.firePropertyChange("Update budgeted time", null, this.budgetedTime);
     }

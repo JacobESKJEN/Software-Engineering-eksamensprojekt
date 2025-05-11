@@ -1,10 +1,14 @@
 package hellocucumber;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
+import io.cucumber.java.en_old.Ac;
 
 public class EmployeeTest {
     private Activity activity;
@@ -35,4 +39,18 @@ public class EmployeeTest {
         assertTrue(isAvailable, "Employee should be available as there is no overlap.");
     }
 
+
+    @Test
+    void testHoursWorkedPerActivity() throws Exception{    //Oliver
+        Employee employee = new Employee("ID03");
+        Activity activity = new Activity("Design", 11, 12, 2025, 2025, 100);
+
+        employee.assignActivity(activity);
+        employee.logWork(activity, 2.5);
+
+        Map<Activity, Double> hoursMap = employee.getHoursWorkedPerActivity();
+
+        assertTrue(hoursMap.containsKey(activity), "Activity from hoursMap");
+        assertEquals(2.5, hoursMap.get(activity), 0.001, "Logged hours must match expected value");
+    }
 }

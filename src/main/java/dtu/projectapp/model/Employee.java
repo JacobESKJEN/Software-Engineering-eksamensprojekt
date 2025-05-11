@@ -82,6 +82,9 @@ public class Employee {
 
 
     public Map<Activity, Double> getHoursWorkedPerActivity() {  //Oliver
+        if(hoursPerActivity == null){
+            return new HashMap<>();
+        }
         return hoursPerActivity;
     }
 }
