@@ -48,7 +48,7 @@ public class ProjectPageController implements PageController {
                 Object selectedItem = projectPage.getActivityListView().getSelectionModel().getSelectedItem();
                 if (selectedItem != null) {
                     ActivityPageController activityPage = new ActivityPageController(projectApp, app,
-                            project.findActivityName(selectedItem.toString()), project);
+                            project.findActivity(selectedItem.toString()), project);
                     app.newPage(activityPage);
                 }
             }
