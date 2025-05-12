@@ -120,7 +120,6 @@ public class ProjectApp {
         // Fire property change event to notify observers (could be specific to
         // activities)
         support.firePropertyChange("New activity", null, project.getActivities());
-
     }
 
     public void RemoveActivity(String projectName, String activityName) throws Exception {
@@ -133,7 +132,6 @@ public class ProjectApp {
         // Fire property change event to notify observers (could be specific to
         // activities)
         support.firePropertyChange("Remove activity", null, project.getActivities());
-
     }
 
     public List<Employee> getAvailableEmployees(int startWeek, int endWeek, int startYear, int endYear) { // Jacob
