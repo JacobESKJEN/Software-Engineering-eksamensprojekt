@@ -1,12 +1,11 @@
 package hellocucumber;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
@@ -19,6 +18,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class CreateActivity {
+
     private Project project;
     private Activity activity;
     private Employee employee;
@@ -50,7 +50,6 @@ public class CreateActivity {
     // iCreateANewActivityWithTheNameStartDateEndDateAndBudgetedTime(string,
     // string2, string3, 0);
     // }
-
     @Given("there exists an activity with the name {string}, start week {int}, end week {int}, start year {int}, end year {int}, and budgeted time {int}")
     public void thereExistsAnActivityWithTheNameStartDateEndDateAndBudgetedTime(String string, int int1, int int2,
             int int3, int int4, int int5) {
@@ -83,7 +82,6 @@ public class CreateActivity {
     // errorMessageHolder.setErrorMessage(e.getMessage());
     // }
     // }
-
     @When("I create a new activity with the name {string}, start week {int}, end week {int}, start year {int}, end year {int}, and budgeted time {int}")
     public void iCreateANewActivityWithTheNameStartDateEndDateAndBudgetedTime(String string, int int1, int int2,
             int int3, int int4, int int5) {
@@ -158,7 +156,7 @@ public class CreateActivity {
     public void theProjectLeaderRenamesTo(String string, String string2) {
         activity = project.findActivity(string);
         try {
-            activity.setName(string2);
+            project.changeActivityName(activity, string2);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
