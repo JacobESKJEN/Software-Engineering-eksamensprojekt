@@ -99,7 +99,7 @@ public class ActivityPageController implements PageController {
         });
 
         // add employee to activity button
-        activityPage.getAddEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
+        activityPage.getAddEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {    //Noah
             @Override
             public void handle(ActionEvent evt) {
                 AssignEmployeeDialog assignEmployeeDialog = new AssignEmployeeDialog(
@@ -121,7 +121,7 @@ public class ActivityPageController implements PageController {
         });
 
         // remove employee from activity button
-        activityPage.getRemoveEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
+        activityPage.getRemoveEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {    //Noah
             @Override
             public void handle(ActionEvent evt) {
                 AssignEmployeeDialog assignEmployeeDialog = new AssignEmployeeDialog(
@@ -152,13 +152,15 @@ public class ActivityPageController implements PageController {
             }
         });
         // if the activity is a special activity, disable the log work button
-        if (project.isActivitySpecial(activityName)) {
+        if (project.isActivitySpecial(activityName)) {    //Noah
             activityPage.getLogWorkButton().setDisable(true);
             activityPage.getChangeBudgetedHoursButton().setDisable(true);
-        } else {
+        } else {    //Noah
             activityPage.getLogWorkButton().setDisable(false);
             activityPage.getChangeBudgetedHoursButton().setDisable(false);
         }
+
+        
         activityPage.getLogWorkButton().setOnAction(evt -> { // Oliver
             LogWorkDialog logWorkDialog = new LogWorkDialog((Stage) activityPage.getScene().getWindow());
             logWorkDialog.showAndWait();
