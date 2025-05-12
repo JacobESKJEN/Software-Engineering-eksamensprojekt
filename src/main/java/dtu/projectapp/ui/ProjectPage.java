@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dtu.projectapp.model.Activity;
+import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,7 @@ public class ProjectPage implements Page {
 
     private ListView ActivityListView;
     private Activity activity;
+    private Employee employee;
     private Label projectLeaderLabel;
 
     private Button homePageButton;
@@ -72,6 +74,8 @@ public class ProjectPage implements Page {
         removeActivityButton = new Button("Remove Activity");
         // addEmployeeButton = new Button("Add Employee");
         // removeEmployeeButton = new Button("Remove Employee");
+
+
         projectStatusButton = new Button("Get Full Report");
         ETAReportButton = new Button("Get Project ETA");
         empStatusButton = new Button("Get Employee Status");
@@ -122,15 +126,15 @@ public class ProjectPage implements Page {
         return addSpecialActivityButton;
     }
 
-    public Button getProjectStatusButton() {
+    public Button getProjectStatusButton() {    //Oliver
         return projectStatusButton;
     }
 
-    public Button getEmpStatusButton() {
+    public Button getEmpStatusButton() {    //Oliver
         return empStatusButton;
     }
 
-    public Button getETAReportButton() {
+    public Button getETAReportButton() {    //Oliver
         return ETAReportButton;
     }
 

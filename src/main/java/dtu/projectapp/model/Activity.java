@@ -2,14 +2,12 @@ package dtu.projectapp.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Activity {
+
     private String name;
-    private LocalDate startDate;
-    private LocalDate endDate;
     private int startWeek;
     private int endWeek;
     private int startYear;
@@ -95,22 +93,23 @@ public class Activity {
         support.firePropertyChange("Update budgeted time", null, this.budgetedTime);
     }
 
-    public void setLoggedHours(double hours) { // sums the hours the empoloyee loggs
+    public void setLoggedHours(double hours) { // sums the hours the empoloyee registers  Oliver
         this.hoursWorked += hours;
         support.firePropertyChange("Update budgeted time", null, this.budgetedTime);
     }
 
-    public double getHoursWorked() {
+    public double getHoursWorked() {    //Oliver
         return hoursWorked;
     }
 
-    public double getCompletionPercentage() {
-        if (budgetedTime == 0)
+    public double getCompletionPercentage() {   //Oliver
+        if (budgetedTime == 0) {
             return 0; // safety, no dividing by 0
-        return (hoursWorked / budgetedTime) * 100;
+
+                }return (hoursWorked / budgetedTime) * 100;
     }
 
-    public double getRemainingHours() {
+    public double getRemainingHours() { //oliver
         return budgetedTime - hoursWorked;
     }
 

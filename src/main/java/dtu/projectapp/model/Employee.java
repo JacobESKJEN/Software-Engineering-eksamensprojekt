@@ -62,7 +62,7 @@ public class Employee {
         return activitiesDuringInterval < 20 && !specialActivityWithinInterval;
     }
 
-    public void logWork(Activity activity, double hours) throws Exception {
+    public void logWork(Activity activity, double hours) throws Exception { //Oliver
         if (hours % 0.5 != 0.0) {
             throw new Exception("Time is given in half hour intervals");
         }
@@ -80,15 +80,8 @@ public class Employee {
         activity.setLoggedHours(hours);
     }
 
-    public double getTotalWork() {
-        double total = 0;
-        for (double hours : hoursPerActivity.values()) {
-            total += hours;
-        }
-        return total;
-    }
 
-    public Map<Activity, Double> getHoursWorkedPerActivity() {
+    public Map<Activity, Double> getHoursWorkedPerActivity() {  //Oliver
         return hoursPerActivity;
     }
 }

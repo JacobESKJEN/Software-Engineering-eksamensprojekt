@@ -1,8 +1,10 @@
 package dtu.projectapp.ui;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import dtu.projectapp.model.Project;
+
 import dtu.projectapp.model.ProjectApp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +22,13 @@ public class ProjectPageController implements PageController {
     private AssignEmployeeDialog assignEmployeeDialog;
     private ProjectStatusDialog projectStatusDialog;
     private CreateActivityDialog CreateActivityDialog;
+
+    private void reportButtons(Project project){    // Oliver
+        boolean currentLeader = project.getProjectLeader() != null && project.getProjectLeader().equals(projectApp.getLoggedInEmployee());
+        projectPage.getETAReportButton().setDisable(!currentLeader);
+        projectPage.getEmpStatusButton().setDisable(!currentLeader);
+        projectPage.getProjectStatusButton().setDisable(!currentLeader);
+    }
 
     public ProjectPageController(ProjectApp projectApp, App app, Project project) {
         projectPage = new ProjectPage(project);
@@ -89,8 +98,8 @@ public class ProjectPageController implements PageController {
                 if (!activityName.equals("") && !activityEmployee.equals("")) {
                     try {
                         String projectName = project.getName();
-                            projectApp.createSpecialActivity(projectName, 
-                                activityName+" ("+projectApp.findEmployee(activityEmployee).getId()+")", 
+                            projectApp.createSpecialActivity(projectName,
+                                activityName+" ("+projectApp.findEmployee(activityEmployee).getId()+")",
                                 startDate, endDate,
                                 projectApp.findEmployee(activityEmployee));
                         System.err.println("Activity created");
@@ -138,7 +147,19 @@ public class ProjectPageController implements PageController {
             }
         });
 
-        projectPage.getProjectStatusButton().setOnAction(new EventHandler<ActionEvent>() {
+
+        project.addObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent event){
+                if ("New project leader".equals(event.getPropertyName())){
+                    reportButtons(project);
+                }
+            }
+        });
+
+        reportButtons(project);
+
+        projectPage.getProjectStatusButton().setOnAction(new EventHandler<ActionEvent>() {  //Oliver
             @Override
             public void handle(ActionEvent evt) {
                 try {
@@ -151,7 +172,7 @@ public class ProjectPageController implements PageController {
             }
         });
 
-        projectPage.getEmpStatusButton().setOnAction(new EventHandler<ActionEvent>() {
+        projectPage.getEmpStatusButton().setOnAction(new EventHandler<ActionEvent>() {//Oliver
             @Override
             public void handle(ActionEvent evt) {
                 try {
@@ -164,7 +185,7 @@ public class ProjectPageController implements PageController {
             }
         });
 
-        projectPage.getETAReportButton().setOnAction(new EventHandler<ActionEvent>() {
+        projectPage.getETAReportButton().setOnAction(new EventHandler<ActionEvent>() {//Oliver
             @Override
             public void handle(ActionEvent evt) {
                 try {

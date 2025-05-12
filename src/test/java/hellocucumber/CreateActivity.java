@@ -1,12 +1,11 @@
 package hellocucumber;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
@@ -19,6 +18,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class CreateActivity {
+
     private Project project;
     private Activity activity;
     private Employee employee;
@@ -174,7 +174,7 @@ public class CreateActivity {
     public void theProjectLeaderRenamesTo(String string, String string2) {
         activity = project.findActivity(string);
         try {
-            project.changeActivityName(activity,string2);
+            project.changeActivityName(activity, string2);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }

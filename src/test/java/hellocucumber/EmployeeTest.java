@@ -1,10 +1,14 @@
 package hellocucumber;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 
 import dtu.projectapp.model.Activity;
 import dtu.projectapp.model.Employee;
+import io.cucumber.java.en_old.Ac;
 
 public class EmployeeTest {
     private Activity activity;
@@ -35,36 +39,21 @@ public class EmployeeTest {
         assertTrue(isAvailable, "Employee should be available as there is no overlap.");
     }
 
-    @Test
-    void testGetTotalWork() throws Exception {
-        Employee employee = new Employee("1234");
-        Activity activity1 = new Activity("Activity1", 10, 12, 2025, 2025, 40.0);
-        Activity activity2 = new Activity("Activity2", 15, 17, 2025, 2025, 30.0);
 
-        employee.assignActivity(activity1);
-        employee.assignActivity(activity2);
 
-        employee.logWork(activity1, 5.0);
-        employee.logWork(activity2, 7.5);
 
-        double totalWork = employee.getTotalWork();
-        assertEquals(12.5, totalWork, 0.001, "The total work should be the sum of hours logged for all activities.");
-    }
 
     @Test
-    void testGetTotalWorkWithNoActivities() throws Exception {
-        Employee employee = new Employee("1234");
-        double totalWork = employee.getTotalWork();
-        assertEquals(0.0, totalWork, "The total work should be 0 when no activities are assigned.");
-    }
+    void testHoursWorkedPerActivity() throws Exception{    //Oliver
+        Employee employee = new Employee("ID03");
+        Activity activity = new Activity("Design", 11, 12, 2025, 2025, 100);
 
-    @Test
-    void testGetTotalWorkWithNoLoggedHours() throws Exception {
-        Employee employee = new Employee("1234");
-        Activity activity1 = new Activity("Activity1", 10, 12, 2025, 2025, 40.0);
-    
-        employee.assignActivity(activity1);
-        double totalWork = employee.getTotalWork();
-        assertEquals(0.0, totalWork, "The total work should be 0 when no hours are logged for activities.");
+        employee.assignActivity(activity);
+        employee.logWork(activity, 2.5);
+
+        Map<Activity, Double> hoursMap = employee.getHoursWorkedPerActivity();
+
+        assertTrue(hoursMap.containsKey(activity), "Activity from hoursMap");
+        assertEquals(2.5, hoursMap.get(activity), 0.001, "Logged hours must match expected value");
     }
 }

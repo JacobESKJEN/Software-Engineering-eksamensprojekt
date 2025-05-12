@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Project {
+
     private String name = "";
     private String id;
     private Employee projectLeader;
@@ -54,7 +55,7 @@ public class Project {
         return name;
     }
 
-    public String getEmployeeStatus() throws Exception {
+    public String getEmployeeStatus() throws Exception { // Oliver
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
@@ -110,12 +111,13 @@ public class Project {
         }
         activity.setName(newName);
     }
+
     public boolean isActivitySpecial(String activityName) {
         Activity activity = findActivity(activityName);
         return activity instanceof SpecialActivity;
     }
 
-    public String getProjectETA() throws Exception {
+    public String getProjectETA() throws Exception {    //Oliver
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
@@ -155,7 +157,7 @@ public class Project {
 
     // This final/total report is the "sum" of getEmployeeStatus() and
     // getProjectETA()
-    public String getProjectReport() throws Exception {
+    public String getProjectReport() throws Exception { //Oliver
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
@@ -210,7 +212,7 @@ public class Project {
         }
 
         Activity activity = new SpecialActivity(activityName, LocalDate.parse(date), LocalDate.parse(date2), employee);
-        activities.add(activity); 
+        activities.add(activity);
     }
 
     public void removeActivity(String activityName) throws Exception {
