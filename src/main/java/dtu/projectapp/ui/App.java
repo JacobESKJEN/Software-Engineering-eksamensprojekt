@@ -15,6 +15,8 @@ import java.util.List;
 import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
+import dtu.projectapp.ui.Controllers.LogInPageController;
+import dtu.projectapp.ui.Controllers.PageController;
 
 /**
  * JavaFX App
