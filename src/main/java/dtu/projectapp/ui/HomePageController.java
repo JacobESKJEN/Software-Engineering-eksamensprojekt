@@ -9,14 +9,14 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 
-public class HomePageController implements PageController {
+public class HomePageController implements PageController {    // Jacob
     private HomePage homePage;
     private ProjectApp projectApp;
     private App app;
     private CreateProjectDialog createProjectDialog;
     private AddEmployeeDialog addEmployeeDialog;
 
-    public HomePageController(ProjectApp projectApp, App app) { // Jacob
+    public HomePageController(ProjectApp projectApp, App app) { 
         homePage = new HomePage();
         this.projectApp = projectApp;
         this.app = app;
