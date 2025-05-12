@@ -49,7 +49,7 @@ public class CreateSpecialActivityDialog extends Dialog<ButtonType> {
         });
     }
 
-    public ComboBox<String> getComboBox() {
+    public ComboBox<String> getComboBox() { // Jacob
         return typeComboBox;
     }
 
@@ -65,7 +65,7 @@ public class CreateSpecialActivityDialog extends Dialog<ButtonType> {
         return endDateField.getText();
     }
 
-    public String getAssignedEmployee() {
+    public String getAssignedEmployee() { // Jacob
         return employeeField.getText();
     }
 }

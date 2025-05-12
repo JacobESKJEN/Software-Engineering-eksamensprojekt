@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
-public class AvailableEmployeesDialog extends ListDialog {
+public class AvailableEmployeesDialog extends ListDialog { // Jacob
     public AvailableEmployeesDialog() {
         super();
     }

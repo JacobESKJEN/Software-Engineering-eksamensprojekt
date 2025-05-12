@@ -14,7 +14,7 @@ public class ProjectPageObserver implements PropertyChangeListener {
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void propertyChange(PropertyChangeEvent evt) { // Jacob
         if (evt.getPropertyName().equals("New project leader")) {
             System.out.println(evt.getNewValue());
             projectPage.updateProjectLeader((String) evt.getNewValue());
@@ -25,7 +25,7 @@ public class ProjectPageObserver implements PropertyChangeListener {
         }
         if (evt.getPropertyName().equals("Remove activity")) {
             List<Activity> updatedActivities = (List<Activity>) evt.getNewValue();
-            
+
             projectPage.updateActivitys(updatedActivities); // Update the ListView
         }
     }

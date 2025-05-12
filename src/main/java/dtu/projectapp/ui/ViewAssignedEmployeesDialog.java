@@ -7,7 +7,7 @@ import dtu.projectapp.model.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ViewAssignedEmployeesDialog extends ListDialog {
+public class ViewAssignedEmployeesDialog extends ListDialog { // Jacob
     public ViewAssignedEmployeesDialog() {
         super();
     }

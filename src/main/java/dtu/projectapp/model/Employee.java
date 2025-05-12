@@ -11,32 +11,32 @@ public class Employee {
     private List<Activity> activities = new ArrayList<>();
     private Map<Activity, Double> hoursPerActivity = new HashMap<>();
 
-    public Employee(String id) throws Exception {
+    public Employee(String id) throws Exception { // Jacob
         if (id.length() > 4) {
             throw new IllegalArgumentException("Maximum length of employee id is 4");
         }
         this.id = id;
     }
 
-    public String getId() {
+    public String getId() { // Jacob
         return id;
     }
 
-    public void assignActivity(Activity activity) {
+    public void assignActivity(Activity activity) { // Jacob
         activities.add(activity);
         hoursPerActivity.put(activity, 0.0);
     }
 
-    public void unAssignActivity(Activity activity) {
+    public void unAssignActivity(Activity activity) { // Jacob
         activities.remove(activity);
         hoursPerActivity.remove(activity);
     }
 
-    public List<Activity> getActivities() {
+    public List<Activity> getActivities() { // Jacob
         return activities;
     }
 
-    public boolean isAvailableBetweenWeeks(int startWeek, int endWeek, int startYear, int endYear) {
+    public boolean isAvailableBetweenWeeks(int startWeek, int endWeek, int startYear, int endYear) { // Jacob
         int activitiesDuringInterval = 0;
         boolean specialActivityWithinInterval = false;
         for (Activity activity : activities) {
@@ -62,7 +62,7 @@ public class Employee {
         return activitiesDuringInterval < 20 && !specialActivityWithinInterval;
     }
 
-    public void logWork(Activity activity, double hours) throws Exception { //Oliver
+    public void logWork(Activity activity, double hours) throws Exception { // Oliver
         if (hours % 0.5 != 0.0) {
             throw new Exception("Time is given in half hour intervals");
         }
@@ -80,8 +80,7 @@ public class Employee {
         activity.setLoggedHours(hours);
     }
 
-
-    public Map<Activity, Double> getHoursWorkedPerActivity() {  //Oliver
+    public Map<Activity, Double> getHoursWorkedPerActivity() { // Oliver
         return hoursPerActivity;
     }
 }

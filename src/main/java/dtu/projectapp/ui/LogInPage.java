@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class LogInPage implements Page {
+public class LogInPage implements Page { // Jacob
     private Scene scene;
     private VBox root;
     private TextField idField;

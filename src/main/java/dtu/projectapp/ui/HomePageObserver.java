@@ -6,7 +6,7 @@ import java.util.List;
 
 import dtu.projectapp.model.Project;
 
-public class HomePageObserver implements PropertyChangeListener {
+public class HomePageObserver implements PropertyChangeListener { // Jacob
     private HomePage homePage;
 
     public HomePageObserver(HomePage homePage) {

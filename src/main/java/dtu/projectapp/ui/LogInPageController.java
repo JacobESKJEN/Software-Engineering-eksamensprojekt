@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 
 import dtu.projectapp.model.*;
 
-public class LogInPageController implements PageController {
+public class LogInPageController implements PageController { // Jacob
     private LogInPage logInPage;
     private ProjectApp projectApp;
     private App app;

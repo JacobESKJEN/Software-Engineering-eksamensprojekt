@@ -36,14 +36,14 @@ public class ActivityPageController implements PageController {
         activityPage.getBudgetedHoursLabel()
                 .setText("Budgeted hours: " + activity.getHoursWorked() + "/" + activity.getBudgetedTime());
 
-        activityPage.getHomePageButton().setOnAction(new EventHandler<ActionEvent>() {
+        activityPage.getHomePageButton().setOnAction(new EventHandler<ActionEvent>() { // Jacob
             @Override
             public void handle(ActionEvent evt) {
                 app.newPage(new HomePageController(projectApp, app));
             }
         });
 
-        activityPage.getChangeNameButton().setOnAction(new EventHandler<ActionEvent>() {
+        activityPage.getChangeNameButton().setOnAction(new EventHandler<ActionEvent>() { // Jacob
             @Override
             public void handle(ActionEvent evt) {
                 ChangeNameDialog changeNameDialog = new ChangeNameDialog();
@@ -58,7 +58,7 @@ public class ActivityPageController implements PageController {
             }
         });
 
-        activityPage.getChangeEndDateButton().setOnAction(new EventHandler<ActionEvent>() {
+        activityPage.getChangeEndDateButton().setOnAction(new EventHandler<ActionEvent>() { // Jacob
             @Override
             public void handle(ActionEvent evt) {
                 ChangeEndDateDialog changeEndDateDialog = new ChangeEndDateDialog();
@@ -74,7 +74,7 @@ public class ActivityPageController implements PageController {
             }
         });
 
-        activityPage.getChangeBudgetedHoursButton().setOnAction(new EventHandler<ActionEvent>() {
+        activityPage.getChangeBudgetedHoursButton().setOnAction(new EventHandler<ActionEvent>() { // Jacob
             @Override
             public void handle(ActionEvent evt) {
                 ChangeBudgetedHoursDialog changeBudgetedHoursDialog = new ChangeBudgetedHoursDialog();
@@ -89,7 +89,7 @@ public class ActivityPageController implements PageController {
             }
         });
 
-        activityPage.getAssignedEmployeeButton().setOnAction(new EventHandler<ActionEvent>() {
+        activityPage.getAssignedEmployeeButton().setOnAction(new EventHandler<ActionEvent>() { // Jacob
             @Override
             public void handle(ActionEvent evt) {
                 ViewAssignedEmployeesDialog viewAssignedEmployeesDialog = new ViewAssignedEmployeesDialog();
@@ -142,7 +142,7 @@ public class ActivityPageController implements PageController {
             }
         });
 
-        activityPage.getAvailableEmployeesButton().setOnAction(new EventHandler<ActionEvent>() {
+        activityPage.getAvailableEmployeesButton().setOnAction(new EventHandler<ActionEvent>() { // Jacob
             @Override
             public void handle(ActionEvent evt) {
                 AvailableEmployeesDialog availableEmployeesDialog = new AvailableEmployeesDialog();
@@ -151,7 +151,7 @@ public class ActivityPageController implements PageController {
                 availableEmployeesDialog.showAndWait();
             }
         });
-        //if the activity is a special activity, disable the log work button
+        // if the activity is a special activity, disable the log work button
         if (project.isActivitySpecial(activityName)) {
             activityPage.getLogWorkButton().setDisable(true);
             activityPage.getChangeBudgetedHoursButton().setDisable(true);
@@ -159,7 +159,7 @@ public class ActivityPageController implements PageController {
             activityPage.getLogWorkButton().setDisable(false);
             activityPage.getChangeBudgetedHoursButton().setDisable(false);
         }
-        activityPage.getLogWorkButton().setOnAction(evt -> {    //Oliver
+        activityPage.getLogWorkButton().setOnAction(evt -> { // Oliver
             LogWorkDialog logWorkDialog = new LogWorkDialog((Stage) activityPage.getScene().getWindow());
             logWorkDialog.showAndWait();
 
@@ -168,8 +168,9 @@ public class ActivityPageController implements PageController {
                     String employeeId = logWorkDialog.getEmployeeId();
                     double hours = logWorkDialog.getEmployeeHours();
 
-                    if (hours < 0 || (hours * 2) % 1 != 0){
-                        throw new IllegalArgumentException("Only whole hours with 30 minute increments allowed (e.g. 1.0, 1.5, 2.0)");
+                    if (hours < 0 || (hours * 2) % 1 != 0) {
+                        throw new IllegalArgumentException(
+                                "Only whole hours with 30 minute increments allowed (e.g. 1.0, 1.5, 2.0)");
                     }
 
                     Employee employee = projectApp.findEmployee(employeeId);

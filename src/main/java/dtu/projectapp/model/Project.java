@@ -33,11 +33,11 @@ public class Project {
         this.id = id;
     }
 
-    public String getId() {
+    public String getId() { // Jacob
         return id;
     }
 
-    public void setProjectLeader(Employee setterEmployee, Employee projLead) throws Exception {
+    public void setProjectLeader(Employee setterEmployee, Employee projLead) throws Exception { // Jacob
         if (projectLeader != null && !(projectLeader.equals(setterEmployee))) {
             throw new Exception("Project already has a leader");
         } else if (projLead == null) {
@@ -47,11 +47,11 @@ public class Project {
         support.firePropertyChange("New project leader", null, projectLeader.getId());
     }
 
-    public Employee getProjectLeader() {
+    public Employee getProjectLeader() { // Jacob
         return projectLeader;
     }
 
-    public String getName() {
+    public String getName() { // Jacob
         return name;
     }
 
@@ -105,7 +105,7 @@ public class Project {
         return null;
     }
 
-    public void changeActivityName(Activity activity, String newName) throws Exception {
+    public void changeActivityName(Activity activity, String newName) throws Exception { // Jacob
         if (findActivity(newName) != null) {
             throw new Exception("Activity already exists");
         }
@@ -117,7 +117,7 @@ public class Project {
         return activity instanceof SpecialActivity;
     }
 
-    public String getProjectETA() throws Exception {    //Oliver
+    public String getProjectETA() throws Exception { // Oliver
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
@@ -157,7 +157,7 @@ public class Project {
 
     // This final/total report is the "sum" of getEmployeeStatus() and
     // getProjectETA()
-    public String getProjectReport() throws Exception { //Oliver
+    public String getProjectReport() throws Exception { // Oliver
         if (getProjectLeader() == null) {
             throw new Exception("Project Has No Project Leader!");
         }
@@ -200,7 +200,8 @@ public class Project {
         }
     }
 
-    public void createSpecialActivity(String activityName, String date, String date2, Employee employee) throws Exception {
+    public void createSpecialActivity(String activityName, String date, String date2, Employee employee)
+            throws Exception {
         if (employee == null) {
             throw new Exception("Unable to find employee");
         } else if (findActivity(activityName) != null) {

@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 
-public class ChangeEndDateDialog extends Dialog<ButtonType> {
+public class ChangeEndDateDialog extends Dialog<ButtonType> { // Jacob
     private TextField endDateField;
     private TextField endYearField;
 

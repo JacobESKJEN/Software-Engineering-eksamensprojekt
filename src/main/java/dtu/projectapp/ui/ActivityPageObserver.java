@@ -5,7 +5,7 @@ import java.beans.PropertyChangeListener;
 
 import dtu.projectapp.model.Activity;
 
-public class ActivityPageObserver implements PropertyChangeListener {
+public class ActivityPageObserver implements PropertyChangeListener { // Jacob
     private ActivityPage activityPage;
     private Activity activity;
 

@@ -22,6 +22,9 @@ public class Activity {
         if (startWeek < 1 || startWeek > 53 || endWeek < 1 || endWeek > 53) {
             throw new Exception("Week must be between 1 and 53");
         }
+        if (budgetedTime < 0) {
+            throw new Exception("Budgeted time can't be negative");
+        }
         if (WeekYearConversions.totalWeeks(startWeek, startYear) > WeekYearConversions.totalWeeks(endWeek, endYear)) {
             throw new Exception("End date must be after start date");
         }
@@ -37,11 +40,11 @@ public class Activity {
         this.support = support;
     }
 
-    public void addObserver(PropertyChangeListener listener) {
+    public void addObserver(PropertyChangeListener listener) { // Jacob
         support.addPropertyChangeListener(listener);
     }
 
-    public void setName(String name) {
+    public void setName(String name) { // Noah
         this.name = name;
         support.firePropertyChange("Name change", null, name);
     }
@@ -66,7 +69,7 @@ public class Activity {
         return endYear;
     }
 
-    public void setEndDate(int endDate, int endyear) throws IllegalArgumentException {
+    public void setEndDate(int endDate, int endyear) throws IllegalArgumentException { // Jacob
         if (endyear < startYear) {
             throw new IllegalArgumentException("End year must be greater than or equal to start year.");
         }
@@ -93,23 +96,24 @@ public class Activity {
         support.firePropertyChange("Update budgeted time", null, this.budgetedTime);
     }
 
-    public void setLoggedHours(double hours) { // sums the hours the empoloyee registers  Oliver
+    public void setLoggedHours(double hours) { // sums the hours the empoloyee registers Oliver
         this.hoursWorked += hours;
         support.firePropertyChange("Update budgeted time", null, this.budgetedTime);
     }
 
-    public double getHoursWorked() {    //Oliver
+    public double getHoursWorked() { // Oliver
         return hoursWorked;
     }
 
-    public double getCompletionPercentage() {   //Oliver
+    public double getCompletionPercentage() { // Oliver
         if (budgetedTime == 0) {
             return 0; // safety, no dividing by 0
 
-                }return (hoursWorked / budgetedTime) * 100;
+        }
+        return (hoursWorked / budgetedTime) * 100;
     }
 
-    public double getRemainingHours() { //oliver
+    public double getRemainingHours() { // oliver
         return budgetedTime - hoursWorked;
     }
 
@@ -117,7 +121,7 @@ public class Activity {
         return employees;
     }
 
-    public void addEmployeeToActivity(Employee employee) throws Exception {
+    public void addEmployeeToActivity(Employee employee) throws Exception { // Jacob
         if (employee == null) {
             throw new Exception("No such employee exists");
         } else if (employees.contains(employee)) {
@@ -127,7 +131,7 @@ public class Activity {
         employees.add(employee);
     }
 
-    public void removeEmployee(Employee employee) throws Exception {
+    public void removeEmployee(Employee employee) throws Exception { // Noah
         if (!employees.contains(employee)) {
             throw new Exception("No such employee assigned to activity");
         }

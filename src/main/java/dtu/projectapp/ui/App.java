@@ -33,7 +33,7 @@ public class App extends Application {
         newPage(new LogInPageController(projectApp, this));
     }
 
-    public void newPage(PageController page) {
+    public void newPage(PageController page) { // Jacob
         projectApp.addObserver(page.getObserver());
         scene = page.getScene();
         this.page = page;

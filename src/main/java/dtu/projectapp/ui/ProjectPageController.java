@@ -23,8 +23,9 @@ public class ProjectPageController implements PageController {
     private ProjectStatusDialog projectStatusDialog;
     private CreateActivityDialog CreateActivityDialog;
 
-    private void reportButtons(Project project){    // Oliver
-        boolean currentLeader = project.getProjectLeader() != null && project.getProjectLeader().equals(projectApp.getLoggedInEmployee());
+    private void reportButtons(Project project) { // Oliver
+        boolean currentLeader = project.getProjectLeader() != null
+                && project.getProjectLeader().equals(projectApp.getLoggedInEmployee());
         projectPage.getETAReportButton().setDisable(!currentLeader);
         projectPage.getEmpStatusButton().setDisable(!currentLeader);
         projectPage.getProjectStatusButton().setDisable(!currentLeader);
@@ -42,7 +43,7 @@ public class ProjectPageController implements PageController {
 
         projectPage.updateActivitys(project.getActivities());
 
-        projectPage.getHomePageButton().setOnAction(new EventHandler<ActionEvent>() {
+        projectPage.getHomePageButton().setOnAction(new EventHandler<ActionEvent>() { // Jacob
             @Override
             public void handle(ActionEvent evt) {
                 app.newPage(new HomePageController(projectApp, app));
@@ -98,8 +99,8 @@ public class ProjectPageController implements PageController {
                 if (!activityName.equals("") && !activityEmployee.equals("")) {
                     try {
                         String projectName = project.getName();
-                            projectApp.createSpecialActivity(projectName,
-                                activityName+" ("+projectApp.findEmployee(activityEmployee).getId()+")",
+                        projectApp.createSpecialActivity(projectName,
+                                activityName + " (" + projectApp.findEmployee(activityEmployee).getId() + ")",
                                 startDate, endDate,
                                 projectApp.findEmployee(activityEmployee));
                         System.err.println("Activity created");
@@ -132,7 +133,7 @@ public class ProjectPageController implements PageController {
         });
 
         // set project leader button
-        projectPage.getSetProjectLeaderButton().setOnAction(new EventHandler<ActionEvent>() {
+        projectPage.getSetProjectLeaderButton().setOnAction(new EventHandler<ActionEvent>() { // Jacob
             @Override
             public void handle(ActionEvent evt) {
                 String projectLeader = assignProjectLeaderDialog.getResult();
@@ -147,11 +148,10 @@ public class ProjectPageController implements PageController {
             }
         });
 
-
-        project.addObserver(new PropertyChangeListener() {
+        project.addObserver(new PropertyChangeListener() { // Oliver
             @Override
-            public void propertyChange(PropertyChangeEvent event){
-                if ("New project leader".equals(event.getPropertyName())){
+            public void propertyChange(PropertyChangeEvent event) {
+                if ("New project leader".equals(event.getPropertyName())) {
                     reportButtons(project);
                 }
             }
@@ -159,7 +159,7 @@ public class ProjectPageController implements PageController {
 
         reportButtons(project);
 
-        projectPage.getProjectStatusButton().setOnAction(new EventHandler<ActionEvent>() {  //Oliver
+        projectPage.getProjectStatusButton().setOnAction(new EventHandler<ActionEvent>() { // Oliver
             @Override
             public void handle(ActionEvent evt) {
                 try {
@@ -172,7 +172,7 @@ public class ProjectPageController implements PageController {
             }
         });
 
-        projectPage.getEmpStatusButton().setOnAction(new EventHandler<ActionEvent>() {//Oliver
+        projectPage.getEmpStatusButton().setOnAction(new EventHandler<ActionEvent>() {// Oliver
             @Override
             public void handle(ActionEvent evt) {
                 try {
@@ -185,7 +185,7 @@ public class ProjectPageController implements PageController {
             }
         });
 
-        projectPage.getETAReportButton().setOnAction(new EventHandler<ActionEvent>() {//Oliver
+        projectPage.getETAReportButton().setOnAction(new EventHandler<ActionEvent>() {// Oliver
             @Override
             public void handle(ActionEvent evt) {
                 try {
@@ -199,11 +199,11 @@ public class ProjectPageController implements PageController {
         });
     }
 
-    public Scene getScene() {
+    public Scene getScene() { // Jacob
         return projectPage.getScene();
     }
 
-    public PropertyChangeListener getObserver() {
+    public PropertyChangeListener getObserver() { // Jacob
         return projectPage.getObserver();
     }
 }

@@ -69,39 +69,39 @@ public class ActivityPage implements Page {
         root.setCenter(vbox);
     }
 
-    public Label getActivityNameLabel() {
+    public Label getActivityNameLabel() { // Jacob
         return activityNameLabel;
     }
 
-    public Label getBudgetedHoursLabel() {
+    public Label getBudgetedHoursLabel() { // Jacob
         return budgetedHoursLabel;
     }
 
-    public Label getDeadlineLabel() {
+    public Label getDeadlineLabel() { // Jacob
         return deadlineLabel;
     }
 
-    public Button getChangeNameButton() {
+    public Button getChangeNameButton() { // Jacob
         return changeNameButton;
     }
 
-    public Button getChangeEndDateButton() {
+    public Button getChangeEndDateButton() { // Jacob
         return changeEndDateButton;
     }
 
-    public Button getChangeBudgetedHoursButton() {
+    public Button getChangeBudgetedHoursButton() { // Jacob
         return changeBudgetedHoursButton;
     }
 
-    public Button getAssignedEmployeeButton() {
+    public Button getAssignedEmployeeButton() { // Jacob
         return assignedEmployeesButton;
     }
 
-    public Button getHomePageButton() {
+    public Button getHomePageButton() { // Jacob
         return homePageButton;
     }
 
-    public Button getAvailableEmployeesButton() {
+    public Button getAvailableEmployeesButton() { // Jacob
         return availableEmployeesButton;
     }
 

@@ -39,7 +39,7 @@ public class ProjectPage implements Page {
     private Button addActivityButton;
     private Button addSpecialActivityButton;
 
-    ProjectPageObserver observer = new ProjectPageObserver(this);
+    private ProjectPageObserver observer = new ProjectPageObserver(this);
 
     public ProjectPage(Project project) {
         root = new BorderPane();
@@ -72,10 +72,6 @@ public class ProjectPage implements Page {
         addActivityButton = new Button("Add Activity");
         addSpecialActivityButton = new Button("Add Special Activity");
         removeActivityButton = new Button("Remove Activity");
-        // addEmployeeButton = new Button("Add Employee");
-        // removeEmployeeButton = new Button("Remove Employee");
-
-
         projectStatusButton = new Button("Get Full Report");
         ETAReportButton = new Button("Get Project ETA");
         empStatusButton = new Button("Get Employee Status");
@@ -96,7 +92,7 @@ public class ProjectPage implements Page {
         return ActivityListView;
     }
 
-    public void updateProjectLeader(String projectLeaderId) {
+    public void updateProjectLeader(String projectLeaderId) { // Jacob
         System.out.println("Updated project leader");
         projectLeaderLabel.setText("Project leader: " + projectLeaderId);
     }
@@ -110,11 +106,11 @@ public class ProjectPage implements Page {
 
     }
 
-    public Button getHomePageButton() {
+    public Button getHomePageButton() { // Jacob
         return homePageButton;
     }
 
-    public Button getSetProjectLeaderButton() {
+    public Button getSetProjectLeaderButton() { // Jacob
         return setProjectLeaderButton;
     }
 
@@ -126,15 +122,15 @@ public class ProjectPage implements Page {
         return addSpecialActivityButton;
     }
 
-    public Button getProjectStatusButton() {    //Oliver
+    public Button getProjectStatusButton() { // Oliver
         return projectStatusButton;
     }
 
-    public Button getEmpStatusButton() {    //Oliver
+    public Button getEmpStatusButton() { // Oliver
         return empStatusButton;
     }
 
-    public Button getETAReportButton() {    //Oliver
+    public Button getETAReportButton() { // Oliver
         return ETAReportButton;
     }
 
@@ -142,11 +138,11 @@ public class ProjectPage implements Page {
         return removeActivityButton;
     }
 
-    public PropertyChangeListener getObserver() {
+    public PropertyChangeListener getObserver() { // Jacob
         return observer;
     }
 
-    public Scene getScene() {
+    public Scene getScene() { // Jacob
         return scene;
     }
 

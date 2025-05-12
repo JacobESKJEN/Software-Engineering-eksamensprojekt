@@ -3,7 +3,7 @@ package dtu.projectapp.ui.ChangeActivityDialogs;
 import dtu.projectapp.ui.InputDialog;
 import javafx.scene.control.TextInputDialog;
 
-public class ChangeBudgetedHoursDialog extends InputDialog {
+public class ChangeBudgetedHoursDialog extends InputDialog { // Jacob
     public ChangeBudgetedHoursDialog() {
         resetDialog();
     }

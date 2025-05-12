@@ -24,11 +24,11 @@ public class ProjectApp {
         projects = new ArrayList<>();
     }
 
-    public List<Employee> getEmployees() {
+    public List<Employee> getEmployees() { // Jacob
         return employees;
     }
 
-    public void login(String id) throws Exception {
+    public void login(String id) throws Exception { // Jacob
         Employee emp = findEmployee(id);
         if (emp != null) {
             loggedInEmployee = emp;
@@ -37,7 +37,7 @@ public class ProjectApp {
         }
     }
 
-    public void logout() throws Exception {
+    public void logout() throws Exception { // Jacob
         if (loggedInEmployee == null) {
             throw new Exception("Not possible to log out");
         }
@@ -48,7 +48,7 @@ public class ProjectApp {
         return loggedInEmployee.getId();
     }
 
-    public Employee getLoggedInEmployee() {
+    public Employee getLoggedInEmployee() { // Jacob
         return loggedInEmployee;
     }
 
@@ -56,7 +56,7 @@ public class ProjectApp {
         projects = list;
     }
 
-    public void addEmployee(String id) throws Exception {
+    public void addEmployee(String id) throws Exception { // Jacob
         if (findEmployee(id) != null) {
             throw new Exception("Employee already exists!");
         }
@@ -64,7 +64,7 @@ public class ProjectApp {
         employees.add(emp);
     }
 
-    public Employee findEmployee(String id) {
+    public Employee findEmployee(String id) { // Jacob
         for (Employee employee : employees) {
             if (employee.getId().equals(id)) {
                 return employee;
@@ -73,7 +73,7 @@ public class ProjectApp {
         return null;
     }
 
-    public Project findProject(String name) {
+    public Project findProject(String name) { // Jacob
         System.out.println(name);
         for (Project project : projects) {
             if (project.getName().equals(name)) {
@@ -83,7 +83,7 @@ public class ProjectApp {
         return null;
     }
 
-    public void createProject(String name) throws Exception {
+    public void createProject(String name) throws Exception { // Jacob
         if (findProject(name) == null) {
             Project project = new Project(name, LocalDate.now().getYear() + "" + (projects.size() + 1));
             project.setPropertyChangeSupport(support);
@@ -136,7 +136,7 @@ public class ProjectApp {
 
     }
 
-    public List<Employee> getAvailableEmployees(int startWeek, int endWeek, int startYear, int endYear) {
+    public List<Employee> getAvailableEmployees(int startWeek, int endWeek, int startYear, int endYear) { // Jacob
         List<Employee> availableEmployees = new ArrayList<>();
         for (Employee employee : employees) {
             if (employee.isAvailableBetweenWeeks(startWeek, endWeek, startYear, endYear)) {
@@ -146,7 +146,7 @@ public class ProjectApp {
         return availableEmployees;
     }
 
-    public List<Employee> getAvailableEmployees(Activity activity) {
+    public List<Employee> getAvailableEmployees(Activity activity) { // Jacob
         List<Employee> employeesWithTime = getAvailableEmployees(activity.getStartWeek(), activity.getEndWeek(),
                 activity.getStartYear(), activity.getEndYear());
         List<Employee> availableEmployees = new ArrayList<>();
@@ -158,7 +158,7 @@ public class ProjectApp {
         return availableEmployees;
     }
 
-    public List<Project> getProjects() {
+    public List<Project> getProjects() { // Jacob
         return projects;
     }
 }

@@ -2,8 +2,7 @@ package dtu.projectapp.ui;
 
 import javafx.scene.control.TextInputDialog;
 
-
-public class CreateProjectDialog extends InputDialog {
+public class CreateProjectDialog extends InputDialog { // Jacob
     public CreateProjectDialog() {
         resetDialog();
     }

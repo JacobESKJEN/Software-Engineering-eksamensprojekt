@@ -16,7 +16,7 @@ public class HomePageController implements PageController {
     private CreateProjectDialog createProjectDialog;
     private AddEmployeeDialog addEmployeeDialog;
 
-    public HomePageController(ProjectApp projectApp, App app) {
+    public HomePageController(ProjectApp projectApp, App app) { // Jacob
         homePage = new HomePage();
         this.projectApp = projectApp;
         this.app = app;

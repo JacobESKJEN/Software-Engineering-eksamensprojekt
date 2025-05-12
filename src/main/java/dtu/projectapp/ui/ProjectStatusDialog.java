@@ -6,7 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.VBox;
 
-public class ProjectStatusDialog extends Dialog {
+public class ProjectStatusDialog extends Dialog { // Oliver
     public ProjectStatusDialog() {
         super();
 
@@ -17,10 +17,8 @@ public class ProjectStatusDialog extends Dialog {
         super.getDialogPane().getButtonTypes().clear();
         super.setTitle("Project Status");
 
-
         VBox vbox = new VBox();
         super.getDialogPane().setContent(vbox);
-
 
         ButtonType closeButton = new ButtonType("Close", ButtonData.CANCEL_CLOSE);
         super.getDialogPane().getButtonTypes().add(closeButton);
