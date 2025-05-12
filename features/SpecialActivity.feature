@@ -28,25 +28,9 @@ Feature: Special Activity Management
     When the project leader retrieves the details of the special activity "Course"
     Then the special activity "Course" has start date "2025-07-01" and end date "2025-07-03"
     And the special activity is assigned to employee "1"
-  
+
   Scenario: Check if an activity is special
     Given a project exists
     And there exists a special activity with the name "Special Meeting", start date "2025-05-01", and end date "2025-05-07"
     When I check if the activity "Special Meeting" is special
     Then the result should be true
-
-  # Scenario: Rename an Special activity
-  #   Given a project exists
-  #   And there is an employee with id "1"
-  #   And the project leader creates a special activity named "Vacation" with start date "2025-08-01" and end date "2025-08-03" for employee "1"
-  #   When the project leader renames the special activity "Vacation" to "New Years"
-  #   Then the special activity is renamed to "New Years"
- 
-  # Scenario: Extend an Special activity's deadline
-  #   Given a project exists
-  #   And there is an employee with id "1"
-  #   And the project leader creates a special activity named "Vacation" with start date "2025-08-01" and end date "2025-08-03" for employee "1"
-  #   When the project leader extends the deadline to "2025-08-10"
-  #   Then the system updates the activity deadline
-  #   And the special activity "Vacation" now has an end date of "2025-08-10"
-

@@ -15,8 +15,7 @@ public class Project {
     private String id;
     private Employee projectLeader;
     private List<Activity> activities;
-    // private List<Employee> employees = new ArrayList<>(); // List of employees in
-    // the project
+
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void addObserver(PropertyChangeListener listener) {
@@ -96,7 +95,7 @@ public class Project {
         return report.toString();
     }
 
-    public Activity findActivity(String activityName) { //Alexander
+    public Activity findActivity(String activityName) { // Alexander
         for (Activity activity : activities) {
             if (activity.getName().equals(activityName)) {
                 return activity;
@@ -166,7 +165,7 @@ public class Project {
         return employeeStatus + "\n\n" + projectETA;
     }
 
-    public void addActivity(Activity activity) { //Alexander
+    public void addActivity(Activity activity) { // Alexander
         activities.add(activity);
     }
 
@@ -177,7 +176,7 @@ public class Project {
     public void createActivity(String activityName,
             int date, int date2,
             int year, int year2,
-            double i) 
+            double i)
             throws Exception { // Noah
         if (!(i % 0.5 == 0)) { // 1
             throw new Exception("Time must be in 30 min intervals");

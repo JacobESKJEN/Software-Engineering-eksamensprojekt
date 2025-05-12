@@ -105,11 +105,3 @@ Actors: Project leader
     And I create a new activity with the name "Design", start week 12, end week 14, start year 2025, end year 2025, and budgeted time 100
     When the project leader checks the weeks till completion of "Design"
     Then the system returns the number of weeks till completion: 2 weeks
-  # Scenario: Activity Needs Completion
-  #   Given a project exists
-  #   And signed-in as Project leader
-  #   And I create a new activity with the name "Design", start week 12, end week 14, start year 2025, end year 2025, and budgeted time 100
-  #   When the project leader checks the weeks till completion of "Design"
-  #   Then the system returns the message "Activity needs completion"
-  # Scenario: Activity is not in 30 min interval
-
