@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class CreateSpecialActivityDialog extends Dialog<ButtonType> {
+public class CreateSpecialActivityDialog extends Dialog<ButtonType> {    //Noah
     private ComboBox<String> typeComboBox;
     private TextField startDateField;
     private TextField endDateField;

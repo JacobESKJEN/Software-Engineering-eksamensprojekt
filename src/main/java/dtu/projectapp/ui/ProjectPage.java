@@ -88,7 +88,7 @@ public class ProjectPage implements Page {
         root.setCenter(vbox);
     }
 
-    public ListView getActivityListView() {
+    public ListView getActivityListView() {    //Noah
         return ActivityListView;
     }
 
@@ -97,7 +97,7 @@ public class ProjectPage implements Page {
         projectLeaderLabel.setText("Project leader: " + projectLeaderId);
     }
 
-    public void updateActivitys(List<Activity> activities) {
+    public void updateActivitys(List<Activity> activities) {    //Noah
         List<String> activityNames = activities.stream()
                 .map(Activity::getName)
                 .collect(Collectors.toList());
@@ -114,11 +114,11 @@ public class ProjectPage implements Page {
         return setProjectLeaderButton;
     }
 
-    public Button getAddActivityButton() {
+    public Button getAddActivityButton() {    //Noah
         return addActivityButton;
     }
 
-    public Button getAddSpecialActivityButton() {
+    public Button getAddSpecialActivityButton() {    //Noah
         return addSpecialActivityButton;
     }
 
@@ -134,15 +134,15 @@ public class ProjectPage implements Page {
         return ETAReportButton;
     }
 
-    public Button getRemoveActivityButton() {
+    public Button getRemoveActivityButton() {    //Noah
         return removeActivityButton;
     }
 
-    public PropertyChangeListener getObserver() { // Jacob
+    public PropertyChangeListener getObserver() { 
         return observer;
     }
 
-    public Scene getScene() { // Jacob
+    public Scene getScene() { 
         return scene;
     }
 

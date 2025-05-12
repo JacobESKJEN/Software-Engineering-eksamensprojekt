@@ -5,7 +5,7 @@ import java.beans.PropertyChangeListener;
 
 import dtu.projectapp.model.Activity;
 
-public class ActivityPageObserver implements PropertyChangeListener { // Jacob
+public class ActivityPageObserver implements PropertyChangeListener { 
     private ActivityPage activityPage;
     private Activity activity;
 
@@ -13,12 +13,12 @@ public class ActivityPageObserver implements PropertyChangeListener { // Jacob
         this.activityPage = activityPage;
     }
 
-    public void setActivity(Activity activity) {
+    public void setActivity(Activity activity) {    //Noah
         this.activity = activity;
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void propertyChange(PropertyChangeEvent evt) {    //Jacob
         if (evt.getPropertyName().equals("Name change")) {
             activityPage.getActivityNameLabel().setText(activity.getName());
         } else if (evt.getPropertyName().equals("End date change")) {

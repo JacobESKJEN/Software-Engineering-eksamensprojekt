@@ -2,7 +2,7 @@ package dtu.projectapp.ui;
 
 import javafx.scene.control.TextInputDialog;
 
-public class AddEmployeeDialog extends InputDialog { // Jacob
+public class AddEmployeeDialog extends InputDialog { // Noah
     public AddEmployeeDialog() {
         resetDialog();
     }

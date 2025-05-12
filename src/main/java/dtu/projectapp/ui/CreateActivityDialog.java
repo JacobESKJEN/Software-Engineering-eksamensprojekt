@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class CreateActivityDialog extends Dialog<ButtonType> {
+public class CreateActivityDialog extends Dialog<ButtonType> {    //Noah
     private TextField nameField;
     private TextField startDateField;
     private TextField endDateField;
