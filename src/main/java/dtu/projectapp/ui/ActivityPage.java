@@ -106,28 +106,28 @@ public class ActivityPage implements Page {
     }
 
     @Override
-    public Scene getScene() {
+    public Scene getScene() {    // Noah
         return scene;
     }
 
     @Override
-    public PropertyChangeListener getObserver() {
+    public PropertyChangeListener getObserver() {    // Noah
         return observer;
     }
 
-    public void setActivity(Activity activity) {
+    public void setActivity(Activity activity) {    //Noah
         observer.setActivity(activity);
     }
 
-    public Button getAddEmployeeButton() {
+    public Button getAddEmployeeButton() {    //Noah
         return addEmployeeButton;
     }
 
-    public Button getRemoveEmployeeButton() {
+    public Button getRemoveEmployeeButton() {    // Noah
         return removeEmployeeButton;
     }
 
-    public ButtonBase getLogWorkButton() {
+    public ButtonBase getLogWorkButton() {    // Oliver
         return logWorkButton;
     }
 
