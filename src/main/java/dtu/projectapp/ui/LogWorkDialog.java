@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class LogWorkDialog extends Dialog<ButtonType> {
+public class LogWorkDialog extends Dialog<ButtonType> { //Oliver
     private TextField employeeIdInput;
     private TextField hoursInput;
 

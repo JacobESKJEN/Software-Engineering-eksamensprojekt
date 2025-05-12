@@ -159,7 +159,7 @@ public class ActivityPageController implements PageController {
             activityPage.getLogWorkButton().setDisable(false);
             activityPage.getChangeBudgetedHoursButton().setDisable(false);
         }
-        activityPage.getLogWorkButton().setOnAction(evt -> {
+        activityPage.getLogWorkButton().setOnAction(evt -> {    //Oliver
             LogWorkDialog logWorkDialog = new LogWorkDialog((Stage) activityPage.getScene().getWindow());
             logWorkDialog.showAndWait();
 
