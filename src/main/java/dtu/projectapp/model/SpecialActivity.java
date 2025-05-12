@@ -14,7 +14,7 @@ public class SpecialActivity extends Activity {
                 endDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()),
                 startDate.getYear(),
                 endDate.getYear(),
-                100);
+                0);
 
         super.addEmployeeToActivity(employee);
         this.startDate = startDate;
