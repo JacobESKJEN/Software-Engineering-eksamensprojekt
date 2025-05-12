@@ -134,8 +134,7 @@ public class CreateActivity {
     }
 
     @When("the project leader adds employee with id {string} to the activity {string}")
-    public void theProjectLeaderAddsEmployeeWithToTheActivity(String string,
-            String string2) {
+    public void theProjectLeaderAddsEmployeeWithToTheActivity(String string, String string2) {
         activity = project.findActivity(string2);
         employee = projectApp.findEmployee(string);
         try {
@@ -310,8 +309,7 @@ public class CreateActivity {
     public void theProjectLeaderRetrievesTheDetailsOfTheSpecialActivity(String activityName) {
         activity = project.findActivity(activityName); // Retrieve the activity by name
         assertNotNull(activity, "The special activity was not found in the project."); // Ensure the activity exists
-        assertTrue(activity instanceof SpecialActivity, "The activity is not a SpecialActivity."); // Ensure it's a
-                                                                                                   // special activity
+        assertTrue(activity instanceof SpecialActivity, "The activity is not a SpecialActivity."); // Ensure it's a special activity
     }
 
     @Then("the activity {string} is created and added to the project")
@@ -319,5 +317,24 @@ public class CreateActivity {
         Activity activity = project.findActivity(string);
         System.out.println(project.getActivities());
         assertTrue(activity != null);
+    }
+
+    @Given("there exists a special activity with the name {string}, start date {string}, and end date {string}")
+    public void thereExistsASpecialActivity(String activityName, String startDate, String endDate) throws Exception {
+        Employee employee = new Employee("1"); 
+        project.createSpecialActivity(activityName, startDate, endDate, employee); 
+    }
+
+    @When("I check if the activity {string} is special")
+    public void iCheckIfTheActivityIsSpecial(String activityName) {
+        activity = project.findActivity(activityName); 
+        assertNotNull(activity, "The activity was not found in the project."); 
+        boolean isSpecial = project.isActivitySpecial(activityName); 
+        assertTrue(isSpecial, "The activity should be identified as special."); 
+    }
+
+    @Then("the result should be true")
+    public void theResultShouldBeTrue() {
+        assertTrue(project.isActivitySpecial(activity.getName()), "The activity should be identified as special.");
     }
 }

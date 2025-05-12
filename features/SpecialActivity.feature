@@ -28,6 +28,12 @@ Feature: Special Activity Management
     When the project leader retrieves the details of the special activity "Course"
     Then the special activity "Course" has start date "2025-07-01" and end date "2025-07-03"
     And the special activity is assigned to employee "1"
+  
+  Scenario: Check if an activity is special
+    Given a project exists
+    And there exists a special activity with the name "Special Meeting", start date "2025-05-01", and end date "2025-05-07"
+    When I check if the activity "Special Meeting" is special
+    Then the result should be true
 
   # Scenario: Rename an Special activity
   #   Given a project exists

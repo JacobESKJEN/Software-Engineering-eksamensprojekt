@@ -127,7 +127,6 @@ public class ProjectApp {
         if (project == null) {
             throw new Exception("Project not found: " + projectName);
         }
-
         project.removeActivity(activityName);
         // Fire property change event to notify observers (could be specific to
         // activities)
