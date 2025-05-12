@@ -10,7 +10,7 @@ import dtu.projectapp.model.Employee;
 import dtu.projectapp.model.Project;
 import dtu.projectapp.model.ProjectApp;
 
-public class createProjectSteps {
+public class createProjectSteps {    //Jacob
     ProjectApp projectApp;
     ErrorMessageHolder errorMessageHolder;
     Employee emp;
