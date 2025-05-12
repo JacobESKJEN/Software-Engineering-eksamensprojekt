@@ -17,7 +17,7 @@ Programmet kommer med to brugere, som kan bruges til at logge ind med:
 Begge kan benyttes.
 
 
-##Home Page
+## Home Page
 
 Når brugeren logger ind, så kan følgende handlinger tages:
 - "Log Out"
