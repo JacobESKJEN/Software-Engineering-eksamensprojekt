@@ -284,11 +284,11 @@ public class CreateActivity {
     }
 
     @When("the project leader creates a special activity named {string} with start date {string} and end date {string} for employee {string}")
-    public void theProjectLeaderCreatesASpecialActivity(String activityName, String startDate, String endDate,
-            String employeeId) {
+    public void theProjectLeaderCreatesASpecialActivity(String activityName, String startDate, String endDate, String employeeId){
         try {
             Employee employee = projectApp.findEmployee(employeeId);
             project.createSpecialActivity(activityName, startDate, endDate, employee);
+            projectApp.createSpecialActivity(employeeId, activityName, startDate, endDate, employee);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
