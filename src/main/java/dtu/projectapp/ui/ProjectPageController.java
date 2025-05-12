@@ -50,7 +50,7 @@ public class ProjectPageController implements PageController {
             }
         });
         // click on activity in list view to open activity page
-        projectPage.getActivityListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
+        projectPage.getActivityListView().setOnMouseClicked(new EventHandler<MouseEvent>() {    //Noah
             @Override
 
             public void handle(MouseEvent evt) {
@@ -63,7 +63,7 @@ public class ProjectPageController implements PageController {
             }
         });
         // create activity button
-        projectPage.getAddActivityButton().setOnAction(event -> {
+        projectPage.getAddActivityButton().setOnAction(event -> {    //Noah
             CreateActivityDialog dialog = new CreateActivityDialog((Stage) projectPage.getScene().getWindow());
             dialog.showAndWait();
 
@@ -87,7 +87,7 @@ public class ProjectPageController implements PageController {
             }
         });
         // create special activity button //sick leave, vacation, etc.
-        projectPage.getAddSpecialActivityButton().setOnAction(event -> {
+        projectPage.getAddSpecialActivityButton().setOnAction(event -> {    //Noah
             CreateSpecialActivityDialog dialog = new CreateSpecialActivityDialog(
                     (Stage) projectPage.getScene().getWindow());
             dialog.showAndWait();
@@ -112,7 +112,7 @@ public class ProjectPageController implements PageController {
         });
 
         // remove activity button
-        projectPage.getRemoveActivityButton().setOnAction(event -> {
+        projectPage.getRemoveActivityButton().setOnAction(event -> {    //Noah
             RemoveActivityDialog dialog = new RemoveActivityDialog((Stage) projectPage.getScene().getWindow());
             dialog.showAndWait();
             if (dialog.getResult() == ButtonType.OK) {
@@ -199,11 +199,11 @@ public class ProjectPageController implements PageController {
         });
     }
 
-    public Scene getScene() { // Jacob
+    public Scene getScene() { 
         return projectPage.getScene();
     }
 
-    public PropertyChangeListener getObserver() { // Jacob
+    public PropertyChangeListener getObserver() { 
         return projectPage.getObserver();
     }
 }
