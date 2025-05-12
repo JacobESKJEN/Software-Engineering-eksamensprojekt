@@ -85,7 +85,7 @@ public class Activity {
         return budgetedTime;
     }
 
-    public void setBudgetedTime(double budgeted) throws Exception {
+    public void setBudgetedTime(double budgeted) throws Exception { // Noah
         if (budgeted < 0) {
             throw new Exception("time out of bounds");
         }

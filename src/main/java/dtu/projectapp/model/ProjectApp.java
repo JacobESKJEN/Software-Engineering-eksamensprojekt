@@ -95,7 +95,7 @@ public class ProjectApp {
     }
 
     public void createActivity(String projectName, String activityName, int startDate, int endDate, int year, int year2,
-            double time)
+            double time) 
             throws Exception {
         Project project = findProject(projectName);
         if (project == null) {

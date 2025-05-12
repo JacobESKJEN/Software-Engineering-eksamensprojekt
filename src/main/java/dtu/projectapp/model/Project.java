@@ -96,7 +96,7 @@ public class Project {
         return report.toString();
     }
 
-    public Activity findActivity(String activityName) {
+    public Activity findActivity(String activityName) { //Alexander
         for (Activity activity : activities) {
             if (activity.getName().equals(activityName)) {
                 return activity;
@@ -112,7 +112,7 @@ public class Project {
         activity.setName(newName);
     }
 
-    public boolean isActivitySpecial(String activityName) {
+    public boolean isActivitySpecial(String activityName) { // Alexander
         Activity activity = findActivity(activityName);
         return activity instanceof SpecialActivity;
     }
@@ -166,7 +166,7 @@ public class Project {
         return employeeStatus + "\n\n" + projectETA;
     }
 
-    public void addActivity(Activity activity) {
+    public void addActivity(Activity activity) { //Alexander
         activities.add(activity);
     }
 
@@ -177,8 +177,8 @@ public class Project {
     public void createActivity(String activityName,
             int date, int date2,
             int year, int year2,
-            double i)
-            throws Exception {
+            double i) 
+            throws Exception { // Noah
         if (!(i % 0.5 == 0)) { // 1
             throw new Exception("Time must be in 30 min intervals");
         } else if (findActivity(activityName) != null) { // 2
@@ -201,7 +201,7 @@ public class Project {
     }
 
     public void createSpecialActivity(String activityName, String date, String date2, Employee employee)
-            throws Exception {
+            throws Exception { // Noah
         if (employee == null) {
             throw new Exception("Unable to find employee");
         } else if (findActivity(activityName) != null) {
@@ -216,7 +216,7 @@ public class Project {
         activities.add(activity);
     }
 
-    public void removeActivity(String activityName) throws Exception {
+    public void removeActivity(String activityName) throws Exception { // Alexander
         try {
             Activity activityToRemove = findActivity(activityName);
             for (Employee employee : activityToRemove.getEmployees()) {
