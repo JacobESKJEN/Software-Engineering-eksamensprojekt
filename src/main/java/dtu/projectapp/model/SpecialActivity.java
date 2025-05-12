@@ -8,7 +8,7 @@ public class SpecialActivity extends Activity {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public SpecialActivity(String name, LocalDate startDate, LocalDate endDate, Employee employee) throws Exception {
+    public SpecialActivity(String name, LocalDate startDate, LocalDate endDate, Employee employee) throws Exception { //Noah
         super(name,
                 startDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()),
                 endDate.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()),

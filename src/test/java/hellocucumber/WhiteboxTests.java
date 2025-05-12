@@ -18,10 +18,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class WhiteboxTests {
-
-    @Test
-    public void testRemoveEmployee() throws Exception {
+public class WhiteboxTests { 
+    @Test //Alexander
+    public void testRemoveEmployee() throws Exception { 
         // Test Case A: employees = {}; employee = new Employee("Alice")
         Activity activity = new Activity("Test Activity", 1, 2, 2024, 2025, 10);
         Employee Alex = new Employee("Alex");

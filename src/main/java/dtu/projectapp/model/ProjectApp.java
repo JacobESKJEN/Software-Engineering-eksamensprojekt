@@ -96,7 +96,7 @@ public class ProjectApp {
 
     public void createActivity(String projectName, String activityName, int startDate, int endDate, int year, int year2,
             double time) 
-            throws Exception {
+            throws Exception { //Noah
         Project project = findProject(projectName);
         if (project == null) {
             throw new Exception("Project not found: " + projectName);
@@ -110,7 +110,7 @@ public class ProjectApp {
     }
 
     public void createSpecialActivity(String projectName, String activityName, String startDate, String endDate,
-            Employee employee) throws Exception {
+            Employee employee) throws Exception { //Noah
         Project project = findProject(projectName);
         if (project == null) {
             throw new Exception("Project not found: " + projectName);
@@ -122,7 +122,7 @@ public class ProjectApp {
         support.firePropertyChange("New activity", null, project.getActivities());
     }
 
-    public void RemoveActivity(String projectName, String activityName) throws Exception {
+    public void RemoveActivity(String projectName, String activityName) throws Exception { //Noah
         Project project = findProject(projectName);
         if (project == null) {
             throw new Exception("Project not found: " + projectName);
